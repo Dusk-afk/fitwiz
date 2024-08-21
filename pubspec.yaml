@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
+  bloc: any
   dio: ^5.6.0
   dropdown_button2: ^2.3.9
   equatable: ^2.0.5

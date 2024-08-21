@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fitwiz/core/repositories/token_repository.dart';
 import 'package:fitwiz/core/services/api_service.dart';
+import 'package:fitwiz/features/auth/data/models/register_user_data.dart';
 import 'package:fitwiz/features/auth/data/models/user.dart';
 import 'package:fitwiz/features/auth/data/repositories/auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -121,6 +122,67 @@ void main() {
       await authRepository.logout();
 
       verify(() => mockTokenRepository.clearTokens()).called(1);
+    });
+
+    test('should register user and return user profile', () async {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/auth/login'),
+        data: {
+          'access_token': 'valid-access-token',
+          'refresh_token': 'valid-refresh-token',
+        },
+      );
+
+      when(() => mockApiService.post("/auth/login", data: any(named: "data")))
+          .thenAnswer((_) async => response);
+
+      when(() => mockTokenRepository.saveAccessToken("valid-access-token"))
+          .thenAnswer((_) async {});
+
+      when(() => mockTokenRepository.saveRefreshToken("valid-refresh-token"))
+          .thenAnswer((_) async {});
+
+      final userResponse = Response(
+        requestOptions: RequestOptions(path: '/me/profile'),
+        data: {
+          "date_of_birth": "2004-06-12",
+          "email": "piyushsvps@gmail.com",
+          "gender": "Male",
+          "id": 2,
+          "is_admin": true,
+          "name": "Piyush",
+          "salutation": "Mr"
+        },
+      );
+
+      when(() =>
+              mockApiService.post("/auth/register", data: any(named: "data")))
+          .thenAnswer((_) async => userResponse);
+
+      when(() => mockApiService.get("/me/profile"))
+          .thenAnswer((_) async => userResponse);
+
+      final user = await authRepository.register(RegisterUserData(
+        salutation: "Mr",
+        name: "Piyush",
+        gender: "Male",
+        dateOfBirth: DateTime(2004, 06, 12),
+        email: "piyushsvps@gmail.com",
+        password: "testPassword",
+      ));
+
+      expect(user, isA<User>());
+      expect(user.email, equals("piyushsvps@gmail.com"));
+      expect(user.name, equals("Piyush"));
+      expect(user.isAdmin, equals(true));
+      expect(user.salutation, equals("Mr"));
+      expect(user.gender, equals("Male"));
+      expect(user.dateOfBirth, equals(DateTime(2004, 06, 12)));
+      verify(() => mockTokenRepository.saveAccessToken("valid-access-token"))
+          .called(1);
+      verify(() => mockTokenRepository.saveRefreshToken("valid-refresh-token"))
+          .called(1);
+      verify(() => mockApiService.get("/me/profile")).called(1);
     });
   });
 }

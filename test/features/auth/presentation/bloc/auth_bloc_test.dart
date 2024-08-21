@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:fitwiz/features/auth/data/models/register_user_data.dart';
 import 'package:fitwiz/features/auth/data/models/user.dart';
 import 'package:fitwiz/features/auth/data/repositories/auth_repository.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
@@ -8,6 +9,8 @@ import 'package:mocktail/mocktail.dart';
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 class MockUser extends Mock implements User {}
+
+class MockRegisterUserData extends Mock implements RegisterUserData {}
 
 class MockException implements Exception {
   final String message;
@@ -22,11 +25,13 @@ void main() {
   late AuthBloc authBloc;
   late MockAuthRepository mockAuthRepository;
   late MockUser mockUser;
+  late MockRegisterUserData mockRegisterUserData;
 
   setUp(() {
     mockAuthRepository = MockAuthRepository();
     authBloc = AuthBloc(mockAuthRepository);
     mockUser = MockUser();
+    mockRegisterUserData = MockRegisterUserData();
   });
 
   tearDown(() {
@@ -155,6 +160,42 @@ void main() {
     expect: () => <AuthState>[
       AuthLoading(),
       const AuthError("Error fetching user"),
+      AuthLoggedOut(),
+    ],
+  );
+
+  blocTest(
+    'should emit [AuthLoading, AuthLoggedIn] when register is successful',
+    build: () {
+      when(() => mockAuthRepository.register(mockRegisterUserData))
+          .thenAnswer((_) async => mockUser);
+
+      return authBloc;
+    },
+    act: (bloc) {
+      bloc.add(AuthRegister(data: mockRegisterUserData));
+    },
+    expect: () => <AuthState>[
+      AuthLoading(),
+      AuthLoggedIn(mockUser),
+    ],
+  );
+
+  blocTest(
+    'should emit [AuthLoading, AuthError, AuthLoggedOut] when register is unsuccessful',
+    build: () {
+      when(() => mockAuthRepository.register(mockRegisterUserData)).thenThrow(
+        MockException("Error registering user"),
+      );
+
+      return authBloc;
+    },
+    act: (bloc) {
+      bloc.add(AuthRegister(data: mockRegisterUserData));
+    },
+    expect: () => <AuthState>[
+      AuthLoading(),
+      const AuthError("Error registering user"),
       AuthLoggedOut(),
     ],
   );

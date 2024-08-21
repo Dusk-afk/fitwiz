@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fitwiz/core/setup_locator.dart';
+import 'package:fitwiz/features/auth/data/models/register_user_data.dart';
 import 'package:fitwiz/features/auth/data/models/user.dart';
 import 'package:fitwiz/features/auth/data/repositories/auth_repository.dart';
 
@@ -15,6 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AppStarted>(_onAppStarted);
     on<AuthLogin>(_onAuthLogin);
     on<AuthLogout>(_onAuthLogout);
+    on<AuthRegister>(_onAuthRegister);
   }
 
   void _onAppStarted(AppStarted event, Emitter<AuthState> emit) async {
@@ -51,6 +53,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoggedOut());
     } catch (e) {
       emit(AuthError(e.toString()));
+    }
+  }
+
+  void _onAuthRegister(AuthRegister event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    try {
+      final user = await _authRepository.register(event.data);
+      emit(AuthLoggedIn(user));
+    } catch (e) {
+      emit(AuthError(e.toString()));
+      emit(AuthLoggedOut());
     }
   }
 }

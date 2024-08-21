@@ -1,5 +1,6 @@
 import 'package:fitwiz/core/repositories/token_repository.dart';
 import 'package:fitwiz/core/services/api_service.dart';
+import 'package:fitwiz/features/auth/data/models/register_user_data.dart';
 import 'package:fitwiz/features/auth/data/models/user.dart';
 
 class AuthRepository {
@@ -39,5 +40,14 @@ class AuthRepository {
 
   Future<void> logout() async {
     await _tokenRepository.clearTokens();
+  }
+
+  Future<User> register(RegisterUserData data) async {
+    await _apiService.post(
+      '/auth/register',
+      data: data.toJson(),
+    );
+
+    return login(data.email, data.password);
   }
 }

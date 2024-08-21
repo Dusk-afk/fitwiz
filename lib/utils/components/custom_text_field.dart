@@ -26,6 +26,8 @@ class CustomTextField extends StatefulWidget {
   final VoidCallback? onTap;
   final bool expands;
   final TextInputType? keyboardType;
+  final bool readOnly;
+  final bool obscureText;
 
   // Colors when the field is not focused
   final Color? normalFillColor;
@@ -59,6 +61,8 @@ class CustomTextField extends StatefulWidget {
     this.onTap,
     this.expands = false,
     this.keyboardType,
+    this.readOnly = false,
+    this.obscureText = false,
   });
 
   @override
@@ -101,6 +105,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           onTap: widget.onTap,
           expands: widget.expands,
           keyboardType: widget.keyboardType,
+          readOnly: widget.readOnly,
+          obscureText: widget.obscureText,
           decoration: InputDecoration(
             hintText: widget.placeholder,
             hintStyle: widget.placeholderStyle ??

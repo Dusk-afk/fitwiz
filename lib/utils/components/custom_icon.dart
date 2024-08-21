@@ -36,7 +36,7 @@ class CustomIcon extends StatelessWidget {
     if (containerSize != null) {
       icon = SizedBox.square(
         dimension: containerSize!,
-        child: icon,
+        child: Center(child: icon),
       );
     }
 
@@ -50,4 +50,5 @@ final class CustomIcons {
   static const String arrow_back = 'assets/icons/arrow_back.svg';
   static const String tick = 'assets/icons/tick.svg';
   static const String alert = 'assets/icons/alert.svg';
+  static const String calendar2 = 'assets/icons/calendar2.svg';
 }

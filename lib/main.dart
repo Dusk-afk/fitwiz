@@ -1,6 +1,7 @@
 import 'package:fitwiz/core/setup_locator.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/screens/login_screen.dart';
+import 'package:fitwiz/features/auth/presentation/screens/register_screen.dart';
 import 'package:fitwiz/features/main/presentation/screens/main_screen.dart';
 import 'package:fitwiz/features/splash/presentation/screens/splash_screen.dart';
 import 'package:fitwiz/utils/components/custom_back_button.dart';
@@ -47,6 +48,7 @@ class MainApp extends StatelessWidget {
             "/main": (context) => const MainScreen(),
             "/splash": (context) => const SplashScreen(),
             "/login": (context) => const LoginScreen(),
+            "/register": (context) => const RegisterScreen(),
           },
           // home: Scaffold(
           //   body: Builder(builder: (context) {

@@ -24,6 +24,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: _authBlocListener,
@@ -43,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   32.verticalSpacingRadius,
                   Center(
                     child: Text(
-                      "Let's get started",
+                      "Welcome back",
                       textAlign: TextAlign.center,
                       style: AppTextStyles.CCC_31_700(),
                     ),
@@ -80,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomTextField(
                     controller: _passwordController,
                     normalBorderColor: AppColors.textLightest,
+                    obscureText: true,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Password is required";
@@ -98,13 +106,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: AppTextStyles.FFF_16_400(),
                         children: [
                           TextSpan(
-                            text: "Sign up",
+                            text: "Register",
                             style: AppTextStyles.FFF_16_700(
                               color: AppColors.primaryColor,
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                // navigate to sign up screen
+                                Get.offAndToNamed("/register");
                               },
                           ),
                         ],

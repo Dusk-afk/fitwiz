@@ -16,6 +16,7 @@ class CustomButton extends StatelessWidget {
   final _ButtonType _type;
   final double? elevation;
   final Widget? child;
+  final bool loading;
 
   // Custom Colors
   final Color? _outlineNormalColor;
@@ -31,6 +32,7 @@ class CustomButton extends StatelessWidget {
     this.padding,
     this.destructive = false,
     this.elevation,
+    this.loading = false,
   })  : _type = _ButtonType.primary,
         _outlineNormalColor = null,
         child = null;
@@ -43,6 +45,7 @@ class CustomButton extends StatelessWidget {
     this.disabled = false,
     this.destructive = false,
     this.elevation,
+    this.loading = false,
   })  : _type = _ButtonType.primary,
         leftIcon = null,
         label = null,
@@ -61,6 +64,7 @@ class CustomButton extends StatelessWidget {
     this.padding,
     this.destructive = false,
     this.elevation,
+    this.loading = false,
   })  : _type = _ButtonType.secondary,
         _outlineNormalColor = null,
         child = null;
@@ -72,6 +76,7 @@ class CustomButton extends StatelessWidget {
     required Icon icon,
     this.disabled = false,
     this.destructive = false,
+    this.loading = false,
   })  : _type = _ButtonType.primary,
         leftIcon = icon,
         label = null,
@@ -88,6 +93,7 @@ class CustomButton extends StatelessWidget {
     required Widget icon,
     this.disabled = false,
     this.destructive = false,
+    this.loading = false,
   })  : _type = _ButtonType.secondary,
         leftIcon = icon,
         label = null,
@@ -109,6 +115,7 @@ class CustomButton extends StatelessWidget {
     this.destructive = false,
     Color? outlineNormalColor,
     this.elevation = 0,
+    this.loading = false,
   })  : _type = _ButtonType.outline,
         _outlineNormalColor = outlineNormalColor,
         child = null;
@@ -121,6 +128,7 @@ class CustomButton extends StatelessWidget {
     this.disabled = false,
     this.destructive = false,
     Color? outlineNormalColor,
+    this.loading = false,
   })  : _type = _ButtonType.outline,
         leftIcon = icon,
         label = null,
@@ -138,6 +146,7 @@ class CustomButton extends StatelessWidget {
     this.destructive = false,
     Color? outlineNormalColor,
     this.elevation = 0,
+    this.loading = false,
   })  : _type = _ButtonType.outline,
         leftIcon = null,
         label = null,
@@ -153,10 +162,12 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool effectiveDisabled = disabled || loading;
+
     Widget button = GestureDetector(
-      onTap: disabled ? onPressed : null,
+      onTap: effectiveDisabled ? onPressed : null,
       child: ElevatedButton(
-        onPressed: disabled ? null : onPressed,
+        onPressed: effectiveDisabled ? null : onPressed,
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith(_getBgColor),
           foregroundColor: WidgetStateProperty.resolveWith(_getFgColor),
@@ -183,15 +194,31 @@ class CustomButton extends StatelessWidget {
               children: [
                 if (leftIcon != null) ...[
                   leftIcon!,
-                  if (label != null || rightIcon != null) SizedBox(width: 8.w),
+                  if (label != null || rightIcon != null) SizedBox(width: 8.sp),
                 ],
                 if (label != null)
                   Text(
                     label!,
                     style: AppTextStyles.FFF_16_700(),
                   ),
-                if (rightIcon != null) ...[
-                  if (label != null || leftIcon != null) SizedBox(width: 8.w),
+                if (loading) ...[
+                  SizedBox(width: 8.sp),
+                  SizedBox(
+                    width: 16.sp,
+                    height: 16.sp,
+                    child: Builder(
+                      builder: (context) {
+                        return CircularProgressIndicator(
+                          strokeWidth: 2.sp,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            DefaultTextStyle.of(context).style.color!,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ] else if (rightIcon != null) ...[
+                  if (label != null || leftIcon != null) SizedBox(width: 8.sp),
                   rightIcon!,
                 ],
               ],

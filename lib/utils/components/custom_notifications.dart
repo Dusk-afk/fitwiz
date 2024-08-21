@@ -1,3 +1,5 @@
+import 'package:fitwiz/utils/widget_utils.dart';
+import 'package:fitwiz/utils/widgets/notifications/error_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fitwiz/utils/widgets/notifications/success_notification.dart';
@@ -11,13 +13,13 @@ class CustomNotifications {
     required Widget content,
   }) {
     return SnackBar(
-      padding: EdgeInsets.symmetric(horizontal: 16.sp),
+      padding: EdgeInsets.symmetric(horizontal: 16.sp)
+          .copyWith(bottom: safeBottomPadding(16.sp)),
       behavior: SnackBarBehavior.fixed,
       elevation: 0,
       showCloseIcon: false,
       backgroundColor: Colors.transparent,
-      // TODO: Change the duration to suitable value. This value is just for testing
-      duration: const Duration(days: 1),
+      duration: const Duration(seconds: 3),
       content: GestureDetector(
         onTap: () {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -35,6 +37,17 @@ class CustomNotifications {
     final snackBar = _buildSnackBar(
       context: context,
       content: SuccessNotification(message: message),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  static void notifyError({
+    required BuildContext context,
+    required String message,
+  }) {
+    final snackBar = _buildSnackBar(
+      context: context,
+      content: ErrorNotification(message: message),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }

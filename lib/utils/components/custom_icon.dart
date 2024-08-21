@@ -49,4 +49,5 @@ final class CustomIcons {
   static const String close = 'assets/icons/close.svg';
   static const String arrow_back = 'assets/icons/arrow_back.svg';
   static const String tick = 'assets/icons/tick.svg';
+  static const String alert = 'assets/icons/alert.svg';
 }

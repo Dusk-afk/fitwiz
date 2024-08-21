@@ -26,6 +26,11 @@ class AppColors {
   static const Color bgLightColor = Color.fromRGBO(208, 206, 221, 1);
   static const Color ringColor = Color.fromRGBO(128, 217, 74, 1);
 
+  // -------- OTHER COLORS --------
+  static const Color error = Color(0xFFD94A4A);
+  static const Color success = Color(0xFF80D94A);
+  static const Color warning = Color(0xFFD9B44A);
+
   // -------- CONTAINER COLORS --------
   static const Color containerBg = Color(0xFFFFFFFF);
   static const Color containerBgSecondary = Color(0xFFF4F4F9);
@@ -34,7 +39,7 @@ class AppColors {
   static const Color buttonPrimary = Color(0xFF621DBF);
   static const Color buttonSecondary = Color(0xFFFFFFFF);
   static const Color buttonOutline = Color(0xFFFFFFFF);
-  static const Color buttonDisabledPrimary = Color(0xFFD0CEDD);
+  static const Color buttonDisabledPrimary = Color(0xFFDFD2F2);
   static const Color buttonDisabledSecondary = Color(0xFFFFFFFF);
   static const Color buttonDisabledOutline = Color(0xFFFFFFFF);
   static const Color buttonSecondaryBorder = Color(0xFFE1E0EC);

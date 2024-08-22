@@ -1,4 +1,6 @@
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:fitwiz/features/event/data/presentation/blocs/events_bloc/events_bloc.dart';
+import 'package:fitwiz/features/home/presentation/screens/home_screen.dart';
 import 'package:fitwiz/features/profile/presentation/screens/profile_screen.dart';
 import 'package:fitwiz/utils/components/custom_icon.dart';
 import 'package:fitwiz/utils/components/custom_nav_bar.dart';
@@ -21,41 +23,46 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: _authBlocListener,
-      child: Scaffold(
-        body: _buildBody(),
-        bottomNavigationBar: CustomNavBar(
-          items: [
-            CustomNavBarItem(
-              icon: CustomIcon(
-                CustomIcons.compass,
-                size: 19.2.sp,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => EventsBloc()..add(FetchEvents())),
+      ],
+      child: BlocListener<AuthBloc, AuthState>(
+        listener: _authBlocListener,
+        child: Scaffold(
+          body: _buildBody(),
+          bottomNavigationBar: CustomNavBar(
+            items: [
+              CustomNavBarItem(
+                icon: CustomIcon(
+                  CustomIcons.compass,
+                  size: 19.2.sp,
+                ),
+                activeIcon: CustomIcon(
+                  CustomIcons.compass_filled,
+                  size: 19.2.sp,
+                ),
+                label: 'Home',
               ),
-              activeIcon: CustomIcon(
-                CustomIcons.compass_filled,
-                size: 19.2.sp,
+              CustomNavBarItem(
+                icon: CustomIcon(
+                  CustomIcons.profile,
+                  size: 19.2.sp,
+                ),
+                activeIcon: CustomIcon(
+                  CustomIcons.profile_filled,
+                  size: 19.2.sp,
+                ),
+                label: 'Profile',
               ),
-              label: 'Home',
-            ),
-            CustomNavBarItem(
-              icon: CustomIcon(
-                CustomIcons.profile,
-                size: 19.2.sp,
-              ),
-              activeIcon: CustomIcon(
-                CustomIcons.profile_filled,
-                size: 19.2.sp,
-              ),
-              label: 'Profile',
-            ),
-          ],
-          selectedIndex: selectedIndex,
-          onItemSelected: (index) {
-            setState(() {
-              selectedIndex = index;
-            });
-          },
+            ],
+            selectedIndex: selectedIndex,
+            onItemSelected: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+          ),
         ),
       ),
     );
@@ -63,6 +70,8 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildBody() {
     switch (selectedIndex) {
+      case 0:
+        return const HomeScreen();
       case 1:
         return const ProfileScreen();
       default:

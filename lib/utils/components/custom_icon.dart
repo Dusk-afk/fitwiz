@@ -55,4 +55,5 @@ final class CustomIcons {
   static const String profile_filled = 'assets/icons/profile_filled.svg';
   static const String compass = 'assets/icons/compass.svg';
   static const String compass_filled = 'assets/icons/compass_filled.svg';
+  static const String rupee = 'assets/icons/rupee.svg';
 }

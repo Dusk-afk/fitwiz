@@ -47,12 +47,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _onAuthLogout(AuthLogout event, Emitter<AuthState> emit) async {
+    final oldState = state;
     emit(AuthLoading());
     try {
       await _authRepository.logout();
       emit(AuthLoggedOut());
     } catch (e) {
       emit(AuthError(e.toString()));
+      emit(oldState);
     }
   }
 

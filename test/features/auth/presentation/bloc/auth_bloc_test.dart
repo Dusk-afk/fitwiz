@@ -92,7 +92,7 @@ void main() {
   );
 
   blocTest(
-    'should emit [AuthLoading, AuthError] when logout is unsuccessful',
+    'should emit [AuthLoading, AuthError, oldState] when logout is unsuccessful',
     build: () {
       when(() => mockAuthRepository.logout()).thenThrow(
         MockException("Error logging out"),
@@ -106,6 +106,7 @@ void main() {
     expect: () => <AuthState>[
       AuthLoading(),
       const AuthError("Error logging out"),
+      AuthInitial(),
     ],
   );
 

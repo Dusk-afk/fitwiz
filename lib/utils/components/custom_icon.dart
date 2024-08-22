@@ -51,4 +51,8 @@ final class CustomIcons {
   static const String tick = 'assets/icons/tick.svg';
   static const String alert = 'assets/icons/alert.svg';
   static const String calendar2 = 'assets/icons/calendar2.svg';
+  static const String profile = 'assets/icons/profile.svg';
+  static const String profile_filled = 'assets/icons/profile_filled.svg';
+  static const String compass = 'assets/icons/compass.svg';
+  static const String compass_filled = 'assets/icons/compass_filled.svg';
 }

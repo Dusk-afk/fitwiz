@@ -59,4 +59,6 @@ final class CustomIcons {
   static const String map_location = 'assets/icons/map_location.svg';
   static const String clock_9 = 'assets/icons/clock_9.svg';
   static const String pace = 'assets/icons/pace.svg';
+  static const String home = 'assets/icons/home.svg';
+  static const String home_filled = 'assets/icons/home_filled.svg';
 }

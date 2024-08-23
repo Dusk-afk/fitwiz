@@ -29,7 +29,9 @@ class MyEventScreen extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
                 color: AppColors.containerBgSecondary,
-                borderRadius: BorderRadius.circular(24.sp),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(24.sp),
+                ),
               ),
               child: Stack(
                 children: [

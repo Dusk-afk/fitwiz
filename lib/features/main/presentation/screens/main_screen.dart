@@ -41,11 +41,11 @@ class _MainScreenState extends State<MainScreen> {
               items: [
                 CustomNavBarItem(
                   icon: CustomIcon(
-                    CustomIcons.compass,
+                    CustomIcons.home,
                     size: 19.2.sp,
                   ),
                   activeIcon: CustomIcon(
-                    CustomIcons.compass_filled,
+                    CustomIcons.home_filled,
                     size: 19.2.sp,
                   ),
                   label: 'Home',

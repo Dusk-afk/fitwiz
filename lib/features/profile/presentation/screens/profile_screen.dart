@@ -24,7 +24,9 @@ class ProfileScreen extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   color: AppColors.containerBgSecondary,
-                  borderRadius: BorderRadius.circular(24.sp),
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(24.sp),
+                  ),
                 ),
                 child: BlocBuilder<AuthBloc, AuthState>(
                   builder: (context, state) {

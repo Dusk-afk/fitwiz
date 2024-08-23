@@ -2,7 +2,7 @@ import 'package:fitwiz/core/services/api_service.dart';
 import 'package:fitwiz/core/setup_locator.dart';
 import 'package:fitwiz/features/event/data/models/event.dart';
 import 'package:fitwiz/features/event/data/models/my_event.dart';
-import 'package:fitwiz/features/event/data/presentation/blocs/events_bloc/events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 
 class EventRepository {
   final ApiService _apiService;

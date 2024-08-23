@@ -1,10 +1,12 @@
 import 'package:fitwiz/features/event/data/models/my_event.dart';
-import 'package:fitwiz/features/event/data/presentation/blocs/bloc/my_events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/bloc/my_events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/screens/my_event_screen.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class MyEventsHorizList extends StatelessWidget {
   const MyEventsHorizList({super.key});
@@ -67,7 +69,11 @@ class MyEventsHorizList extends StatelessWidget {
             ),
             child: _Card(
               key: ValueKey(myEvent.event.id),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => MyEventScreen(
+                      myEvent: myEvent,
+                    ));
+              },
               myEvent: myEvent,
             ),
           );

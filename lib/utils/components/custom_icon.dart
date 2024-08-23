@@ -56,4 +56,7 @@ final class CustomIcons {
   static const String compass = 'assets/icons/compass.svg';
   static const String compass_filled = 'assets/icons/compass_filled.svg';
   static const String rupee = 'assets/icons/rupee.svg';
+  static const String map_location = 'assets/icons/map_location.svg';
+  static const String clock_9 = 'assets/icons/clock_9.svg';
+  static const String pace = 'assets/icons/pace.svg';
 }

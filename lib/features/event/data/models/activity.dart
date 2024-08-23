@@ -35,4 +35,62 @@ class Activity extends Equatable {
   @override
   List<Object?> get props =>
       [id, activityType, distanceKm, startDateTime, endDateTime];
+
+  Duration get duration => endDateTime.difference(startDateTime);
+
+  String get formattedDuration {
+    final totalDuration = duration;
+    String result = '';
+    int hours = totalDuration.inHours;
+    int minutes = totalDuration.inMinutes.remainder(60);
+    int seconds = totalDuration.inSeconds.remainder(60);
+
+    if (hours > 0) {
+      result += '$hours hr ';
+    }
+
+    if (minutes > 0) {
+      result += '$minutes min ';
+    }
+
+    if (seconds > 0) {
+      result += '$seconds sec';
+    }
+
+    if (result.isEmpty) {
+      result = '0 sec';
+    }
+
+    return result.trim();
+  }
+
+  Duration get pace {
+    if (distanceKm == 0) {
+      return Duration.zero;
+    }
+    int seconds = duration.inSeconds;
+    double pace = seconds / distanceKm;
+    return Duration(seconds: pace.toInt());
+  }
+
+  String get formattedPace {
+    final totalPace = pace;
+    String result = '';
+    int minutes = totalPace.inMinutes;
+    int seconds = totalPace.inSeconds.remainder(60);
+
+    if (minutes > 0) {
+      result += '$minutes min ';
+    }
+
+    if (seconds > 0) {
+      result += '$seconds sec';
+    }
+
+    if (result.isEmpty) {
+      result = '0 sec';
+    }
+
+    return result.trim();
+  }
 }

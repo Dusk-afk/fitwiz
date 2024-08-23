@@ -1,5 +1,5 @@
 import 'package:fitwiz/features/event/data/models/event.dart';
-import 'package:fitwiz/features/event/data/presentation/blocs/events_bloc/events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/utils/components/custom_icon.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fitwiz/core/services/api_service.dart';
 import 'package:fitwiz/features/event/data/models/event.dart';
-import 'package:fitwiz/features/event/data/presentation/blocs/events_bloc/events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/features/event/data/repositories/event_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

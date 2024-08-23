@@ -29,7 +29,7 @@ class MainApp extends StatelessWidget {
       rebuildFactor: (old, data) => true,
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => AuthBloc()),
+          BlocProvider(create: (_) => locator<AuthBloc>()),
         ],
         child: GetMaterialApp(
           title: "Fitwiz",

@@ -1,19 +1,17 @@
-import 'package:fitwiz/features/event/data/models/event.dart';
-import 'package:fitwiz/features/event/data/presentation/blocs/events_bloc/events_bloc.dart';
-import 'package:fitwiz/utils/components/custom_icon.dart';
+import 'package:fitwiz/features/event/data/models/my_event.dart';
+import 'package:fitwiz/features/event/data/presentation/blocs/bloc/my_events_bloc.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 
-class EventsHorizList extends StatelessWidget {
-  const EventsHorizList({super.key});
+class MyEventsHorizList extends StatelessWidget {
+  const MyEventsHorizList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EventsBloc, EventsState>(
+    return BlocBuilder<MyEventsBloc, MyEventsState>(
       builder: (context, state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,7 +19,7 @@ class EventsHorizList extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.sp),
               child: Text(
-                "All Events",
+                "Participating Events",
                 style: AppTextStyles.DDD_25_700(),
               ),
             ),
@@ -33,13 +31,13 @@ class EventsHorizList extends StatelessWidget {
     );
   }
 
-  Widget _buildBody(EventsState state) {
-    if (state is EventsSuccess) {
-      return _buildList(state.events);
+  Widget _buildBody(MyEventsState state) {
+    if (state is MyEventsSuccess) {
+      return _buildList(state.myEvents);
     }
 
     String error = "Unexpected error occurred";
-    if (state is EventsError) {
+    if (state is MyEventsError) {
       error = state.message;
     }
     return _buildError(error);
@@ -54,23 +52,23 @@ class EventsHorizList extends StatelessWidget {
     );
   }
 
-  Widget _buildList(List<Event> events) {
+  Widget _buildList(List<MyEvent> myEvents) {
     return SizedBox(
       height: 200.sp,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 16.sp),
         scrollDirection: Axis.horizontal,
-        itemCount: events.length,
+        itemCount: myEvents.length,
         itemBuilder: (context, index) {
-          final event = events[index];
+          final myEvent = myEvents[index];
           return Padding(
             padding: EdgeInsets.only(
-              right: index == events.length - 1 ? 0 : 16.sp,
+              right: index == myEvents.length - 1 ? 0 : 16.sp,
             ),
             child: _Card(
-              key: ValueKey(event.id),
+              key: ValueKey(myEvent.event.id),
               onPressed: () {},
-              event: event,
+              myEvent: myEvent,
             ),
           );
         },
@@ -81,12 +79,12 @@ class EventsHorizList extends StatelessWidget {
 
 class _Card extends StatelessWidget {
   final VoidCallback onPressed;
-  final Event event;
+  final MyEvent myEvent;
 
   const _Card({
     super.key,
     required this.onPressed,
-    required this.event,
+    required this.myEvent,
   });
 
   @override
@@ -107,57 +105,17 @@ class _Card extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                event.name,
+                myEvent.event.name,
                 style: AppTextStyles.FFF_16_700(),
               ),
               8.verticalSpacingRadius,
               Text(
-                event.description,
+                myEvent.event.description,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.FFF_16_400(),
               ),
               const Spacer(),
-              Row(
-                children: [
-                  CustomIcon(
-                    CustomIcons.calendar2,
-                    size: 14.4.sp,
-                    containerSize: 16.sp,
-                    color: AppColors.textDarker,
-                  ),
-                  4.horizontalSpaceRadius,
-                  Text(
-                    DateFormat('d MMM, yy').format(event.startDateTime),
-                    style: AppTextStyles.GGG_12_400(),
-                  ),
-                  Text(
-                    " - ",
-                    style:
-                        AppTextStyles.GGG_12_400(color: AppColors.textLighter),
-                  ),
-                  Text(
-                    DateFormat('d MMM, yy').format(event.startDateTime),
-                    style: AppTextStyles.GGG_12_400(),
-                  ),
-                ],
-              ),
-              4.verticalSpacingRadius,
-              Row(
-                children: [
-                  CustomIcon(
-                    CustomIcons.rupee,
-                    size: 12.sp,
-                    containerSize: 16.sp,
-                    color: AppColors.textDarker,
-                  ),
-                  4.horizontalSpaceRadius,
-                  Text(
-                    event.price == null ? "Free" : "${event.price}",
-                    style: AppTextStyles.GGG_12_400(),
-                  ),
-                ],
-              ),
             ],
           ),
         ),

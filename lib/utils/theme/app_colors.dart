@@ -64,4 +64,7 @@ class AppColors {
   static const Color textFieldText = Color(0xFF191925);
   static const Color textFieldTextDisabled = Color(0xFFACAABE);
   static const Color textFieldTextError = Color(0xFFD94A4A);
+
+  // -------- BRAND COLORS --------
+  static const Color stravaPrimary = Color(0xFFFC4C02);
 }

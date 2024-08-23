@@ -61,4 +61,6 @@ final class CustomIcons {
   static const String pace = 'assets/icons/pace.svg';
   static const String home = 'assets/icons/home.svg';
   static const String home_filled = 'assets/icons/home_filled.svg';
+  static const String strava_white = 'assets/icons/strava_white.svg';
+  static const String arrow_forward = 'assets/icons/arrow_forward.svg';
 }

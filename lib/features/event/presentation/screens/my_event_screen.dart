@@ -21,52 +21,53 @@ class MyEventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.containerBg,
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                color: AppColors.containerBgSecondary,
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(24.sp),
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: AppColors.containerBgSecondary,
+                  borderRadius: BorderRadius.circular(24.sp),
+                ),
+                child: Stack(
+                  children: [
+                    _buildContent(),
+                    const Positioned.fill(
+                      top: null,
+                      child: BottomGradient(),
+                    ),
+                  ],
                 ),
               ),
-              child: Stack(
-                children: [
-                  _buildContent(),
-                  const Positioned.fill(
-                    top: null,
-                    child: BottomGradient(),
-                  ),
-                ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: 16.sp,
+                left: 16.sp,
+                right: 16.sp,
+                bottom: safeBottomPadding(16.sp),
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 16.sp,
-              left: 16.sp,
-              right: 16.sp,
-              bottom: safeBottomPadding(16.sp),
-            ),
-            child: Row(
-              children: rowGap(
-                16.sp,
-                [
-                  // CustomBackButton(onPressed: Get.back),
-                  Expanded(
-                    child: CustomButton(
-                      onPressed: Get.back,
-                      label: "Okay",
+              child: Row(
+                children: rowGap(
+                  16.sp,
+                  [
+                    // CustomBackButton(onPressed: Get.back),
+                    Expanded(
+                      child: CustomButton(
+                        onPressed: Get.back,
+                        label: "Okay",
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

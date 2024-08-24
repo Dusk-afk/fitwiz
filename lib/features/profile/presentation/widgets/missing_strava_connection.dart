@@ -25,7 +25,7 @@ class MissingStravaConnection extends StatelessWidget {
               horizontal: 16.sp,
             ).copyWith(right: 8.sp),
             decoration: BoxDecoration(
-              color: AppColors.stravaPrimary.withOpacity(0.2),
+              color: AppColors.stravaPrimary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(16.sp),
             ),
             child: Row(

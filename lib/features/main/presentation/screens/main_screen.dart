@@ -1,5 +1,6 @@
 import 'package:fitwiz/core/setup_locator.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:fitwiz/features/event/data/repositories/event_repository.dart';
 import 'package:fitwiz/features/event/presentation/blocs/bloc/my_events_bloc.dart';
 import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/features/home/presentation/screens/home_screen.dart';
@@ -22,6 +23,26 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
+
+  @override
+  void dispose() {
+    locator<EventsBloc>().close();
+    locator<MyEventsBloc>().close();
+
+    locator.unregister<EventsBloc>();
+    locator.unregister<MyEventsBloc>();
+
+    locator.registerSingleton<EventsBloc>(EventsBloc(
+      locator<EventRepository>(),
+    ));
+    locator.registerSingleton<MyEventsBloc>(MyEventsBloc(
+      locator<AuthBloc>(),
+      locator<EventsBloc>(),
+      locator<EventRepository>(),
+    ));
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

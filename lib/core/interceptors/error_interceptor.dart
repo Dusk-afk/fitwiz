@@ -83,7 +83,10 @@ class UnauthorizedException extends DioException {
 
   @override
   String toString() {
-    return err?.response?.data['message'] ?? 'Access denied';
+    if (err?.response?.data is Map) {
+      return err?.response?.data['message'] ?? 'Access denied';
+    }
+    return 'Access denied';
   }
 }
 

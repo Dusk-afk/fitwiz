@@ -37,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         backgroundColor: AppColors.containerBgSecondary,
         body: SafeArea(
+          bottom: false,
           child: Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(

@@ -1,6 +1,8 @@
 import 'package:fitwiz/core/interceptors/token_interceptor.dart';
 import 'package:fitwiz/core/repositories/token_repository.dart';
 import 'package:fitwiz/core/services/api_service.dart';
+import 'package:fitwiz/features/address/data/repositories/address_repository.dart';
+import 'package:fitwiz/features/address/presentation/blocs/address/address_bloc.dart';
 import 'package:fitwiz/features/auth/data/repositories/auth_repository.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fitwiz/features/event/presentation/blocs/bloc/my_events_bloc.dart';
@@ -29,6 +31,9 @@ void setupLocator() {
   locator.registerSingleton(EventRepository(
     locator<ApiService>(),
   ));
+  locator.registerSingleton(AddressRepository(
+    locator<ApiService>(),
+  ));
   locator.registerSingleton(AuthBloc());
   locator.registerSingleton(EventsBloc(
     locator<EventRepository>(),
@@ -37,5 +42,8 @@ void setupLocator() {
     locator<AuthBloc>(),
     locator<EventsBloc>(),
     locator<EventRepository>(),
+  ));
+  locator.registerSingleton(AddressBloc(
+    locator<AddressRepository>(),
   ));
 }

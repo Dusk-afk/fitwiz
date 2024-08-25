@@ -45,6 +45,8 @@ class CustomIcon extends StatelessWidget {
 }
 
 final class CustomIcons {
+  const CustomIcons._();
+
   static const String search = 'assets/icons/search.svg';
   static const String close = 'assets/icons/close.svg';
   static const String arrow_back = 'assets/icons/arrow_back.svg';
@@ -63,4 +65,5 @@ final class CustomIcons {
   static const String home_filled = 'assets/icons/home_filled.svg';
   static const String strava_white = 'assets/icons/strava_white.svg';
   static const String arrow_forward = 'assets/icons/arrow_forward.svg';
+  static const String edit = 'assets/icons/edit.svg';
 }

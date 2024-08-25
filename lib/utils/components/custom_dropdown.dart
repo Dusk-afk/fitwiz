@@ -23,6 +23,7 @@ class CustomDropdown<T> extends StatelessWidget {
   final Color? normalBorderColor;
   final Color? focusedBorderColor;
   final double? width;
+  final bool isLoading;
 
   const CustomDropdown({
     super.key,
@@ -44,10 +45,28 @@ class CustomDropdown<T> extends StatelessWidget {
     this.normalBorderColor,
     this.focusedBorderColor,
     this.width,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        _buildDropdown(context),
+        if (isLoading)
+          Positioned(
+            top: 8.sp,
+            right: 16.sp,
+            bottom: 8.sp,
+            child: const Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildDropdown(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: Theme(
         data: Theme.of(context).copyWith(

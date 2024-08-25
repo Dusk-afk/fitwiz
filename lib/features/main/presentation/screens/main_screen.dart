@@ -1,6 +1,6 @@
 import 'package:fitwiz/core/setup_locator.dart';
+import 'package:fitwiz/features/address/presentation/blocs/address/address_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:fitwiz/features/event/data/repositories/event_repository.dart';
 import 'package:fitwiz/features/event/presentation/blocs/bloc/my_events_bloc.dart';
 import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/features/home/presentation/screens/home_screen.dart';
@@ -25,71 +25,52 @@ class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
 
   @override
-  void dispose() {
-    locator<EventsBloc>().close();
-    locator<MyEventsBloc>().close();
-
-    locator.unregister<EventsBloc>();
-    locator.unregister<MyEventsBloc>();
-
-    locator.registerSingleton<EventsBloc>(EventsBloc(
-      locator<EventRepository>(),
-    ));
-    locator.registerSingleton<MyEventsBloc>(MyEventsBloc(
-      locator<AuthBloc>(),
-      locator<EventsBloc>(),
-      locator<EventRepository>(),
-    ));
-
-    super.dispose();
+  void initState() {
+    super.initState();
+    locator<EventsBloc>().add(FetchEvents());
+    locator<MyEventsBloc>().add(FetchMyEvents());
+    locator<AddressBloc>().add(FetchAddress());
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => locator<EventsBloc>()..add(FetchEvents())),
-        BlocProvider(
-            create: (_) => locator<MyEventsBloc>()..add(FetchMyEvents())),
-      ],
-      child: BlocListener<AuthBloc, AuthState>(
-        listener: _authBlocListener,
-        child: BlocListener<EventsBloc, EventsState>(
-          listener: _eventsBlocListener,
-          child: Scaffold(
-            body: _buildBody(),
-            bottomNavigationBar: CustomNavBar(
-              items: [
-                CustomNavBarItem(
-                  icon: CustomIcon(
-                    CustomIcons.home,
-                    size: 19.2.sp,
-                  ),
-                  activeIcon: CustomIcon(
-                    CustomIcons.home_filled,
-                    size: 19.2.sp,
-                  ),
-                  label: 'Home',
+    return BlocListener<AuthBloc, AuthState>(
+      listener: _authBlocListener,
+      child: BlocListener<EventsBloc, EventsState>(
+        listener: _eventsBlocListener,
+        child: Scaffold(
+          body: _buildBody(),
+          bottomNavigationBar: CustomNavBar(
+            items: [
+              CustomNavBarItem(
+                icon: CustomIcon(
+                  CustomIcons.home,
+                  size: 19.2.sp,
                 ),
-                CustomNavBarItem(
-                  icon: CustomIcon(
-                    CustomIcons.profile,
-                    size: 19.2.sp,
-                  ),
-                  activeIcon: CustomIcon(
-                    CustomIcons.profile_filled,
-                    size: 19.2.sp,
-                  ),
-                  label: 'Profile',
+                activeIcon: CustomIcon(
+                  CustomIcons.home_filled,
+                  size: 19.2.sp,
                 ),
-              ],
-              selectedIndex: selectedIndex,
-              onItemSelected: (index) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-            ),
+                label: 'Home',
+              ),
+              CustomNavBarItem(
+                icon: CustomIcon(
+                  CustomIcons.profile,
+                  size: 19.2.sp,
+                ),
+                activeIcon: CustomIcon(
+                  CustomIcons.profile_filled,
+                  size: 19.2.sp,
+                ),
+                label: 'Profile',
+              ),
+            ],
+            selectedIndex: selectedIndex,
+            onItemSelected: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
           ),
         ),
       ),

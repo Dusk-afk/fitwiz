@@ -5,7 +5,7 @@ import 'package:fitwiz/utils/components/custom_icon.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 
 class CustomBackButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   const CustomBackButton({super.key, required this.onPressed});
 
   @override

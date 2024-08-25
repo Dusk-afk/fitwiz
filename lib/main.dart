@@ -1,7 +1,10 @@
 import 'package:fitwiz/core/setup_locator.dart';
+import 'package:fitwiz/features/address/presentation/blocs/address/address_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/screens/login_screen.dart';
 import 'package:fitwiz/features/auth/presentation/screens/register_screen.dart';
+import 'package:fitwiz/features/event/presentation/blocs/bloc/my_events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/features/main/presentation/screens/main_screen.dart';
 import 'package:fitwiz/features/splash/presentation/screens/splash_screen.dart';
 import 'package:fitwiz/utils/theme/app_theme.dart';
@@ -21,28 +24,40 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(376, 664),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      useInheritedMediaQuery: true,
-      rebuildFactor: (old, data) => true,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => locator<AuthBloc>()),
-        ],
-        child: GetMaterialApp(
-          title: "Fitwiz",
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.lightTheme,
-          debugShowCheckedModeBanner: false,
-          initialRoute: "/splash",
-          routes: {
-            "/main": (context) => const MainScreen(),
-            "/splash": (context) => const SplashScreen(),
-            "/login": (context) => const LoginScreen(),
-            "/register": (context) => const RegisterScreen(),
-          },
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
+          currentFocus.focusedChild!.unfocus();
+        }
+      },
+      child: ScreenUtilInit(
+        designSize: const Size(376, 664),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        useInheritedMediaQuery: true,
+        rebuildFactor: (old, data) => true,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => locator<AuthBloc>()),
+            BlocProvider(create: (_) => locator<EventsBloc>()),
+            BlocProvider(create: (_) => locator<MyEventsBloc>()),
+            BlocProvider(create: (_) => locator<AddressBloc>()),
+          ],
+          child: GetMaterialApp(
+            title: "Fitwiz",
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.lightTheme,
+            debugShowCheckedModeBanner: false,
+            initialRoute: "/splash",
+            routes: {
+              "/main": (context) => const MainScreen(),
+              "/splash": (context) => const SplashScreen(),
+              "/login": (context) => const LoginScreen(),
+              "/register": (context) => const RegisterScreen(),
+            },
+          ),
         ),
       ),
     );

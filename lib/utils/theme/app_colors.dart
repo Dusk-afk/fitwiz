@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  const AppColors._();
+
   static const Color primaryColor = Color(0xFF621DBF);
   static const Color primaryDarkColor = Color(0xFF4E1799);
   static const Color transparentPrimaryColor = Color.fromRGBO(223, 210, 242, 1);

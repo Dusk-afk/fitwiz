@@ -1,7 +1,10 @@
 import 'package:fitwiz/features/auth/data/models/user.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fitwiz/features/profile/presentation/widgets/missing_strava_connection.dart';
+import 'package:fitwiz/features/profile/presentation/widgets/profile_address_section.dart';
+import 'package:fitwiz/features/profile/presentation/widgets/profile_details_section.dart';
 import 'package:fitwiz/features/profile/presentation/widgets/strava_connected.dart';
+import 'package:fitwiz/utils/components/bottom_gradient.dart';
 import 'package:fitwiz/utils/components/custom_button.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
@@ -29,22 +32,30 @@ class ProfileScreen extends StatelessWidget {
                   color: AppColors.containerBgSecondary,
                   borderRadius: BorderRadius.circular(24.sp),
                 ),
-                child: BlocBuilder<AuthBloc, AuthState>(
-                  builder: (context, state) {
-                    if (state is AuthLoading) {
-                      return _buildLoading();
-                    }
-                    if (state is AuthLoggedIn) {
-                      return _buildProfileContent(state.user);
-                    }
-                    String error = 'Unknown error occurred';
-                    if (state is AuthError) {
-                      error = state.message;
-                    } else if (state is AuthLoggedOut) {
-                      error = 'You are not logged in';
-                    }
-                    return _buildError(error);
-                  },
+                child: Stack(
+                  children: [
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        if (state is AuthLoading) {
+                          return _buildLoading();
+                        }
+                        if (state is AuthLoggedIn) {
+                          return _buildProfileContent(state.user);
+                        }
+                        String error = 'Unknown error occurred';
+                        if (state is AuthError) {
+                          error = state.message;
+                        } else if (state is AuthLoggedOut) {
+                          error = 'You are not logged in';
+                        }
+                        return _buildError(error);
+                      },
+                    ),
+                    const Positioned.fill(
+                      top: null,
+                      child: BottomGradient(),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -113,33 +124,56 @@ class ProfileScreen extends StatelessWidget {
             ? const StravaConnected()
             : const MissingStravaConnection(),
         24.verticalSpacingRadius,
-        Text(
-          'Email:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
-        ),
-        Text(
-          user.email,
-          style: AppTextStyles.FFF_16_400(),
-        ),
+        _buildPersonalDetails(user),
         16.verticalSpacingRadius,
-        Text(
-          'Gender:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
-        ),
-        Text(
-          user.gender,
-          style: AppTextStyles.FFF_16_400(),
-        ),
-        16.verticalSpacingRadius,
-        Text(
-          'Date of Birth:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
-        ),
-        Text(
-          DateFormat('dd MMMM yyyy').format(user.dateOfBirth),
-          style: AppTextStyles.FFF_16_400(),
-        ),
+        const ProfileAddressSection(),
       ],
+    );
+  }
+
+  Widget _buildPersonalDetails(User user) {
+    return ProfileDetailsSection(
+      title: 'Personal Details',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Name:',
+            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          ),
+          Text(
+            user.name,
+            style: AppTextStyles.FFF_16_400(),
+          ),
+          16.verticalSpacingRadius,
+          Text(
+            'Email:',
+            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          ),
+          Text(
+            user.email,
+            style: AppTextStyles.FFF_16_400(),
+          ),
+          16.verticalSpacingRadius,
+          Text(
+            'Gender:',
+            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          ),
+          Text(
+            user.gender,
+            style: AppTextStyles.FFF_16_400(),
+          ),
+          16.verticalSpacingRadius,
+          Text(
+            'Date of Birth:',
+            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          ),
+          Text(
+            DateFormat('dd MMMM yyyy').format(user.dateOfBirth),
+            style: AppTextStyles.FFF_16_400(),
+          ),
+        ],
+      ),
     );
   }
 }

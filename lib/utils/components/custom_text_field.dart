@@ -28,6 +28,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool readOnly;
   final bool obscureText;
+  final bool isLoading;
 
   // Colors when the field is not focused
   final Color? normalFillColor;
@@ -63,6 +64,7 @@ class CustomTextField extends StatefulWidget {
     this.keyboardType,
     this.readOnly = false,
     this.obscureText = false,
+    this.isLoading = false,
   });
 
   @override
@@ -70,7 +72,9 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  late final _controller = widget.controller ?? TextEditingController();
+  late TextEditingController _controller =
+      widget.controller ?? TextEditingController();
+  late bool _isLoading = widget.isLoading;
 
   @override
   void dispose() {
@@ -81,92 +85,31 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   @override
+  void didUpdateWidget(covariant CustomTextField oldWidget) {
+    if (widget.controller != oldWidget.controller) {
+      if (oldWidget.controller == null) {
+        _controller.dispose();
+      }
+      _controller = widget.controller ?? TextEditingController();
+    }
+
+    if (widget.isLoading != oldWidget.isLoading) {
+      setState(() {
+        _isLoading = widget.isLoading;
+      });
+    }
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        TextFormField(
-          controller: _controller,
-          focusNode: widget.focusNode,
-          minLines: widget.minLines,
-          maxLines: widget.maxLines,
-          style: widget.style ??
-              AppTextStyles.FFF_16_400(
-                color: AppColors.textFieldText,
-              ),
-          cursorColor: AppColors.textFieldBorder,
-          validator: widget.validator,
-          inputFormatters: [
-            if (widget.maxLength != null)
-              LengthLimitingTextInputFormatter(widget.maxLength),
-            ...?widget.inputFormatters,
-          ],
-          onChanged: widget.onChanged,
-          onTap: widget.onTap,
-          expands: widget.expands,
-          keyboardType: widget.keyboardType,
-          readOnly: widget.readOnly,
-          obscureText: widget.obscureText,
-          decoration: InputDecoration(
-            hintText: widget.placeholder,
-            hintStyle: widget.placeholderStyle ??
-                AppTextStyles.FFF_16_400(
-                  color: AppColors.textFieldHint,
-                ),
-            filled: true,
-            fillColor: widget.disabled
-                ? AppColors.textFieldFillDisabled
-                : widget.normalFillColor ?? AppColors.textFieldFill,
-            errorText: widget.errorText,
-            errorStyle: AppTextStyles.FFF_10_400(
-              color: AppColors.textFieldTextError,
-            ),
-            prefixIcon: widget.prefixIcon,
-            prefixIconConstraints: widget.prefixIconConstraints,
-            suffixIcon: widget.suffixIcon,
-            suffixIconConstraints: widget.suffixIconConstraints,
-            enabled: !widget.disabled,
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 16.sp,
-              vertical: 12.sp,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: BorderSide(
-                color: widget.normalBorderColor ?? Colors.transparent,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: BorderSide(
-                color: widget.normalBorderColor ?? Colors.transparent,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: BorderSide(
-                color: widget.focusedBorderColor ?? AppColors.textFieldBorder,
-              ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: const BorderSide(
-                color: AppColors.textFieldBorderError,
-              ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: const BorderSide(
-                color: AppColors.textFieldBorderError,
-              ),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: BorderSide.none,
-            ),
-          ),
-        ),
+        _buildWrappedTextFormField(),
         if (widget.maxLength != null) ...[
+          _buildWrappedTextFormField(),
           8.verticalSpacingRadius,
           ListenableBuilder(
             listenable: _controller,
@@ -195,6 +138,108 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
         ],
       ],
+    );
+  }
+
+  Widget _buildWrappedTextFormField() {
+    return Stack(
+      children: [
+        _buildTextFormField(),
+        if (_isLoading) ...[
+          Positioned(
+            right: 16.sp,
+            top: 8.sp,
+            bottom: 8.sp,
+            child: const CircularProgressIndicator.adaptive(
+              strokeWidth: 2,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildTextFormField() {
+    return TextFormField(
+      controller: _controller,
+      focusNode: widget.focusNode,
+      minLines: widget.minLines,
+      maxLines: widget.maxLines,
+      style: widget.style ??
+          AppTextStyles.FFF_16_400(
+            color: AppColors.textFieldText,
+          ),
+      cursorColor: AppColors.textFieldBorder,
+      validator: widget.validator,
+      inputFormatters: [
+        if (widget.maxLength != null)
+          LengthLimitingTextInputFormatter(widget.maxLength),
+        ...?widget.inputFormatters,
+      ],
+      onChanged: widget.onChanged,
+      onTap: widget.onTap,
+      expands: widget.expands,
+      keyboardType: widget.keyboardType,
+      readOnly: widget.readOnly,
+      obscureText: widget.obscureText,
+      decoration: InputDecoration(
+        hintText: widget.placeholder,
+        hintStyle: widget.placeholderStyle ??
+            AppTextStyles.FFF_16_400(
+              color: AppColors.textFieldHint,
+            ),
+        filled: true,
+        fillColor: widget.disabled
+            ? AppColors.textFieldFillDisabled
+            : widget.normalFillColor ?? AppColors.textFieldFill,
+        errorText: widget.errorText,
+        errorStyle: AppTextStyles.FFF_10_400(
+          color: AppColors.textFieldTextError,
+        ),
+        prefixIcon: widget.prefixIcon,
+        prefixIconConstraints: widget.prefixIconConstraints,
+        suffixIcon: widget.suffixIcon,
+        suffixIconConstraints: widget.suffixIconConstraints,
+        enabled: !widget.disabled,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 16.sp,
+          vertical: 12.sp,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.sp),
+          borderSide: BorderSide(
+            color: widget.normalBorderColor ?? Colors.transparent,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.sp),
+          borderSide: BorderSide(
+            color: widget.normalBorderColor ?? Colors.transparent,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.sp),
+          borderSide: BorderSide(
+            color: widget.focusedBorderColor ?? AppColors.textFieldBorder,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.sp),
+          borderSide: const BorderSide(
+            color: AppColors.textFieldBorderError,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.sp),
+          borderSide: const BorderSide(
+            color: AppColors.textFieldBorderError,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.sp),
+          borderSide: BorderSide.none,
+        ),
+      ),
     );
   }
 }

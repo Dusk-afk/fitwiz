@@ -39,4 +39,9 @@ class ApiService {
     final response = await _dio.post(url, data: data);
     return response;
   }
+
+  Future<Response> put(String url, {Object? data}) async {
+    final response = await _dio.put(url, data: data);
+    return response;
+  }
 }

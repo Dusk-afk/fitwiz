@@ -11,15 +11,22 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.containerBg,
-      body: Container(
-        color: AppColors.containerBgSecondary,
-        child: Column(
-          children: [
-            16.verticalSpacingRadius,
-            const MyEventsHorizList(),
-            16.verticalSpacingRadius,
-            const EventsHorizList(),
-          ],
+      body: SafeArea(
+        bottom: false,
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: AppColors.containerBgSecondary,
+            borderRadius: BorderRadius.circular(24.sp),
+          ),
+          child: ListView(
+            children: [
+              24.verticalSpacingRadius,
+              const MyEventsHorizList(),
+              16.verticalSpacingRadius,
+              const EventsHorizList(),
+            ],
+          ),
         ),
       ),
     );

@@ -43,15 +43,22 @@ class TokenInterceptor extends QueuedInterceptor {
 
   Future<void> _refreshToken() async {
     final refreshToken = await _tokenRepository.getRefreshToken();
-    final response = await _refreshDio.post(
-      '/auth/refresh',
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $refreshToken',
-        },
-      ),
-    );
+    try {
+      final response = await _refreshDio.post(
+        '/auth/refresh',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $refreshToken',
+          },
+        ),
+      );
 
-    await _tokenRepository.saveAccessToken(response.data['access_token']);
+      await _tokenRepository.saveAccessToken(response.data['access_token']);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        await _tokenRepository.clearTokens();
+        throw "Unauthorized";
+      }
+    }
   }
 }

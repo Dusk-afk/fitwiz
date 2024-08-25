@@ -91,4 +91,36 @@ void main() {
     verify(() => mockRequestInterceptorHandler.next(mockRequestOptions))
         .called(1);
   });
+
+  test('should clear tokens if refresh fails due to unauthorized', () async {
+    when(() => mockTokenRepository.isAccessTokenExpired())
+        .thenAnswer((_) async => true);
+    when(() => mockTokenRepository.getRefreshToken())
+        .thenAnswer((_) async => 'valid-refresh-token');
+
+    when(() => mockDio.post(
+          '/auth/refresh',
+          options: any(named: 'options'),
+        )).thenThrow(
+      DioException(
+        response:
+            Response(statusCode: 401, requestOptions: RequestOptions(path: '')),
+        requestOptions: RequestOptions(path: ''),
+      ),
+    );
+
+    when(() => mockTokenRepository.clearTokens()).thenAnswer((_) async {});
+
+    try {
+      // Act
+      await tokenInterceptor.onRequest(
+          requestOptions, mockRequestInterceptorHandler);
+      fail('Expected Unauthorized exception');
+    } catch (e) {
+      // Assert
+      expect(e.toString(), contains('Unauthorized'));
+    }
+
+    verify(() => mockTokenRepository.clearTokens()).called(1);
+  });
 }

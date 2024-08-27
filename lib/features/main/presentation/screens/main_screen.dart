@@ -1,7 +1,7 @@
 import 'package:fitwiz/core/setup_locator.dart';
 import 'package:fitwiz/features/address/presentation/blocs/address/address_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:fitwiz/features/event/presentation/blocs/bloc/my_events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/my_events/my_events_bloc.dart';
 import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/features/home/presentation/screens/home_screen.dart';
 import 'package:fitwiz/features/profile/presentation/screens/profile_screen.dart';

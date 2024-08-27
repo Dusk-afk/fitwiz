@@ -1,12 +1,15 @@
 import 'package:fitwiz/features/event/data/models/event.dart';
 import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/screens/event_screen.dart';
 import 'package:fitwiz/utils/components/custom_icon.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 class EventsHorizList extends StatelessWidget {
   const EventsHorizList({super.key});
@@ -15,6 +18,8 @@ class EventsHorizList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EventsBloc, EventsState>(
       builder: (context, state) {
+        bool isLoading = state is EventsSuccess && state.isLoading;
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,10 +31,79 @@ class EventsHorizList extends StatelessWidget {
               ),
             ),
             8.verticalSpacingRadius,
-            _buildBody(state),
+            isLoading ? _buildLoading() : _buildBody(state),
           ],
         );
       },
+    );
+  }
+
+  Widget _buildLoading() {
+    return SizedBox(
+      height: 200.sp,
+      child: ListView(
+        padding: EdgeInsets.only(left: 16.sp),
+        scrollDirection: Axis.horizontal,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          for (int i = 0; i < 5; i++)
+            Container(
+              margin: EdgeInsets.only(right: 16.sp),
+              width: 300.sp,
+              height: 200.sp,
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(16.sp),
+              decoration: BoxDecoration(
+                color: AppColors.containerBg,
+                borderRadius: BorderRadius.circular(16.sp),
+              ),
+              child: Shimmer.fromColors(
+                baseColor: AppColors.shimmerBase,
+                highlightColor: AppColors.shimmerHighlight,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 200.sp,
+                      height: 16.sp,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.sp),
+                      ),
+                    ),
+                    8.verticalSpacingRadius,
+                    Container(
+                      width: 300.sp,
+                      height: 16.sp,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.sp),
+                      ),
+                    ),
+                    8.verticalSpacingRadius,
+                    Container(
+                      width: 200.sp,
+                      height: 16.sp,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.sp),
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      width: 100.sp,
+                      height: 16.sp,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.sp),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 
@@ -69,7 +143,9 @@ class EventsHorizList extends StatelessWidget {
             ),
             child: _Card(
               key: ValueKey(event.id),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => EventScreen(event: event));
+              },
               event: event,
             ),
           );

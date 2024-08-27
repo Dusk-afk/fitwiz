@@ -21,3 +21,21 @@ class BottomGradient extends StatelessWidget {
     );
   }
 }
+
+class BottomGradientWrapper extends StatelessWidget {
+  final Widget child;
+  const BottomGradientWrapper({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        child,
+        const Positioned.fill(
+          top: null,
+          child: BottomGradient(),
+        ),
+      ],
+    );
+  }
+}

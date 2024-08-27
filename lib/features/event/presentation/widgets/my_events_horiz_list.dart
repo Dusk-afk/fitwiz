@@ -1,5 +1,6 @@
 import 'package:fitwiz/features/event/data/models/my_event.dart';
-import 'package:fitwiz/features/event/presentation/blocs/bloc/my_events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/my_events/my_events_bloc.dart';
 import 'package:fitwiz/features/event/presentation/screens/my_event_screen.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
@@ -7,29 +8,112 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MyEventsHorizList extends StatelessWidget {
   const MyEventsHorizList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyEventsBloc, MyEventsState>(
-      builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.sp),
-              child: Text(
-                "Participating Events",
-                style: AppTextStyles.DDD_25_700(),
+    EventsState eventsState = context.watch<EventsBloc>().state;
+    MyEventsState myEventsState = context.watch<MyEventsBloc>().state;
+
+    if (myEventsState is MyEventsSuccess &&
+        !myEventsState.isLoading &&
+        myEventsState.myEvents.isEmpty) {
+      return const SizedBox();
+    }
+
+    bool isLoading = false;
+    if (eventsState is EventsSuccess && eventsState.isLoading) {
+      isLoading = true;
+    }
+    if (myEventsState is MyEventsSuccess && myEventsState.isLoading) {
+      isLoading = true;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.sp),
+          child: Text(
+            "Participating Events",
+            style: AppTextStyles.DDD_25_700(),
+          ),
+        ),
+        8.verticalSpacingRadius,
+        isLoading ? _buildLoading() : _buildBody(myEventsState),
+      ],
+    );
+  }
+
+  Widget _buildLoading() {
+    return SizedBox(
+      height: 200.sp,
+      child: ListView(
+        padding: EdgeInsets.only(left: 16.sp),
+        scrollDirection: Axis.horizontal,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          for (int i = 0; i < 5; i++)
+            Container(
+              margin: EdgeInsets.only(right: 16.sp),
+              width: 300.sp,
+              height: 200.sp,
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(16.sp),
+              decoration: BoxDecoration(
+                color: AppColors.containerBg,
+                borderRadius: BorderRadius.circular(16.sp),
+              ),
+              child: Shimmer.fromColors(
+                baseColor: AppColors.shimmerBase,
+                highlightColor: AppColors.shimmerHighlight,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 200.sp,
+                      height: 16.sp,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.sp),
+                      ),
+                    ),
+                    8.verticalSpacingRadius,
+                    Container(
+                      width: 300.sp,
+                      height: 16.sp,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.sp),
+                      ),
+                    ),
+                    8.verticalSpacingRadius,
+                    Container(
+                      width: 200.sp,
+                      height: 16.sp,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.sp),
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      width: 100.sp,
+                      height: 16.sp,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.sp),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            8.verticalSpacingRadius,
-            _buildBody(state),
-          ],
-        );
-      },
+        ],
+      ),
     );
   }
 

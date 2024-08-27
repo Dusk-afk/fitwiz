@@ -69,4 +69,8 @@ class AppColors {
 
   // -------- BRAND COLORS --------
   static const Color stravaPrimary = Color(0xFFFC4C02);
+
+  // -------- SHIMMER COLORS --------
+  static const Color shimmerBase = Color(0xFFE1E0EC);
+  static const Color shimmerHighlight = Color(0xFFD0CEDD);
 }

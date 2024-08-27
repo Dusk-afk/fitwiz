@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:fitwiz/features/auth/data/models/user.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fitwiz/features/event/data/models/my_event.dart';
-import 'package:fitwiz/features/event/presentation/blocs/bloc/my_events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/my_events/my_events_bloc.dart';
 import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/features/event/data/repositories/event_repository.dart';
 import 'package:flutter_test/flutter_test.dart';

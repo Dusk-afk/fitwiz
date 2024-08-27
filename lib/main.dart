@@ -3,7 +3,8 @@ import 'package:fitwiz/features/address/presentation/blocs/address/address_bloc.
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/screens/login_screen.dart';
 import 'package:fitwiz/features/auth/presentation/screens/register_screen.dart';
-import 'package:fitwiz/features/event/presentation/blocs/bloc/my_events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/event_register/event_register_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/my_events/my_events_bloc.dart';
 import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/features/main/presentation/screens/main_screen.dart';
 import 'package:fitwiz/features/splash/presentation/screens/splash_screen.dart';
@@ -43,6 +44,7 @@ class MainApp extends StatelessWidget {
             BlocProvider(create: (_) => locator<AuthBloc>()),
             BlocProvider(create: (_) => locator<EventsBloc>()),
             BlocProvider(create: (_) => locator<MyEventsBloc>()),
+            BlocProvider(create: (_) => locator<EventRegisterBloc>()),
             BlocProvider(create: (_) => locator<AddressBloc>()),
           ],
           child: GetMaterialApp(

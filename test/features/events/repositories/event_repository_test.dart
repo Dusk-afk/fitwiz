@@ -114,7 +114,7 @@ void main() {
       verify(() => mockEvensBloc.state).called(2);
     });
 
-    test('should throw exception if api call is unsuccessful', () {
+    test('should throw exception if api call is unsuccessful on events', () {
       when(() => mockEvensBloc.state).thenReturn(EventsSuccess(
         events: [MockEvent()],
       ));
@@ -126,6 +126,28 @@ void main() {
           () async =>
               await eventRepository.getMyEvents(eventsBloc: mockEvensBloc),
           throwsException);
+    });
+
+    test(
+        'should return ticket number if api call is successful on create-order',
+        () async {
+      when(() => mockApiService.post('/event/1/create-order'))
+          .thenAnswer((_) async => Response(
+                requestOptions: RequestOptions(path: '/event/1/create-order'),
+                data: {'ticket_number': '123456'},
+              ));
+
+      final ticketNumber = await eventRepository.createOrder(1);
+
+      expect(ticketNumber, '123456');
+    });
+
+    test('should throw exception if api call is unsuccessful on create-order',
+        () {
+      when(() => mockApiService.post('/event/1/create-order'))
+          .thenThrow(Exception('error'));
+
+      expect(() async => await eventRepository.createOrder(1), throwsException);
     });
   });
 }

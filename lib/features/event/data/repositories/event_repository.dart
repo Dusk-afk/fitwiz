@@ -49,4 +49,13 @@ class EventRepository {
       return MyEvent.fromJsonEvent(e, event);
     }).toList();
   }
+
+  Future<String> createOrder(int eventId) async {
+    final response = await _apiService.post('/event/$eventId/create-order');
+
+    // Currently we are only targetting free events
+    // Therefore we will return the ticket number
+
+    return response.data['ticket_number'];
+  }
 }

@@ -126,6 +126,11 @@ class MyEventScreen extends StatelessWidget {
           style: AppTextStyles.FFF_16_700(),
         ),
         8.verticalSpacingRadius,
+        if (myEvent.activities.isEmpty)
+          Text(
+            "No activities recorded",
+            style: AppTextStyles.FFF_16_400(),
+          ),
         ...columnGap(
           8.sp,
           myEvent.activities

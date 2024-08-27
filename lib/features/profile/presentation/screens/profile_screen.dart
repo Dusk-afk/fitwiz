@@ -8,7 +8,6 @@ import 'package:fitwiz/utils/components/bottom_gradient.dart';
 import 'package:fitwiz/utils/components/custom_button.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
-import 'package:fitwiz/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,12 +59,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(
-                top: 16.sp,
-                left: 16.sp,
-                right: 16.sp,
-                bottom: safeBottomPadding(16.sp),
-              ),
+              padding: EdgeInsets.all(16.sp),
               child: SizedBox(
                 width: double.infinity,
                 child: BlocBuilder<AuthBloc, AuthState>(

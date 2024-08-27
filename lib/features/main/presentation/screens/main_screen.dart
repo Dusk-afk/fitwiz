@@ -39,38 +39,44 @@ class _MainScreenState extends State<MainScreen> {
       child: BlocListener<EventsBloc, EventsState>(
         listener: _eventsBlocListener,
         child: Scaffold(
-          body: _buildBody(),
-          bottomNavigationBar: CustomNavBar(
-            items: [
-              CustomNavBarItem(
-                icon: CustomIcon(
-                  CustomIcons.home,
-                  size: 19.2.sp,
-                ),
-                activeIcon: CustomIcon(
-                  CustomIcons.home_filled,
-                  size: 19.2.sp,
-                ),
-                label: 'Home',
+          body: Column(
+            children: [
+              Expanded(
+                child: _buildBody(),
               ),
-              CustomNavBarItem(
-                icon: CustomIcon(
-                  CustomIcons.profile,
-                  size: 19.2.sp,
-                ),
-                activeIcon: CustomIcon(
-                  CustomIcons.profile_filled,
-                  size: 19.2.sp,
-                ),
-                label: 'Profile',
+              CustomNavBar(
+                items: [
+                  CustomNavBarItem(
+                    icon: CustomIcon(
+                      CustomIcons.home,
+                      size: 19.2.sp,
+                    ),
+                    activeIcon: CustomIcon(
+                      CustomIcons.home_filled,
+                      size: 19.2.sp,
+                    ),
+                    label: 'Home',
+                  ),
+                  CustomNavBarItem(
+                    icon: CustomIcon(
+                      CustomIcons.profile,
+                      size: 19.2.sp,
+                    ),
+                    activeIcon: CustomIcon(
+                      CustomIcons.profile_filled,
+                      size: 19.2.sp,
+                    ),
+                    label: 'Profile',
+                  ),
+                ],
+                selectedIndex: selectedIndex,
+                onItemSelected: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
               ),
             ],
-            selectedIndex: selectedIndex,
-            onItemSelected: (index) {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
           ),
         ),
       ),

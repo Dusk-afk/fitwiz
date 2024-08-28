@@ -114,10 +114,10 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         24.verticalSpacingRadius,
-        stravaConnected
-            ? const StravaConnected()
-            : const MissingStravaConnection(),
-        24.verticalSpacingRadius,
+        // stravaConnected
+        //     ? const StravaConnected()
+        //     : const MissingStravaConnection(),
+        // 24.verticalSpacingRadius,
         _buildPersonalDetails(user),
         16.verticalSpacingRadius,
         const ProfileAddressSection(),

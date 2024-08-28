@@ -60,7 +60,10 @@ class ProfileAddressSection extends StatelessWidget {
 
   Widget _buildContent(Address? address) {
     if (address == null) {
-      return const Text('No address');
+      return Text(
+        'No address',
+        style: AppTextStyles.FFF_16_400(),
+      );
     }
 
     return Column(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fitwiz/core/setup_locator.dart';
 import 'package:fitwiz/features/address/presentation/blocs/address/address_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
@@ -10,12 +12,22 @@ import 'package:fitwiz/features/main/presentation/screens/main_screen.dart';
 import 'package:fitwiz/features/splash/presentation/screens/splash_screen.dart';
 import 'package:fitwiz/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isAndroid) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ));
+  }
   setupLocator();
   runApp(const MainApp());
 }

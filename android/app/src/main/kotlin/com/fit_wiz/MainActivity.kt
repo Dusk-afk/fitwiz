@@ -1,4 +1,4 @@
-package com.example.fitwiz
+package com.fit_wiz
 
 import io.flutter.embedding.android.FlutterActivity
 

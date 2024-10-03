@@ -1,4 +1,4 @@
-import 'package:fitwiz/utils/widget_utils.dart';
+import 'package:fitwiz/utils/misc/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

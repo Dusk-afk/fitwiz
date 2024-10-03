@@ -4,7 +4,7 @@ import 'package:fitwiz/utils/components/custom_notifications.dart';
 import 'package:fitwiz/utils/components/custom_text_field.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
-import 'package:fitwiz/utils/widget_utils.dart';
+import 'package:fitwiz/utils/misc/widget_utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

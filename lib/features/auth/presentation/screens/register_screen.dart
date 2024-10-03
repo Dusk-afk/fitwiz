@@ -1,3 +1,4 @@
+import 'package:fitwiz/data/string_constants.dart';
 import 'package:fitwiz/features/auth/data/models/register_user_data.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/widgets/dob_selector.dart';
@@ -5,9 +6,10 @@ import 'package:fitwiz/utils/components/custom_button.dart';
 import 'package:fitwiz/utils/components/custom_dropdown.dart';
 import 'package:fitwiz/utils/components/custom_notifications.dart';
 import 'package:fitwiz/utils/components/custom_text_field.dart';
+import 'package:fitwiz/utils/misc/url_launcher_utils.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
-import 'package:fitwiz/utils/widget_utils.dart';
+import 'package:fitwiz/utils/misc/widget_utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? _selectedSalutation;
   String? _selectedGender;
   DateTime? _selectedDob;
+  bool _termsAccepted = false;
+
+  bool _termsError = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -221,6 +226,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
+                        8.verticalSpacingRadius,
+                        CheckboxListTile.adaptive(
+                          value: _termsAccepted,
+                          onChanged: (value) {
+                            setState(() {
+                              _termsAccepted = value!;
+                              _termsError = false;
+                            });
+                          },
+                          title: RichText(
+                            text: TextSpan(
+                              text: "I accept the ",
+                              style: AppTextStyles.FFF_16_400(),
+                              children: [
+                                TextSpan(
+                                  text: "Privacy Policy",
+                                  style: AppTextStyles.FFF_16_700(
+                                    color: AppColors.primaryColor,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      UrlLauncherUtils.launchURL(
+                                          '${StringConstants.BASE_URL}/privacy-policy');
+                                    },
+                                ),
+                                TextSpan(
+                                  text: " and ",
+                                  style: AppTextStyles.FFF_16_400(),
+                                ),
+                                TextSpan(
+                                  text: "Terms and Conditions",
+                                  style: AppTextStyles.FFF_16_700(
+                                    color: AppColors.primaryColor,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      UrlLauncherUtils.launchURL(
+                                          '${StringConstants.BASE_URL}/terms-and-conditions');
+                                    },
+                                ),
+                              ],
+                            ),
+                          ),
+                          isError: _termsError,
+                        ),
                         24.verticalSpacingRadius,
                         const Divider(color: AppColors.textLightest),
                         24.verticalSpacingRadius,
@@ -290,9 +340,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _register() {
-    if (!_formKey.currentState!.validate()) {
-      return;
+    bool canContinue = true;
+    if (!_termsAccepted) {
+      setState(() {
+        _termsError = true;
+      });
+      canContinue = false;
     }
+
+    if (!_formKey.currentState!.validate()) {
+      canContinue = false;
+    }
+    if (!canContinue) return;
+
     context.read<AuthBloc>().add(AuthRegister(
           data: RegisterUserData(
             salutation: _selectedSalutation!,

@@ -27,6 +27,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   pretty_dio_logger: ^1.4.0
   shimmer: ^3.0.0
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   bloc_test: ^9.1.7

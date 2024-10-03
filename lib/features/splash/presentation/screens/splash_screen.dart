@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: _authBlocListener,
       child: const Scaffold(
         body: Center(
-          child: Text("Fitwiz"),
+          child: Text(""),
         ),
       ),
     );

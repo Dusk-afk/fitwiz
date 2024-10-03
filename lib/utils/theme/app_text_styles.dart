@@ -93,9 +93,11 @@ class AppTextStyles {
         height: 16.26 / 12,
       );
 
-  static TextStyle GGG_12_400({Color? color}) => GoogleFonts.roboto(
+  static TextStyle GGG_12_400({Color? color, FontStyle? fontStyle}) =>
+      GoogleFonts.roboto(
         fontSize: 12.8.sp,
         fontWeight: FontWeight.w400,
+        fontStyle: fontStyle,
         color: color,
         height: 16.26 / 12,
       );

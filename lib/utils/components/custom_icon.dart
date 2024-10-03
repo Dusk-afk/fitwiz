@@ -66,4 +66,6 @@ final class CustomIcons {
   static const String strava_white = 'assets/icons/strava_white.svg';
   static const String arrow_forward = 'assets/icons/arrow_forward.svg';
   static const String edit = 'assets/icons/edit.svg';
+  static const String team = 'assets/icons/team.svg';
+  static const String team_create = 'assets/icons/team_create.svg';
 }

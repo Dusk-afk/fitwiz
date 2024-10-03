@@ -29,6 +29,7 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final bool obscureText;
   final bool isLoading;
+  final bool autofocus;
 
   // Colors when the field is not focused
   final Color? normalFillColor;
@@ -65,6 +66,7 @@ class CustomTextField extends StatefulWidget {
     this.readOnly = false,
     this.obscureText = false,
     this.isLoading = false,
+    this.autofocus = false,
   });
 
   @override
@@ -182,6 +184,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       readOnly: widget.readOnly,
       obscureText: widget.obscureText,
+      autofocus: widget.autofocus,
       decoration: InputDecoration(
         hintText: widget.placeholder,
         hintStyle: widget.placeholderStyle ??

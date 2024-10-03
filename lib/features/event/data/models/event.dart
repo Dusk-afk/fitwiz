@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fitwiz/features/event/data/models/event_activity.dart';
+import 'package:fitwiz/features/event/data/models/event_team_type.dart';
 import 'package:fitwiz/features/event/data/models/goodie.dart';
 import 'package:fitwiz/features/event/data/models/session.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -29,6 +30,9 @@ class Event extends Equatable {
   @JsonKey(fromJson: _sessionsFromJson, toJson: _sessionsToJson)
   final List<Session> sessions;
 
+  @JsonKey(name: 'team_type')
+  final EventTeamType? teamType;
+
   const Event({
     required this.id,
     required this.name,
@@ -39,6 +43,7 @@ class Event extends Equatable {
     required this.activities,
     required this.goodies,
     required this.sessions,
+    required this.teamType,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
@@ -56,6 +61,8 @@ class Event extends Equatable {
         goodies,
         sessions,
       ];
+
+  bool get isTeamEvent => teamType != null;
 }
 
 List<EventActivity> _activitiesFromJson(List<dynamic>? json) {

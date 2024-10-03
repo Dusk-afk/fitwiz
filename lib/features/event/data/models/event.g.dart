@@ -16,6 +16,7 @@ Event _$EventFromJson(Map<String, dynamic> json) => Event(
       activities: _activitiesFromJson(json['activities'] as List?),
       goodies: _goodiesFromJson(json['goodies'] as List),
       sessions: _sessionsFromJson(json['sessions'] as List),
+      teamType: $enumDecodeNullable(_$EventTeamTypeEnumMap, json['team_type']),
     );
 
 Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
@@ -28,4 +29,9 @@ Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
       'activities': _activitiesToJson(instance.activities),
       'goodies': _goodiesToJson(instance.goodies),
       'sessions': _sessionsToJson(instance.sessions),
+      'team_type': _$EventTeamTypeEnumMap[instance.teamType],
     };
+
+const _$EventTeamTypeEnumMap = {
+  EventTeamType.couple: 'couple',
+};

@@ -1,4 +1,5 @@
 import 'package:fitwiz/features/event/data/models/event.dart';
+import 'package:fitwiz/features/event/data/models/event_team_type.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -19,6 +20,7 @@ void main() {
         ],
         'goodies': [],
         'sessions': [],
+        'team_type': 'couple',
       };
 
       final event = Event.fromJson(eventJson);
@@ -32,6 +34,7 @@ void main() {
       expect(event.activities.length, 1);
       expect(event.goodies.length, 0);
       expect(event.sessions.length, 0);
+      expect(event.teamType, EventTeamType.couple);
     });
   });
 
@@ -45,6 +48,7 @@ void main() {
       'price': null,
       'goodies': [],
       'sessions': [],
+      'team_type': null,
     };
 
     final event = Event.fromJson(eventJson);
@@ -58,5 +62,6 @@ void main() {
     expect(event.activities.length, 0);
     expect(event.goodies.length, 0);
     expect(event.sessions.length, 0);
+    expect(event.teamType, null);
   });
 }

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:fitwiz/core/services/api_service.dart';
+import 'package:fitwiz/data/models/user_short.dart';
 import 'package:fitwiz/features/event/data/models/event.dart';
+import 'package:fitwiz/features/event/data/models/event_team.dart';
 import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/features/event/data/repositories/event_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -148,6 +150,165 @@ void main() {
           .thenThrow(Exception('error'));
 
       expect(() async => await eventRepository.createOrder(1), throwsException);
+    });
+
+    test(
+        'should return no team if api call is successful on getEventTeam and data is empty',
+        () async {
+      when(() => mockApiService.get('/me/events/1/team'))
+          .thenAnswer((_) async => Response(
+                requestOptions: RequestOptions(path: '/me/events/1/team'),
+                data: {},
+              ));
+
+      final eventTeam = await eventRepository.getEventTeam(1);
+
+      expect(eventTeam, null);
+    });
+
+    test('should return team if api call is successful on getEventTeam',
+        () async {
+      when(() => mockApiService.get('/me/events/1/team'))
+          .thenAnswer((_) async => Response(
+                requestOptions: RequestOptions(path: '/me/events/1/team'),
+                data: {
+                  'id': 1,
+                  'event_id': 1,
+                  'team_code': '0A0A',
+                  'name': 'Team 1',
+                  'leader': {
+                    'id': 1,
+                    'name': 'John Doe',
+                  },
+                  'members': [
+                    {
+                      'id': 2,
+                      'name': 'Jane Doe',
+                    },
+                  ],
+                },
+              ));
+
+      final eventTeam = await eventRepository.getEventTeam(1);
+
+      expect(
+        eventTeam,
+        const EventTeam(
+          id: 1,
+          eventId: 1,
+          teamCode: '0A0A',
+          name: 'Team 1',
+          leader: UserShort(id: 1, name: 'John Doe'),
+          members: [UserShort(id: 2, name: 'Jane Doe')],
+        ),
+      );
+    });
+
+    test('should throw exception if api call is unsuccessful on getEventTeam',
+        () {
+      when(() => mockApiService.get('/me/events/1/team'))
+          .thenThrow(Exception('error'));
+
+      expect(
+          () async => await eventRepository.getEventTeam(1), throwsException);
+    });
+
+    test('should return team if api call is successful on createEventTeam',
+        () async {
+      when(() =>
+              mockApiService.post('/me/events/1/team', data: {'name': 'name'}))
+          .thenAnswer((_) async => Response(
+                requestOptions: RequestOptions(path: '/me/events/1/team'),
+                data: {
+                  'id': 1,
+                  'event_id': 1,
+                  'team_code': '0A0A',
+                  'name': 'Team 1',
+                  'leader': {
+                    'id': 1,
+                    'name': 'John Doe',
+                  },
+                  'members': [
+                    {
+                      'id': 2,
+                      'name': 'Jane Doe',
+                    },
+                  ],
+                },
+              ));
+
+      final eventTeam = await eventRepository.createEventTeam(1, 'name');
+
+      expect(
+        eventTeam,
+        const EventTeam(
+          id: 1,
+          eventId: 1,
+          teamCode: '0A0A',
+          name: 'Team 1',
+          leader: UserShort(id: 1, name: 'John Doe'),
+          members: [UserShort(id: 2, name: 'Jane Doe')],
+        ),
+      );
+    });
+
+    test(
+        'should throw exception if api call is unsuccessful on createEventTeam',
+        () {
+      when(() =>
+              mockApiService.post('/me/events/1/team', data: {'name': 'name'}))
+          .thenThrow(Exception('error'));
+
+      expect(() async => await eventRepository.createEventTeam(1, 'name'),
+          throwsException);
+    });
+
+    test('should return team if api call is successful on joinEventTeam',
+        () async {
+      when(() => mockApiService
+              .post('/me/events/1/team/join', data: {'team_code': 'team_code'}))
+          .thenAnswer((_) async => Response(
+                requestOptions: RequestOptions(path: '/me/events/1/team/join'),
+                data: {
+                  'id': 1,
+                  'event_id': 1,
+                  'team_code': '0A0A',
+                  'name': 'Team 1',
+                  'leader': {
+                    'id': 1,
+                    'name': 'John Doe',
+                  },
+                  'members': [
+                    {
+                      'id': 2,
+                      'name': 'Jane Doe',
+                    },
+                  ],
+                },
+              ));
+
+      final eventTeam = await eventRepository.joinEventTeam(1, 'team_code');
+
+      expect(
+        eventTeam,
+        const EventTeam(
+          id: 1,
+          eventId: 1,
+          teamCode: '0A0A',
+          name: 'Team 1',
+          leader: UserShort(id: 1, name: 'John Doe'),
+          members: [UserShort(id: 2, name: 'Jane Doe')],
+        ),
+      );
+    });
+
+    test('should throw exception if api call is unsuccessful on joinEventTeam',
+        () {
+      when(() => mockApiService.post('/me/events/1/team/join',
+          data: {'team_code': 'team_code'})).thenThrow(Exception('error'));
+
+      expect(() async => await eventRepository.joinEventTeam(1, 'team_code'),
+          throwsException);
     });
   });
 }

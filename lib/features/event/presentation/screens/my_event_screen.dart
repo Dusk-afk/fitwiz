@@ -1,11 +1,18 @@
+import 'package:fitwiz/core/setup_locator.dart';
 import 'package:fitwiz/features/event/data/models/my_event.dart';
+import 'package:fitwiz/features/event/data/repositories/event_repository.dart';
+import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
+import 'package:fitwiz/features/event/presentation/blocs/my_event_details/my_event_details_bloc.dart';
 import 'package:fitwiz/features/event/presentation/widgets/activity_card.dart';
+import 'package:fitwiz/features/event/presentation/widgets/team_card.dart';
 import 'package:fitwiz/utils/components/bottom_gradient.dart';
 import 'package:fitwiz/utils/components/custom_button.dart';
+import 'package:fitwiz/utils/components/custom_notifications.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
 import 'package:fitwiz/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -19,54 +26,63 @@ class MyEventScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.containerBg,
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: AppColors.containerBgSecondary,
-                  borderRadius: BorderRadius.circular(24.sp),
-                ),
-                child: Stack(
-                  children: [
-                    _buildContent(),
-                    const Positioned.fill(
-                      top: null,
-                      child: BottomGradient(),
+    return BlocProvider(
+      create: (context) => MyEventDetailsBloc(
+        locator<EventsBloc>(),
+        locator<EventRepository>(),
+      )..add(FetchMyEventDetails(eventId: myEvent.event.id)),
+      child: BlocListener<MyEventDetailsBloc, MyEventDetailsState>(
+        listener: _myEventDetailsBlocListener,
+        child: Scaffold(
+          backgroundColor: AppColors.containerBg,
+          body: SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      color: AppColors.containerBgSecondary,
+                      borderRadius: BorderRadius.circular(24.sp),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: 16.sp,
-                left: 16.sp,
-                right: 16.sp,
-                bottom: safeBottomPadding(16.sp),
-              ),
-              child: Row(
-                children: rowGap(
-                  16.sp,
-                  [
-                    // CustomBackButton(onPressed: Get.back),
-                    Expanded(
-                      child: CustomButton(
-                        onPressed: Get.back,
-                        label: "Okay",
-                      ),
+                    child: Stack(
+                      children: [
+                        _buildContent(),
+                        const Positioned.fill(
+                          top: null,
+                          child: BottomGradient(),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 16.sp,
+                    left: 16.sp,
+                    right: 16.sp,
+                    bottom: safeBottomPadding(16.sp),
+                  ),
+                  child: Row(
+                    children: rowGap(
+                      16.sp,
+                      [
+                        // CustomBackButton(onPressed: Get.back),
+                        Expanded(
+                          child: CustomButton(
+                            onPressed: Get.back,
+                            label: "Okay",
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -93,6 +109,7 @@ class MyEventScreen extends StatelessWidget {
             style: AppTextStyles.FFF_16_400(),
           ),
         ),
+        TeamCard(event: myEvent.event),
         16.verticalSpacingRadius,
         Text(
           'Distance',
@@ -141,5 +158,17 @@ class MyEventScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _myEventDetailsBlocListener(
+    BuildContext context,
+    MyEventDetailsState state,
+  ) {
+    if (state.errorMessage != null && !Get.isBottomSheetOpen!) {
+      CustomNotifications.notifyError(
+        context: context,
+        message: state.errorMessage!,
+      );
+    }
   }
 }

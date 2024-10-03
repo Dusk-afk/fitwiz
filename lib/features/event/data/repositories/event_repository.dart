@@ -1,6 +1,7 @@
 import 'package:fitwiz/core/services/api_service.dart';
 import 'package:fitwiz/core/setup_locator.dart';
 import 'package:fitwiz/features/event/data/models/event.dart';
+import 'package:fitwiz/features/event/data/models/event_team.dart';
 import 'package:fitwiz/features/event/data/models/my_event.dart';
 import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 
@@ -57,5 +58,29 @@ class EventRepository {
     // Therefore we will return the ticket number
 
     return response.data['ticket_number'];
+  }
+
+  Future<EventTeam?> getEventTeam(int eventId) async {
+    final response = await _apiService.get('/me/events/$eventId/team');
+
+    return response.data.isEmpty ? null : EventTeam.fromJson(response.data);
+  }
+
+  Future<EventTeam> createEventTeam(int eventId, String name) async {
+    final response = await _apiService.post(
+      '/me/events/$eventId/team',
+      data: {'name': name},
+    );
+
+    return EventTeam.fromJson(response.data);
+  }
+
+  Future<EventTeam> joinEventTeam(int eventId, String teamCode) async {
+    final response = await _apiService.post(
+      '/me/events/$eventId/team/join',
+      data: {'team_code': teamCode},
+    );
+
+    return EventTeam.fromJson(response.data);
   }
 }

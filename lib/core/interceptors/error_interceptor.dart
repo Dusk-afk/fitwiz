@@ -7,100 +7,69 @@ class ErrorInterceptor extends Interceptor {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        throw DeadlineExceededException(err.requestOptions);
+        throw DeadlineExceededException(err.requestOptions, err.response);
       case DioExceptionType.badResponse:
         switch (err.response?.statusCode) {
           case 400:
-            throw BadRequestException(err.requestOptions, err);
+            throw BadRequestException(err.requestOptions, err.response);
           case 401:
           case 403:
-            throw UnauthorizedException(err.requestOptions, err);
+            throw UnauthorizedException(err.requestOptions, err.response);
           case 404:
-            throw NotFoundException(err.requestOptions);
+            throw NotFoundException(err.requestOptions, err.response);
           case 405:
-            throw MethodNotAllowedException(err.requestOptions);
+            throw MethodNotAllowedException(err.requestOptions, err.response);
           case 409:
-            throw ConflictException(err.requestOptions);
+            throw ConflictException(err.requestOptions, err.response);
           case 412:
           case 422:
-            throw ValidationFailedException(err, err.requestOptions);
+            throw ValidationFailedException(err.requestOptions, err.response);
           case 500:
-            throw InternalServerErrorException(err.requestOptions, err: err);
+            throw InternalServerErrorException(
+                err.requestOptions, err.response);
         }
         break;
       case DioExceptionType.cancel:
         break;
       case DioExceptionType.badCertificate:
-        throw BadCertificateException(err.requestOptions);
+        throw BadCertificateException(err.requestOptions, err.response);
       case DioExceptionType.connectionError:
       case DioExceptionType.unknown:
-        throw NoInternetConnectionException(err.requestOptions);
+        throw NoInternetConnectionException(err.requestOptions, err.response);
     }
 
     return handler.next(err);
   }
 }
 
-class BadRequestException extends DioException {
-  DioException? err;
-  BadRequestException(RequestOptions r, [this.err])
-      : super(requestOptions: r, response: err?.response);
-
-  @override
-  String toString() {
-    try {
-      return err!.response!.data['message'];
-    } catch (e) {
-      return 'Invalid request';
-    }
-  }
+class BadRequestException extends FitwizApiException {
+  BadRequestException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 }
 
-class InternalServerErrorException extends DioException {
-  DioException? err;
-  InternalServerErrorException(RequestOptions r, {this.err})
-      : super(requestOptions: r, response: err?.response);
-
-  @override
-  String toString() {
-    return 'Unknown error occurred, please try again later.';
-  }
+class InternalServerErrorException extends FitwizApiException {
+  InternalServerErrorException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 }
 
-class ConflictException extends DioException {
-  ConflictException(RequestOptions r) : super(requestOptions: r);
-
-  @override
-  String toString() {
-    return 'Conflict occurred';
-  }
+class ConflictException extends FitwizApiException {
+  ConflictException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 }
 
-class UnauthorizedException extends DioException {
-  DioException? err;
-  UnauthorizedException(RequestOptions r, [this.err])
-      : super(requestOptions: r);
-
-  @override
-  String toString() {
-    if (err?.response?.data is Map) {
-      return err?.response?.data['message'] ?? 'Access denied';
-    }
-    return 'Access denied';
-  }
+class UnauthorizedException extends FitwizApiException {
+  UnauthorizedException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 }
 
-class NotFoundException extends DioException {
-  NotFoundException(RequestOptions r) : super(requestOptions: r);
-
-  @override
-  String toString() {
-    return 'The requested information could not be found';
-  }
+class NotFoundException extends FitwizApiException {
+  NotFoundException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 }
 
-class NoInternetConnectionException extends DioException {
-  NoInternetConnectionException(RequestOptions r) : super(requestOptions: r);
+class NoInternetConnectionException extends FitwizApiException {
+  NoInternetConnectionException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 
   @override
   String toString() {
@@ -108,8 +77,9 @@ class NoInternetConnectionException extends DioException {
   }
 }
 
-class DeadlineExceededException extends DioException {
-  DeadlineExceededException(RequestOptions r) : super(requestOptions: r);
+class DeadlineExceededException extends FitwizApiException {
+  DeadlineExceededException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 
   @override
   String toString() {
@@ -117,33 +87,15 @@ class DeadlineExceededException extends DioException {
   }
 }
 
-class AccessDeniedException extends DioException {
-  final DioException err;
-  AccessDeniedException(this.err, RequestOptions r) : super(requestOptions: r);
-
-  @override
-  String toString() {
-    String errorMessage = "Access Denied";
-    try {
-      errorMessage = err.response!.data['message'];
-    } catch (e) {
-      // pass
-    }
-
-    return errorMessage;
-  }
-}
-
-class ValidationFailedException extends DioException {
-  final DioException err;
-  ValidationFailedException(this.err, RequestOptions r)
-      : super(requestOptions: r);
+class ValidationFailedException extends FitwizApiException {
+  ValidationFailedException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 
   @override
   String toString() {
     String errorMessage = "Invalid input passed";
     try {
-      errorMessage = err.response!.data['message'];
+      errorMessage = res!.data['message'];
     } catch (e) {
       // pass
     }
@@ -152,8 +104,9 @@ class ValidationFailedException extends DioException {
   }
 }
 
-class TokenExpiredException extends DioException {
-  TokenExpiredException(RequestOptions r) : super(requestOptions: r);
+class TokenExpiredException extends FitwizApiException {
+  TokenExpiredException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 
   @override
   String toString() {
@@ -161,8 +114,9 @@ class TokenExpiredException extends DioException {
   }
 }
 
-class BadCertificateException extends DioException {
-  BadCertificateException(RequestOptions r) : super(requestOptions: r);
+class BadCertificateException extends FitwizApiException {
+  BadCertificateException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 
   @override
   String toString() {
@@ -170,11 +124,32 @@ class BadCertificateException extends DioException {
   }
 }
 
-class MethodNotAllowedException extends DioException {
-  MethodNotAllowedException(RequestOptions r) : super(requestOptions: r);
+class MethodNotAllowedException extends FitwizApiException {
+  MethodNotAllowedException(RequestOptions r, Response? res)
+      : super(requestOptions: r, res: res);
 
   @override
   String toString() {
     return 'Method not allowed';
+  }
+}
+
+class FitwizApiException extends DioException {
+  final Response? res;
+
+  FitwizApiException({required super.requestOptions, this.res});
+
+  @override
+  String? get message {
+    try {
+      return res?.data['message'];
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  String toString() {
+    return message ?? 'An error occurred';
   }
 }

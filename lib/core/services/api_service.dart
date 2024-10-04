@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:fitwiz/core/interceptors/error_interceptor.dart';
 import 'package:fitwiz/core/interceptors/token_interceptor.dart';
 import 'package:fitwiz/data/string_constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiService {
@@ -26,6 +27,7 @@ class ApiService {
       responseHeader: false,
       error: true,
       compact: true,
+      enabled: kDebugMode,
     ));
     _dio.interceptors.add(_errorInterceptor);
   }

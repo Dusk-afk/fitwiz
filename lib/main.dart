@@ -11,6 +11,7 @@ import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc
 import 'package:fitwiz/features/main/presentation/screens/main_screen.dart';
 import 'package:fitwiz/features/splash/presentation/screens/splash_screen.dart';
 import 'package:fitwiz/utils/theme/app_theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isAndroid) {
+  if (!kIsWeb && Platform.isAndroid) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
@@ -70,6 +71,33 @@ class MainApp extends StatelessWidget {
               "/splash": (context) => const SplashScreen(),
               "/login": (context) => const LoginScreen(),
               "/register": (context) => const RegisterScreen(),
+            },
+            builder: (context, c) {
+              Widget child = c ?? const SizedBox();
+              Size screenSize = MediaQuery.of(context).size;
+              double aspectRatio = screenSize.width / screenSize.height;
+              if (aspectRatio > 0.8) {
+                child = Stack(
+                  children: [
+                    child,
+                    Positioned.fill(
+                      child: Material(
+                        child: Center(
+                          child: Text(
+                            "Please rotate your device to portrait mode",
+                            style: TextStyle(
+                              fontSize: 25.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return child;
             },
           ),
         ),

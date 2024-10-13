@@ -57,3 +57,9 @@ flutter_launcher_icons:
   remove_alpha_ios: true
   image_path_ios: "assets/logo/logo_ios.png"
   desaturate_tinted_to_grayscale_ios: true
+
+  web:
+    generate: true
+    image_path: "assets/logo/logo_ios.png"
+    background_color: "#FFFFFF"
+    theme_color: "#621DBF"

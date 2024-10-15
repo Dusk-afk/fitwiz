@@ -31,7 +31,7 @@ class TowerEditSection extends StatelessWidget {
       children: [
         Text(
           'Society',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
         ),
         8.verticalSpacingRadius,
         _SocietyPicker(
@@ -41,7 +41,7 @@ class TowerEditSection extends StatelessWidget {
         16.verticalSpacingRadius,
         Text(
           'Tower',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
         ),
         8.verticalSpacingRadius,
         _TowerPicker(

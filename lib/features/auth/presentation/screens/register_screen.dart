@@ -6,6 +6,7 @@ import 'package:fitwiz/utils/components/custom_button.dart';
 import 'package:fitwiz/utils/components/custom_dropdown.dart';
 import 'package:fitwiz/utils/components/custom_notifications.dart';
 import 'package:fitwiz/utils/components/custom_text_field.dart';
+import 'package:fitwiz/utils/components/password_field.dart';
 import 'package:fitwiz/utils/misc/url_launcher_utils.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
@@ -27,7 +28,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  String? _selectedSalutation;
   String? _selectedGender;
   DateTime? _selectedDob;
   bool _termsAccepted = false;
@@ -49,76 +49,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: _authBlocListener,
       child: Scaffold(
-        backgroundColor: AppColors.containerBg,
+        backgroundColor: AppColors.primaryColor,
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
+          top: false,
           bottom: false,
           child: Form(
             key: _formKey,
             child: Column(
               children: [
+                SizedBox(
+                  height: safeTopPadding(24.h),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          onPressed: Get.back,
+                          style: ButtonStyle(
+                            minimumSize: WidgetStateProperty.all(Size.zero),
+                            padding: WidgetStateProperty.all(EdgeInsets.zero),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            overlayColor: WidgetStateProperty.all(
+                                AppColors.containerBg.withOpacity(0.05)),
+                          ),
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 24.sp,
+                          ),
+                        ),
+                        12.verticalSpace,
+                        Text(
+                          "Register",
+                          style: AppTextStyles.DDD_25_600(color: Colors.white),
+                        ),
+                        8.verticalSpace,
+                        Text(
+                          "Enter your details to register",
+                          style: AppTextStyles.FFF_16_400(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                24.verticalSpace,
                 Expanded(
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: AppColors.containerBgSecondary,
-                      borderRadius: BorderRadius.circular(24.sp),
+                      color: AppColors.primaryShades[0],
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(16.sp),
+                      ),
                     ),
                     clipBehavior: Clip.antiAlias,
                     child: ListView(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 16.sp,
+                        horizontal: 24.w,
                       ),
                       children: [
-                        32.verticalSpacingRadius,
-                        Center(
-                          child: Text(
-                            "Let's get started",
-                            textAlign: TextAlign.center,
-                            style: AppTextStyles.CCC_31_700(),
-                          ),
-                        ),
-                        40.verticalSpacingRadius,
-                        Text(
-                          "Salutation",
-                          textAlign: TextAlign.start,
-                          style: AppTextStyles.FFF_16_400(
-                              color: AppColors.textHeader),
-                        ),
-                        8.verticalSpacingRadius,
-                        CustomDropdown<String>(
-                          width: 80.sp,
-                          items: ["Mr", "Mrs", "Miss"]
-                              .map(
-                                (e) => DropdownMenuItem(
-                                  value: e,
-                                  child: Text(e),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedSalutation = value;
-                            });
-                          },
-                          normalBorderColor: AppColors.textLightest,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Salutation is required";
-                            }
-                            return null;
-                          },
-                        ),
-                        16.verticalSpacingRadius,
-                        Text(
-                          "Name",
-                          textAlign: TextAlign.start,
-                          style: AppTextStyles.FFF_16_400(
-                              color: AppColors.textHeader),
-                        ),
-                        8.verticalSpacingRadius,
+                        32.verticalSpace,
                         CustomTextField(
+                          title: "Full Name",
                           controller: _nameController,
-                          normalBorderColor: AppColors.textLightest,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Name is required";
@@ -126,15 +124,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                        16.verticalSpacingRadius,
-                        Text(
-                          "Gender",
-                          textAlign: TextAlign.start,
-                          style: AppTextStyles.FFF_16_400(
-                              color: AppColors.textHeader),
-                        ),
-                        8.verticalSpacingRadius,
+                        24.verticalSpace,
                         CustomDropdown<String>(
+                          title: "Gender",
                           items: ["Male", "Female", "Other"]
                               .map(
                                 (e) => DropdownMenuItem(
@@ -149,7 +141,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               _selectedGender = value;
                             });
                           },
-                          normalBorderColor: AppColors.textLightest,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Gender is required";
@@ -157,15 +148,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                        16.verticalSpacingRadius,
-                        Text(
-                          "Date of Birth",
-                          textAlign: TextAlign.start,
-                          style: AppTextStyles.FFF_16_400(
-                              color: AppColors.textHeader),
-                        ),
-                        8.verticalSpacingRadius,
+                        24.verticalSpace,
                         DobSelector(
+                          title: "Date of Birth",
                           validator: (value) {
                             if (value == null) {
                               return "Date of birth is required";
@@ -186,17 +171,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             });
                           },
                         ),
-                        16.verticalSpacingRadius,
-                        Text(
-                          "Email",
-                          textAlign: TextAlign.start,
-                          style: AppTextStyles.FFF_16_400(
-                              color: AppColors.textHeader),
-                        ),
-                        8.verticalSpacingRadius,
+                        24.verticalSpace,
                         CustomTextField(
+                          title: "Email",
                           controller: _emailController,
-                          normalBorderColor: AppColors.textLightest,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Email is required";
@@ -207,18 +185,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                        16.verticalSpacingRadius,
-                        Text(
-                          "Password",
-                          textAlign: TextAlign.start,
-                          style: AppTextStyles.FFF_16_400(
-                              color: AppColors.textHeader),
-                        ),
-                        8.verticalSpacingRadius,
-                        CustomTextField(
+                        24.verticalSpace,
+                        PasswordField(
+                          title: "Password",
                           controller: _passwordController,
-                          normalBorderColor: AppColors.textLightest,
-                          obscureText: true,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Password is required";
@@ -226,98 +196,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                        8.verticalSpacingRadius,
-                        CheckboxListTile.adaptive(
-                          value: _termsAccepted,
-                          onChanged: (value) {
-                            setState(() {
-                              _termsAccepted = value!;
-                              _termsError = false;
-                            });
-                          },
-                          title: RichText(
-                            text: TextSpan(
-                              text: "I accept the ",
-                              style: AppTextStyles.FFF_16_400(),
-                              children: [
-                                TextSpan(
-                                  text: "Privacy Policy",
-                                  style: AppTextStyles.FFF_16_700(
-                                    color: AppColors.primaryColor,
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      UrlLauncherUtils.launchURL(
-                                          '${StringConstants.BASE_URL}/privacy-policy');
-                                    },
-                                ),
-                                TextSpan(
-                                  text: " and ",
+                        24.verticalSpace,
+                        Row(
+                          children: [
+                            Checkbox.adaptive(
+                              isError: _termsError,
+                              value: _termsAccepted,
+                              onChanged: (value) {
+                                setState(() {
+                                  _termsAccepted = value!;
+                                  _termsError = false;
+                                });
+                              },
+                            ),
+                            16.horizontalSpace,
+                            Expanded(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: "I accept the ",
                                   style: AppTextStyles.FFF_16_400(),
+                                  children: [
+                                    TextSpan(
+                                      text: "Privacy Policy",
+                                      style: AppTextStyles.FFF_16_600(
+                                        color: AppColors.primaryColor,
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          UrlLauncherUtils.launchURL(
+                                              '${StringConstants.BASE_URL}/privacy-policy');
+                                        },
+                                    ),
+                                    TextSpan(
+                                      text: " and ",
+                                      style: AppTextStyles.FFF_16_400(),
+                                    ),
+                                    TextSpan(
+                                      text: "Terms and Conditions",
+                                      style: AppTextStyles.FFF_16_600(
+                                        color: AppColors.primaryColor,
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          UrlLauncherUtils.launchURL(
+                                              '${StringConstants.BASE_URL}/terms-and-conditions');
+                                        },
+                                    ),
+                                  ],
                                 ),
-                                TextSpan(
-                                  text: "Terms and Conditions",
-                                  style: AppTextStyles.FFF_16_700(
-                                    color: AppColors.primaryColor,
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      UrlLauncherUtils.launchURL(
-                                          '${StringConstants.BASE_URL}/terms-and-conditions');
-                                    },
-                                ),
-                              ],
-                            ),
-                          ),
-                          isError: _termsError,
+                              ),
+                            )
+                          ],
                         ),
-                        24.verticalSpacingRadius,
-                        const Divider(color: AppColors.textLightest),
-                        24.verticalSpacingRadius,
-                        Center(
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              text: "Already have an account? ",
-                              style: AppTextStyles.FFF_16_400(),
-                              children: [
-                                TextSpan(
-                                  text: "Login",
-                                  style: AppTextStyles.FFF_16_700(
-                                    color: AppColors.primaryColor,
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Get.offAndToNamed("/login");
-                                    },
-                                ),
-                              ],
-                            ),
-                          ),
+                        24.verticalSpace,
+                        BlocBuilder<AuthBloc, AuthState>(
+                          builder: (context, state) {
+                            return SizedBox(
+                              width: double.infinity,
+                              child: CustomButton(
+                                onPressed: _register,
+                                label: "Register",
+                                loading: state is AuthLoading,
+                              ),
+                            );
+                          },
                         ),
-                        24.verticalSpacingRadius,
+                        SizedBox(height: safeBottomPadding(24.h)),
                       ],
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: 16.sp,
-                    left: 16.sp,
-                    right: 16.sp,
-                    bottom: safeBottomPadding(16.sp),
-                  ),
-                  child: BlocBuilder<AuthBloc, AuthState>(
-                    builder: (context, state) {
-                      return SizedBox(
-                        width: double.infinity,
-                        child: CustomButton(
-                          onPressed: _register,
-                          label: "Register",
-                          loading: state is AuthLoading,
-                        ),
-                      );
-                    },
                   ),
                 ),
               ],
@@ -330,7 +276,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _authBlocListener(BuildContext context, AuthState state) {
     if (state is AuthLoggedIn) {
-      Get.offAndToNamed("/main");
+      Get.offNamedUntil("/main", (route) => false);
     } else if (state is AuthError) {
       CustomNotifications.notifyError(
         context: context,
@@ -355,7 +301,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     context.read<AuthBloc>().add(AuthRegister(
           data: RegisterUserData(
-            salutation: _selectedSalutation!,
+            salutation: "Mr",
             name: _nameController.text,
             gender: _selectedGender!,
             dateOfBirth: _selectedDob!,

@@ -91,7 +91,7 @@ class _TeamCard extends StatelessWidget {
           ),
           Text(
             "Team Members",
-            style: AppTextStyles.FFF_16_700(),
+            style: AppTextStyles.FFF_16_600(),
           ),
           4.verticalSpacingRadius,
           RichText(

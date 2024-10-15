@@ -39,7 +39,7 @@ class MyEventsHorizList extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16.sp),
           child: Text(
             "Participating Events",
-            style: AppTextStyles.DDD_25_700(),
+            style: AppTextStyles.DDD_25_600(),
           ),
         ),
         8.verticalSpacingRadius,
@@ -196,7 +196,7 @@ class _Card extends StatelessWidget {
             children: [
               Text(
                 myEvent.event.name,
-                style: AppTextStyles.FFF_16_700(),
+                style: AppTextStyles.FFF_16_600(),
               ),
               8.verticalSpacingRadius,
               Text(

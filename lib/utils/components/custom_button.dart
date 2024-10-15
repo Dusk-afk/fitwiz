@@ -171,17 +171,19 @@ class CustomButton extends StatelessWidget {
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith(_getBgColor),
           foregroundColor: WidgetStateProperty.resolveWith(_getFgColor),
-          shape: WidgetStateProperty.resolveWith((states) => StadiumBorder(
-                side: BorderSide(
-                  color: _getBorderColor(states),
-                  width: _getBorderWidth(states),
-                ),
-              )),
+          shape: WidgetStateProperty.resolveWith(
+              (states) => RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.sp),
+                    side: BorderSide(
+                      color: _getBorderColor(states),
+                      width: _getBorderWidth(states),
+                    ),
+                  )),
           overlayColor: WidgetStateProperty.resolveWith(_getOverlayColor),
           padding: WidgetStateProperty.all(
             padding ??
                 EdgeInsets.symmetric(
-                  horizontal: _iconOnly ? 12 : 32,
+                  horizontal: _iconOnly ? 12.w : 32.w,
                 ),
           ),
           minimumSize: WidgetStateProperty.all(Size(48.sp, 48.sp)),
@@ -194,21 +196,21 @@ class CustomButton extends StatelessWidget {
               children: [
                 if (leftIcon != null) ...[
                   leftIcon!,
-                  if (label != null || rightIcon != null) SizedBox(width: 8.sp),
+                  if (label != null || rightIcon != null) SizedBox(width: 8.w),
                 ],
                 if (label != null)
                   Text(
                     label!,
-                    style: AppTextStyles.FFF_16_700(),
+                    style: AppTextStyles.FFF_16_600(),
                   ),
                 if (loading) ...[
-                  SizedBox(width: 8.sp),
+                  SizedBox(width: 8.w),
                   SizedBox(
                     width: 16.sp,
                     height: 16.sp,
                     child: Builder(
                       builder: (context) {
-                        return CircularProgressIndicator(
+                        return CircularProgressIndicator.adaptive(
                           strokeWidth: 2.sp,
                           valueColor: AlwaysStoppedAnimation<Color>(
                             DefaultTextStyle.of(context).style.color!,
@@ -218,7 +220,7 @@ class CustomButton extends StatelessWidget {
                     ),
                   ),
                 ] else if (rightIcon != null) ...[
-                  if (label != null || leftIcon != null) SizedBox(width: 8.sp),
+                  if (label != null || leftIcon != null) SizedBox(width: 8.w),
                   rightIcon!,
                 ],
               ],
@@ -261,23 +263,23 @@ class CustomButton extends StatelessWidget {
     // Primary color scheme
     if (_type == _ButtonType.primary) {
       if (states.contains(WidgetState.disabled)) {
-        return AppColors.buttonDisabledPrimary;
+        return AppColors.primaryShades[5];
       }
-      return AppColors.buttonPrimary;
+      return AppColors.primaryColor;
     }
     // Secondary color scheme
     else if (_type == _ButtonType.secondary) {
       if (states.contains(WidgetState.disabled)) {
-        return AppColors.buttonDisabledSecondary;
+        return AppColors.primaryShades[0];
       }
-      return AppColors.buttonSecondary;
+      return AppColors.primaryShades[0];
     }
     // Outline color scheme
     else if (_type == _ButtonType.outline) {
       if (states.contains(WidgetState.disabled)) {
-        return AppColors.buttonDisabledOutline;
+        return AppColors.primaryShades[0];
       }
-      return AppColors.buttonOutline;
+      return AppColors.primaryShades[0];
     }
 
     return Colors.transparent;
@@ -288,26 +290,26 @@ class CustomButton extends StatelessWidget {
     // Primary color scheme
     if (_type == _ButtonType.primary) {
       if (states.contains(WidgetState.disabled)) {
-        return AppColors.buttonTextDisabledPrimary;
+        return AppColors.primaryShades[8];
       }
-      return AppColors.buttonTextPrimary;
+      return AppColors.primaryShades[0];
     }
     // Secondary color scheme
     else if (_type == _ButtonType.secondary) {
       if (states.contains(WidgetState.disabled)) {
-        return AppColors.buttonTextDisabledSecondary;
+        return AppColors.primaryShades[8];
       }
-      return AppColors.buttonTextSecondary;
+      return AppColors.primaryColor;
     }
     // Outline color scheme
     else if (_type == _ButtonType.outline) {
       if (states.contains(WidgetState.disabled)) {
-        return AppColors.buttonTextDisabledOutline;
+        return AppColors.primaryShades[8];
       }
       if (destructive) {
-        return AppColors.buttonTextOutlineDestructive;
+        return AppColors.redShades[9];
       }
-      return AppColors.buttonTextOutline;
+      return AppColors.primaryColor;
     }
 
     return Colors.transparent;
@@ -315,19 +317,14 @@ class CustomButton extends StatelessWidget {
 
   /// Returns the border color based on the button type and state
   Color _getBorderColor(Set<WidgetState> states) {
-    // Secondary color scheme
-    if (_type == _ButtonType.secondary) {
-      return AppColors.buttonSecondaryBorder;
-    }
-
     if (_type == _ButtonType.outline) {
       if (states.contains(WidgetState.disabled)) {
-        return AppColors.buttonOutlineBorderDisabled;
+        return AppColors.primaryShades[8];
       }
       if (destructive) {
-        return AppColors.buttonOutlineBorderDestructive;
+        return AppColors.redShades[9];
       }
-      return _outlineNormalColor ?? AppColors.buttonOutlineBorder;
+      return _outlineNormalColor ?? AppColors.primaryColor;
     }
 
     return Colors.transparent;
@@ -359,7 +356,7 @@ class CustomButton extends StatelessWidget {
     // Outline color scheme
     else if (_type == _ButtonType.outline) {
       if (destructive) {
-        return AppColors.buttonOutlineBorderDestructive.withOpacity(0.1);
+        return AppColors.redShades[9].withOpacity(0.1);
       }
       return Colors.grey.withOpacity(0.2);
     }

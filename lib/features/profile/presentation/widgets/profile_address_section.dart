@@ -71,7 +71,7 @@ class ProfileAddressSection extends StatelessWidget {
       children: [
         Text(
           'Name:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
         ),
         Text(
           address.name,
@@ -80,7 +80,7 @@ class ProfileAddressSection extends StatelessWidget {
         16.verticalSpacingRadius,
         Text(
           'Mobile:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
         ),
         Text(
           address.mobile,
@@ -89,7 +89,7 @@ class ProfileAddressSection extends StatelessWidget {
         16.verticalSpacingRadius,
         Text(
           'Address:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
         ),
         Text(
           '${address.line1}\n${address.line2 ?? ''}'.trim(),
@@ -98,7 +98,7 @@ class ProfileAddressSection extends StatelessWidget {
         16.verticalSpacingRadius,
         Text(
           'Landmark:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
         ),
         Text(
           address.landmark ?? 'No landmark',
@@ -107,7 +107,7 @@ class ProfileAddressSection extends StatelessWidget {
         16.verticalSpacingRadius,
         Text(
           'Pincode:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
         ),
         Text(
           address.pincode.pincode.toString(),
@@ -116,7 +116,7 @@ class ProfileAddressSection extends StatelessWidget {
         16.verticalSpacingRadius,
         Text(
           'City:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
         ),
         Text(
           address.pincode.city,
@@ -125,7 +125,7 @@ class ProfileAddressSection extends StatelessWidget {
         16.verticalSpacingRadius,
         Text(
           'State:',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
         ),
         Text(
           address.pincode.state,
@@ -135,7 +135,7 @@ class ProfileAddressSection extends StatelessWidget {
           16.verticalSpacingRadius,
           Text(
             'Society:',
-            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+            style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
           ),
           Text(
             address.tower!.society.name,
@@ -144,7 +144,7 @@ class ProfileAddressSection extends StatelessWidget {
           16.verticalSpacingRadius,
           Text(
             'Tower:',
-            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+            style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
           ),
           Text(
             address.tower!.name,

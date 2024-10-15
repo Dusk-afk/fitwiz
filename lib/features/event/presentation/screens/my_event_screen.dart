@@ -98,7 +98,7 @@ class MyEventScreen extends StatelessWidget {
         Center(
           child: Text(
             myEvent.event.name,
-            style: AppTextStyles.DDD_25_700(),
+            style: AppTextStyles.DDD_25_600(),
           ),
         ),
         8.verticalSpacingRadius,
@@ -113,7 +113,7 @@ class MyEventScreen extends StatelessWidget {
         16.verticalSpacingRadius,
         Text(
           'Distance',
-          style: AppTextStyles.FFF_16_700(),
+          style: AppTextStyles.FFF_16_600(),
         ),
         Text(
           "${myEvent.getTotalDistanceKm().toStringAsFixed(2)} Km",
@@ -122,7 +122,7 @@ class MyEventScreen extends StatelessWidget {
         8.verticalSpacingRadius,
         Text(
           'Time',
-          style: AppTextStyles.FFF_16_700(),
+          style: AppTextStyles.FFF_16_600(),
         ),
         Text(
           myEvent.getFormattedTotalDuration(),
@@ -131,7 +131,7 @@ class MyEventScreen extends StatelessWidget {
         8.verticalSpacingRadius,
         Text(
           'Average Pace',
-          style: AppTextStyles.FFF_16_700(),
+          style: AppTextStyles.FFF_16_600(),
         ),
         Text(
           "${myEvent.getFormattedAveragePace()} / Km",
@@ -140,7 +140,7 @@ class MyEventScreen extends StatelessWidget {
         16.verticalSpacingRadius,
         Text(
           'Activities:',
-          style: AppTextStyles.FFF_16_700(),
+          style: AppTextStyles.FFF_16_600(),
         ),
         8.verticalSpacingRadius,
         if (myEvent.activities.isEmpty)

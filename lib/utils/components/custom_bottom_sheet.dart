@@ -79,7 +79,7 @@ class CustomBottomSheet {
                           Center(
                             child: Text(
                               title,
-                              style: titleStyle ?? AppTextStyles.DDD_25_700(),
+                              style: titleStyle ?? AppTextStyles.DDD_25_600(),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -170,7 +170,7 @@ class CustomBottomSheet {
     return showSimpleSheet<T>(
       icon: SizedBox.square(
         dimension: 24.sp,
-        child: const CircularProgressIndicator(
+        child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation(AppColors.primaryColor),
         ),
       ),

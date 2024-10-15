@@ -56,7 +56,7 @@ class _PincodeEditSectionState extends State<PincodeEditSection> {
             children: [
               Text(
                 "Pincode",
-                style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
               ),
               8.verticalSpacingRadius,
               CustomTextField(
@@ -83,7 +83,7 @@ class _PincodeEditSectionState extends State<PincodeEditSection> {
               16.verticalSpacingRadius,
               Text(
                 "City",
-                style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
               ),
               8.verticalSpacingRadius,
               CustomTextField(
@@ -94,7 +94,7 @@ class _PincodeEditSectionState extends State<PincodeEditSection> {
               16.verticalSpacingRadius,
               Text(
                 "State",
-                style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
               ),
               8.verticalSpacingRadius,
               CustomTextField(
@@ -105,7 +105,7 @@ class _PincodeEditSectionState extends State<PincodeEditSection> {
               16.verticalSpacingRadius,
               Text(
                 "Country",
-                style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
               ),
               8.verticalSpacingRadius,
               CustomTextField(

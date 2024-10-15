@@ -68,4 +68,8 @@ final class CustomIcons {
   static const String edit = 'assets/icons/edit.svg';
   static const String team = 'assets/icons/team.svg';
   static const String team_create = 'assets/icons/team_create.svg';
+  static const String app_logo = 'assets/icons/app_logo.svg';
+  static const String eye = 'assets/icons/eye.svg';
+  static const String eye_off = 'assets/icons/eye_off.svg';
+  static const String calendar3 = 'assets/icons/calendar3.svg';
 }

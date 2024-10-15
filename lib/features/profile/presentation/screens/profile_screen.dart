@@ -110,7 +110,7 @@ class ProfileScreen extends StatelessWidget {
         Center(
           child: Text(
             "${user.salutation}. ${user.name}",
-            style: AppTextStyles.DDD_25_700(),
+            style: AppTextStyles.DDD_25_600(),
           ),
         ),
         24.verticalSpacingRadius,
@@ -133,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
         children: [
           Text(
             'Name:',
-            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+            style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
           ),
           Text(
             user.name,
@@ -142,7 +142,7 @@ class ProfileScreen extends StatelessWidget {
           16.verticalSpacingRadius,
           Text(
             'Email:',
-            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+            style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
           ),
           Text(
             user.email,
@@ -151,7 +151,7 @@ class ProfileScreen extends StatelessWidget {
           16.verticalSpacingRadius,
           Text(
             'Gender:',
-            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+            style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
           ),
           Text(
             user.gender,
@@ -160,7 +160,7 @@ class ProfileScreen extends StatelessWidget {
           16.verticalSpacingRadius,
           Text(
             'Date of Birth:',
-            style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+            style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
           ),
           Text(
             DateFormat('dd MMMM yyyy').format(user.dateOfBirth),

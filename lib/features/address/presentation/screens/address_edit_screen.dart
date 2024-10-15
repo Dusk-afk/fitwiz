@@ -186,7 +186,7 @@ class _AddressEditScreenState extends State<AddressEditScreen> {
           Center(
             child: Text(
               "${_editMode ? "Edit" : "Create"} Address",
-              style: AppTextStyles.DDD_25_700(),
+              style: AppTextStyles.DDD_25_600(),
             ),
           ),
           32.verticalSpacingRadius,
@@ -196,7 +196,7 @@ class _AddressEditScreenState extends State<AddressEditScreen> {
               children: [
                 Text(
                   "Name",
-                  style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                  style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
                 ),
                 8.verticalSpacingRadius,
                 CustomTextField(
@@ -218,7 +218,7 @@ class _AddressEditScreenState extends State<AddressEditScreen> {
                 16.verticalSpacingRadius,
                 Text(
                   "Address Line 1",
-                  style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                  style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
                 ),
                 8.verticalSpacingRadius,
                 CustomTextField(
@@ -233,7 +233,7 @@ class _AddressEditScreenState extends State<AddressEditScreen> {
                 16.verticalSpacingRadius,
                 Text(
                   "Address Line 2",
-                  style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                  style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
                 ),
                 8.verticalSpacingRadius,
                 CustomTextField(
@@ -243,7 +243,7 @@ class _AddressEditScreenState extends State<AddressEditScreen> {
                 16.verticalSpacingRadius,
                 Text(
                   "Landmark",
-                  style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                  style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
                 ),
                 8.verticalSpacingRadius,
                 CustomTextField(
@@ -253,7 +253,7 @@ class _AddressEditScreenState extends State<AddressEditScreen> {
                 16.verticalSpacingRadius,
                 Text(
                   "Mobile",
-                  style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                  style: AppTextStyles.FFF_16_600(color: AppColors.textHeader),
                 ),
                 8.verticalSpacingRadius,
                 CustomTextField(

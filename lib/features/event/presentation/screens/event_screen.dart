@@ -116,7 +116,7 @@ class EventScreen extends StatelessWidget {
           child: Text(
             event.name,
             textAlign: TextAlign.center,
-            style: AppTextStyles.DDD_25_700(),
+            style: AppTextStyles.DDD_25_600(),
           ),
         ),
         16.verticalSpacingRadius,

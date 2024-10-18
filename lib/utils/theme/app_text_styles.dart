@@ -36,9 +36,16 @@ class AppTextStyles {
         height: 32.5 / 25,
       );
 
-  static TextStyle EEE_20_700({Color? color}) => GoogleFonts.poppins(
+  static TextStyle EEE_20_600({Color? color}) => GoogleFonts.poppins(
         fontSize: 20.sp,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w600,
+        color: color,
+        height: 31.6 / 20,
+      );
+
+  static TextStyle EEE_20_500({Color? color}) => GoogleFonts.poppins(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w500,
         color: color,
         height: 31.6 / 20,
       );
@@ -69,7 +76,7 @@ class AppTextStyles {
   static TextStyle FFF_16_400({Color? color}) => GoogleFonts.poppins(
         fontSize: 16.sp,
         fontWeight: FontWeight.w400,
-        color: color ?? AppColors.textParagraph,
+        color: color,
         height: 24.32 / 16,
       );
 
@@ -89,6 +96,12 @@ class AppTextStyles {
 
   static TextStyle FFF_10_400({Color? color}) => GoogleFonts.poppins(
         fontSize: 10.sp,
+        fontWeight: FontWeight.w400,
+        color: color,
+      );
+
+  static TextStyle FFF_14_400({Color? color}) => GoogleFonts.poppins(
+        fontSize: 14.sp,
         fontWeight: FontWeight.w400,
         color: color,
       );

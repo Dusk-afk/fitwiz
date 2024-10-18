@@ -134,6 +134,7 @@ class AppColors {
   ];
 
   static Color get primaryColor => primaryShades[9];
+  static Color get white => primaryShades[0];
 
   static const Color primaryDarkColor = Color(0xFF4E1799);
   static const Color transparentPrimaryColor = Color.fromRGBO(223, 210, 242, 1);
@@ -202,6 +203,6 @@ class AppColors {
   static const Color stravaPrimary = Color(0xFFFC4C02);
 
   // -------- SHIMMER COLORS --------
-  static const Color shimmerBase = Color(0xFFE1E0EC);
-  static const Color shimmerHighlight = Color(0xFFD0CEDD);
+  static Color get shimmerBase => primaryShades[4];
+  static Color get shimmerHighlight => primaryShades[5];
 }

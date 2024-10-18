@@ -1,20 +1,20 @@
+import 'package:fitwiz/features/custom_scaffold/data/models/custom_nav_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
-import 'package:fitwiz/utils/models/custom_nav_bar_item.dart';
 import 'package:fitwiz/utils/misc/widget_utils.dart';
 
 class CustomNavBar extends StatefulWidget {
   final List<CustomNavBarItem> items;
   final int selectedIndex;
-  final ValueChanged<int> onItemSelected;
+  final ValueChanged<int>? onIndexChanged;
 
   const CustomNavBar({
     super.key,
     required this.items,
     required this.selectedIndex,
-    required this.onItemSelected,
+    required this.onIndexChanged,
   });
 
   @override
@@ -25,10 +25,10 @@ class _CustomNavBarState extends State<CustomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.containerBg,
+      color: AppColors.greyShades[0],
       padding: EdgeInsets.only(
-        top: 10.sp,
-        bottom: safeBottomPadding(6.sp),
+        top: 12.h,
+        bottom: safeBottomPadding(0),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,7 +38,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               child: _Item(
                 item: widget.items[i],
                 isSelected: i == widget.selectedIndex,
-                onPressed: () => widget.onItemSelected(i),
+                onPressed: () => widget.onIndexChanged?.call(i),
               ),
             )
         ],
@@ -65,23 +65,23 @@ class _Item extends StatelessWidget {
       children: [
         AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 200),
-          style: AppTextStyles.HHH_10_700(
-            color: isSelected ? AppColors.textHeader : AppColors.textLight,
+          style: AppTextStyles.GGG_12_400(
+            color:
+                isSelected ? AppColors.primaryColor : AppColors.greyShades[11],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox.square(
-                dimension: 24.sp,
+                dimension: 16.sp,
                 child: Center(
-                  child: item.activeIcon == null
-                      ? item.icon
-                      : AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 200),
-                          child: isSelected ? item.activeIcon : item.icon,
-                        ),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    child: isSelected ? item.activeIcon : item.icon,
+                  ),
                 ),
               ),
+              4.verticalSpace,
               Text(item.label),
             ],
           ),

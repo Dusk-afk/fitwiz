@@ -254,7 +254,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return SizedBox(
                               width: double.infinity,
                               child: CustomButton(
-                                onPressed: _register,
+                                onPressed:
+                                    state is AuthLoading ? null : _register,
                                 label: "Register",
                                 loading: state is AuthLoading,
                               ),

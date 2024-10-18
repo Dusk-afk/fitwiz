@@ -1,9 +1,7 @@
 import 'package:fitwiz/features/auth/data/models/user.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:fitwiz/features/profile/presentation/widgets/missing_strava_connection.dart';
 import 'package:fitwiz/features/profile/presentation/widgets/profile_address_section.dart';
 import 'package:fitwiz/features/profile/presentation/widgets/profile_details_section.dart';
-import 'package:fitwiz/features/profile/presentation/widgets/strava_connected.dart';
 import 'package:fitwiz/utils/components/bottom_gradient.dart';
 import 'package:fitwiz/utils/components/custom_button.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
@@ -100,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildProfileContent(User user) {
-    bool stravaConnected = false;
+    // bool stravaConnected = false;
     return ListView(
       padding: EdgeInsets.symmetric(
         horizontal: 16.sp,

@@ -47,7 +47,7 @@ class ProfileDetailsSection extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: AppTextStyles.EEE_20_700(color: AppColors.textHeader),
+                  style: AppTextStyles.EEE_20_600(color: AppColors.textHeader),
                 ),
               ),
               8.horizontalSpaceRadius,

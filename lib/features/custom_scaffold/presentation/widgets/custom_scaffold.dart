@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 /// A custom scaffold which should be used as the base scaffold for the app.
 ///
@@ -92,12 +93,24 @@ class CustomScaffold extends StatelessWidget {
         right: 24.w,
         bottom: bottomPadding,
       ),
-      child: CustomButton(
-        onPressed: action!.onPressed,
-        label: action!.label,
-        rightIcon: action!.rightIcon,
-        leftIcon: action!.leftIcon,
-      ),
+      child: action!.shimmered
+          ? Shimmer.fromColors(
+              baseColor: AppColors.shimmerBase,
+              highlightColor: AppColors.shimmerHighlight,
+              child: Container(
+                height: 48.sp,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(8.sp),
+                ),
+              ),
+            )
+          : CustomButton(
+              onPressed: action!.onPressed,
+              label: action!.label,
+              rightIcon: action!.rightIcon,
+              leftIcon: action!.leftIcon,
+            ),
     );
   }
 

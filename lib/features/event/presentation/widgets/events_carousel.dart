@@ -140,6 +140,17 @@ class _EventsCarouselState extends State<EventsCarousel> {
       return _buildError(widget.error!);
     }
 
+    if (widget.itemCount == 0) {
+      return Center(
+        child: Text(
+          "No events available",
+          style: AppTextStyles.FFF_16_400(
+            color: AppColors.greyShades[11],
+          ),
+        ),
+      );
+    }
+
     return _buildList();
   }
 

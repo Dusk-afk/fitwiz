@@ -73,11 +73,14 @@ class AppTextStyles {
         height: 24.32 / 16,
       );
 
-  static TextStyle FFF_16_400({Color? color}) => GoogleFonts.poppins(
+  static TextStyle FFF_16_400({Color? color, bool strike = false}) =>
+      GoogleFonts.poppins(
         fontSize: 16.sp,
         fontWeight: FontWeight.w400,
         color: color,
         height: 24.32 / 16,
+        decoration: strike ? TextDecoration.lineThrough : null,
+        decorationColor: color,
       );
 
   static TextStyle FFF_16_300({Color? color}) => GoogleFonts.poppins(
@@ -91,6 +94,13 @@ class AppTextStyles {
         fontSize: 18.sp,
         fontWeight: FontWeight.w400,
         color: color ?? AppColors.textParagraph,
+        height: 23.76 / 18,
+      );
+
+  static TextStyle FFF_18_500({Color? color}) => GoogleFonts.poppins(
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w500,
+        color: color,
         height: 23.76 / 18,
       );
 

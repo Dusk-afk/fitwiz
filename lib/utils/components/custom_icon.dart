@@ -7,6 +7,8 @@ class CustomIcon extends StatelessWidget {
   final String path;
   final double? size;
   final double? containerSize;
+  final double? containerRadius;
+  final Color? containerColor;
   final Color? color;
   final bool useOriginalColor;
 
@@ -15,6 +17,8 @@ class CustomIcon extends StatelessWidget {
     super.key,
     this.size,
     this.containerSize,
+    this.containerRadius,
+    this.containerColor,
     this.color,
     this.useOriginalColor = false,
   }) : assert(path.endsWith(".svg"), 'Only supports svg files');
@@ -34,8 +38,15 @@ class CustomIcon extends StatelessWidget {
     );
 
     if (containerSize != null) {
-      icon = SizedBox.square(
-        dimension: containerSize!,
+      icon = Container(
+        width: containerSize!,
+        height: containerSize!,
+        decoration: BoxDecoration(
+          color: containerColor,
+          borderRadius: containerRadius != null
+              ? BorderRadius.circular(containerRadius!)
+              : null,
+        ),
         child: Center(child: icon),
       );
     }
@@ -72,4 +83,10 @@ final class CustomIcons {
   static const String eye = 'assets/icons/eye.svg';
   static const String eye_off = 'assets/icons/eye_off.svg';
   static const String calendar3 = 'assets/icons/calendar3.svg';
+  static const String team_solo = 'assets/icons/team_solo.svg';
+  static const String team_couple = 'assets/icons/team_couple.svg';
+  static const String team_friends = 'assets/icons/team_friends.svg';
+  static const String trophy = 'assets/icons/trophy.svg';
+  static const String medal = 'assets/icons/medal.svg';
+  static const String tshirt = 'assets/icons/tshirt.svg';
 }

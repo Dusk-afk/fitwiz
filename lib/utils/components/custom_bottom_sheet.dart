@@ -51,10 +51,10 @@ class CustomBottomSheet {
           icons: icons,
           iconContainerSize: iconContainerSize,
           topPadding: topPadding,
-          bgColor: AppColors.containerBg,
+          bgColor: AppColors.white,
           content: Container(
-            decoration: const BoxDecoration(
-              color: AppColors.containerBg,
+            decoration: BoxDecoration(
+              color: AppColors.white,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -69,7 +69,7 @@ class CustomBottomSheet {
                         bottomPadding ?? 22.sp,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.containerBg,
+                        color: AppColors.white,
                         borderRadius: BorderRadius.vertical(
                           bottom: Radius.circular(24.sp),
                         ),
@@ -94,25 +94,25 @@ class CustomBottomSheet {
                         ],
                       ),
                     ),
-                    Positioned.fill(
-                      top: null,
-                      child: Container(
-                        height: 40.sp,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              const Color(0xFFF3F2FC).withOpacity(0),
-                              const Color(0xFFF3F2FC).withOpacity(0.6),
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                          borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(24.sp),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Positioned.fill(
+                    //   top: null,
+                    //   child: Container(
+                    //     height: 40.sp,
+                    //     decoration: BoxDecoration(
+                    //       gradient: LinearGradient(
+                    //         colors: [
+                    //           AppColors.primaryShades[3].withOpacity(0),
+                    //           AppColors.primaryShades[3].withOpacity(0.6),
+                    //         ],
+                    //         begin: Alignment.topCenter,
+                    //         end: Alignment.bottomCenter,
+                    //       ),
+                    //       borderRadius: BorderRadius.vertical(
+                    //         bottom: Radius.circular(24.sp),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
 
@@ -120,13 +120,13 @@ class CustomBottomSheet {
                 if (actions != null)
                   Padding(
                     padding: EdgeInsets.fromLTRB(
-                      8.sp,
-                      16.sp,
-                      8.sp,
-                      safeBottomPadding(8.sp),
+                      16.w,
+                      16.h,
+                      16.w,
+                      safeBottomPadding(8.h),
                     ),
                     child: Row(
-                      children: rowGap(16, actions),
+                      children: rowGap(16.w, actions),
                     ),
                   ),
               ],

@@ -22,7 +22,7 @@ class ErrorNotification extends StatelessWidget {
       margin: EdgeInsets.only(top: 32.sp),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24.sp),
+        borderRadius: BorderRadius.circular(12.sp),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFFD0CEDD).withOpacity(0.6),
@@ -37,7 +37,7 @@ class ErrorNotification extends StatelessWidget {
             height: 40.sp,
             decoration: BoxDecoration(
               color: AppColors.warning,
-              borderRadius: BorderRadius.circular(16.sp),
+              borderRadius: BorderRadius.circular(8.sp),
             ),
             child: Center(
               child: CustomIcon(

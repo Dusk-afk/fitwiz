@@ -77,45 +77,40 @@ class _EventsCarouselState extends State<EventsCarousel> {
                   child: Shimmer.fromColors(
                     baseColor: AppColors.shimmerBase,
                     highlightColor: AppColors.shimmerHighlight,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 200.sp,
-                          height: 16.sp,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8.sp),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Spacer(),
+                          Container(
+                            width: 180.sp,
+                            height: 16.sp,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8.sp),
+                            ),
                           ),
-                        ),
-                        8.verticalSpacingRadius,
-                        Container(
-                          width: 300.sp,
-                          height: 16.sp,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8.sp),
+                          8.verticalSpace,
+                          Container(
+                            width: 100.sp,
+                            height: 16.sp,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8.sp),
+                            ),
                           ),
-                        ),
-                        8.verticalSpacingRadius,
-                        Container(
-                          width: 200.sp,
-                          height: 16.sp,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8.sp),
+                          8.verticalSpace,
+                          Container(
+                            width: 120.sp,
+                            height: 16.sp,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8.sp),
+                            ),
                           ),
-                        ),
-                        const Spacer(),
-                        Container(
-                          width: 100.sp,
-                          height: 16.sp,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8.sp),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -10,6 +10,7 @@ String _dateTimeToJson(DateTime dateTime) {
 
 @JsonSerializable()
 class User extends Equatable {
+  final int id;
   final String salutation;
   final String name;
   final String gender;
@@ -20,6 +21,7 @@ class User extends Equatable {
   final bool isAdmin;
 
   const User({
+    required this.id,
     required this.salutation,
     required this.name,
     required this.gender,
@@ -34,6 +36,7 @@ class User extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         salutation,
         name,
         gender,

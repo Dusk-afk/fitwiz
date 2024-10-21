@@ -5,6 +5,7 @@ void main() {
   group('User', () {
     test('should return a valid model when the JSON is valid', () {
       final Map<String, dynamic> jsonMap = {
+        "id": 1,
         "salutation": "Mr",
         "name": "Piyush",
         "gender": "Male",
@@ -16,6 +17,7 @@ void main() {
       expect(
         User.fromJson(jsonMap),
         User(
+          id: 1,
           salutation: "Mr",
           name: "Piyush",
           gender: "Male",
@@ -28,6 +30,7 @@ void main() {
 
     test('should return a JSON map containing the proper data', () {
       final user = User(
+        id: 1,
         salutation: "Mr",
         name: "Piyush",
         gender: "Male",
@@ -37,6 +40,7 @@ void main() {
       );
 
       final expectedJson = {
+        "id": 1,
         "salutation": "Mr",
         "name": "Piyush",
         "gender": "Male",

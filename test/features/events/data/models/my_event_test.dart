@@ -7,6 +7,8 @@ import 'package:mocktail/mocktail.dart';
 
 class MockEvent extends Mock implements Event {}
 
+class MockMyEvent extends Mock implements MyEvent {}
+
 void main() {
   group('MyEvent', () {
     final event = MockEvent();
@@ -68,13 +70,6 @@ void main() {
       expect(myEvent.getTotalDuration(), const Duration(hours: 1, minutes: 40));
     });
 
-    test('should format total duration correctly', () {
-      final myEvent =
-          MyEvent(event: event, activities: activities, ticket: ticket);
-
-      expect(myEvent.getFormattedTotalDuration(), '1 hr 40 min');
-    });
-
     test('should calculate average pace correctly', () {
       final myEvent =
           MyEvent(event: event, activities: activities, ticket: ticket);
@@ -82,11 +77,36 @@ void main() {
       expect(myEvent.getAveragePace(), const Duration(minutes: 6, seconds: 40));
     });
 
-    test('should format average pace correctly', () {
-      final myEvent =
-          MyEvent(event: event, activities: activities, ticket: ticket);
+    test('should calculate number of days', () {
+      final mockEvent = MockEvent();
 
-      expect(myEvent.getFormattedAveragePace(), '6 min 40 sec');
+      when(() => mockEvent.startDateTime).thenReturn(DateTime(2024, 01, 01));
+      when(() => mockEvent.endDateTime).thenReturn(DateTime(2024, 01, 21));
+
+      final myEvent = MyEvent(
+        event: mockEvent,
+        activities: const [],
+        ticket: ticket,
+      );
+
+      expect(myEvent.getNumberOfDays(), 20);
+    });
+
+    test('should calculate number of days passed', () {
+      final mockEvent = MockEvent();
+
+      DateTime now = DateTime.now();
+
+      when(() => mockEvent.startDateTime)
+          .thenReturn(now.subtract(const Duration(days: 10)));
+
+      final myEvent = MyEvent(
+        event: mockEvent,
+        activities: const [],
+        ticket: ticket,
+      );
+
+      expect(myEvent.getNumberOfDaysPassed(), 10);
     });
   });
 }

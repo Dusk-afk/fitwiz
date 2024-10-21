@@ -265,6 +265,9 @@ class CustomButton extends StatelessWidget {
       if (states.contains(WidgetState.disabled)) {
         return AppColors.primaryShades[5];
       }
+      if (destructive) {
+        return AppColors.redShades[9];
+      }
       return AppColors.primaryColor;
     }
     // Secondary color scheme

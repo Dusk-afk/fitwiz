@@ -43,3 +43,15 @@ final class MyEventDetailsJoinTeam extends MyEventDetailsEvent {
   @override
   List<Object> get props => [event, teamCode];
 }
+
+/// This will act as the leave event team (if a member) or delete team (if the leader)
+final class MyEventDetailsLeaveTeam extends MyEventDetailsEvent {
+  final Event event;
+
+  const MyEventDetailsLeaveTeam({
+    required this.event,
+  });
+
+  @override
+  List<Object> get props => [event];
+}

@@ -89,4 +89,11 @@ final class CustomIcons {
   static const String trophy = 'assets/icons/trophy.svg';
   static const String medal = 'assets/icons/medal.svg';
   static const String tshirt = 'assets/icons/tshirt.svg';
+  static const String distance_path = 'assets/icons/distance_path.svg';
+  static const String stopwatch = 'assets/icons/stopwatch.svg';
+  static const String speed = 'assets/icons/speed.svg';
+  static const String copy = 'assets/icons/copy.svg';
+  static const String crown = 'assets/icons/crown.svg';
+  static const String plus = 'assets/icons/plus.svg';
+  static const String delete = 'assets/icons/delete.svg';
 }

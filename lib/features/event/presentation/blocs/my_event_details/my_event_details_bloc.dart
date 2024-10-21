@@ -22,6 +22,7 @@ class MyEventDetailsBloc
     on<FetchMyEventDetails>(_onFetchMyEventDetails);
     on<MyEventDetailsCreateTeam>(_onMyEventDetailsCreateTeam);
     on<MyEventDetailsJoinTeam>(_onMyEventDetailsJoinTeam);
+    on<MyEventDetailsLeaveTeam>(_onMyEventDetailsLeaveTeam);
   }
 
   void _onFetchMyEventDetails(
@@ -107,6 +108,43 @@ class MyEventDetailsBloc
 
       emit(oldState.copyWith(
         eventTeam: Nullable(team),
+        updatingMessage: Nullable(null),
+        errorMessage: Nullable(null),
+      ));
+    } catch (e) {
+      emit(oldState.copyWith(
+        updatingMessage: Nullable(null),
+        errorMessage: Nullable(e.toString()),
+      ));
+    }
+  }
+
+  void _onMyEventDetailsLeaveTeam(
+    MyEventDetailsLeaveTeam event,
+    Emitter<MyEventDetailsState> emit,
+  ) async {
+    MyEventDetailsState oldState = state;
+    if (state.event == null || state.isLoading || state.isUpdating) {
+      // Events not loaded or already updating
+      return emit(oldState);
+    }
+
+    if (state.eventTeam == null) {
+      // No team to leave
+      return emit(oldState);
+    }
+
+    try {
+      emit(oldState.copyWith(
+        isUpdating: true,
+        updatingMessage: Nullable('Leaving team'),
+        errorMessage: Nullable(null),
+      ));
+
+      await _eventRepository.leaveEventTeam(event.event.id);
+
+      emit(oldState.copyWith(
+        eventTeam: Nullable(null),
         updatingMessage: Nullable(null),
         errorMessage: Nullable(null),
       ));

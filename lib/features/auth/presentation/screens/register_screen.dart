@@ -214,11 +214,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: RichText(
                                 text: TextSpan(
                                   text: "I accept the ",
-                                  style: AppTextStyles.FFF_16_400(),
+                                  style: AppTextStyles.FFF_16_400(
+                                    color: AppColors.greyShades[12],
+                                  ),
                                   children: [
                                     TextSpan(
                                       text: "Privacy Policy",
-                                      style: AppTextStyles.FFF_16_600(
+                                      style: AppTextStyles.FFF_16_400(
                                         color: AppColors.primaryColor,
                                       ),
                                       recognizer: TapGestureRecognizer()
@@ -233,7 +235,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                     TextSpan(
                                       text: "Terms and Conditions",
-                                      style: AppTextStyles.FFF_16_600(
+                                      style: AppTextStyles.FFF_16_400(
                                         color: AppColors.primaryColor,
                                       ),
                                       recognizer: TapGestureRecognizer()

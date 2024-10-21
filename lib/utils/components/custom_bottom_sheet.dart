@@ -70,9 +70,6 @@ class CustomBottomSheet {
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.white,
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(24.sp),
-                        ),
                       ),
                       child: Column(
                         children: [
@@ -202,7 +199,7 @@ class CustomSheet extends StatelessWidget {
   }) : icons = icons ?? const [];
 
   double get iSize => iconContainerSize ?? 88.sp;
-  double get tPad => topPadding ?? 32.sp;
+  double get tPad => topPadding ?? 24.sp;
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +229,7 @@ class CustomSheet extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: bgColor ?? AppColors.containerBgSecondary,
                           borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(24.sp),
+                            top: Radius.circular(12.sp),
                           ),
                         ),
                       ),
@@ -260,7 +257,7 @@ class CustomSheet extends StatelessWidget {
                 height: 24.sp,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(24.sp),
+                    top: Radius.circular(12.sp),
                   ),
                   color: bgColor ?? AppColors.containerBgSecondary,
                 ),
@@ -290,7 +287,7 @@ class CustomSheet extends StatelessWidget {
                         height: iSize / 2 + tPad,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(24.sp),
+                            top: Radius.circular(12.sp),
                           ),
                           color: bgColor ?? AppColors.containerBgSecondary,
                         ),
@@ -320,7 +317,7 @@ class CustomSheet extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12.sp),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFFD0CEDD).withOpacity(0.6),

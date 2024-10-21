@@ -310,5 +310,27 @@ void main() {
       expect(() async => await eventRepository.joinEventTeam(1, 'team_code'),
           throwsException);
     });
+
+    test('should return nothing if api call is suuccessful on leaveEventTeam',
+        () async {
+      when(() => mockApiService.delete('/me/events/1/team'))
+          .thenAnswer((_) async => Response(
+                requestOptions:
+                    RequestOptions(path: '/me/events/1/team', method: 'DELETE'),
+                data: {},
+              ));
+
+      await eventRepository.leaveEventTeam(1);
+      verify(() => mockApiService.delete('/me/events/1/team')).called(1);
+    });
+
+    test('should throw exception if api call is unsuccessful on leaveEventTeam',
+        () {
+      when(() => mockApiService.delete('/me/events/1/team'))
+          .thenThrow(Exception('error'));
+
+      expect(
+          () async => await eventRepository.leaveEventTeam(1), throwsException);
+    });
   });
 }

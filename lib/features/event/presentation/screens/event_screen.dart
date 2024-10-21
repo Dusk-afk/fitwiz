@@ -376,6 +376,7 @@ class EventScreen extends StatelessWidget {
 
     Get.to(() => MyEventScreen(
           myEvent: myEvent,
+          previousTitle: event.name,
         ));
   }
 

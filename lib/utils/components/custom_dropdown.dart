@@ -103,7 +103,7 @@ class CustomDropdown<T> extends StatelessWidget {
                     ),
                 filled: true,
                 fillColor: disabled
-                    ? AppColors.greenShades[2]
+                    ? AppColors.greyShades[3]
                     : normalFillColor ?? AppColors.greyShades[0],
                 errorText: errorText,
                 errorStyle: AppTextStyles.FFF_10_400(

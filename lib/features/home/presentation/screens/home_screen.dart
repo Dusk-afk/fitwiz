@@ -16,34 +16,24 @@ class HomeScreen extends StatelessWidget {
       appBarParams: const CustomAppBarParams(
         title: 'Home',
       ),
-      child: SafeArea(
-        bottom: false,
-        child: Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            // color: AppColors.containerBgSecondary,
-            borderRadius: BorderRadius.circular(24.sp),
+      child: CustomScrollView(
+        slivers: [
+          CupertinoSliverRefreshControl(
+            onRefresh: () async {
+              context.read<EventsBloc>().add(FetchEvents());
+            },
           ),
-          child: CustomScrollView(
-            slivers: [
-              CupertinoSliverRefreshControl(
-                onRefresh: () async {
-                  context.read<EventsBloc>().add(FetchEvents());
-                },
-              ),
-              SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    24.verticalSpacingRadius,
-                    const MyEventsHorizList(),
-                    16.verticalSpacingRadius,
-                    const EventsHorizList(),
-                  ],
-                ),
-              ),
-            ],
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                24.verticalSpacingRadius,
+                const MyEventsHorizList(),
+                16.verticalSpacingRadius,
+                const EventsHorizList(),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

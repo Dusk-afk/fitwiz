@@ -83,55 +83,54 @@ class ProfileScreen extends StatelessWidget {
       children: [
         32.verticalSpace,
         Container(
-          height: 96.h,
-          padding: EdgeInsets.symmetric(
-            vertical: 16.h,
-            horizontal: 16.w,
-          ),
+          padding: EdgeInsets.all(16.sp),
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(8.sp),
           ),
-          child: Row(
-            children: [
-              AspectRatio(
-                aspectRatio: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.primaryShades[4],
-                  ),
-                  child: Center(
-                    child: Text(
-                      user.name[0],
-                      style: AppTextStyles.EEE_20_600(
-                        color: AppColors.greyShades[12],
+          child: IntrinsicHeight(
+            child: Row(
+              children: [
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.primaryShades[4],
+                    ),
+                    child: Center(
+                      child: Text(
+                        user.name[0],
+                        style: AppTextStyles.EEE_20_600(
+                          color: AppColors.greyShades[12],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              16.horizontalSpace,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      user.name,
-                      style: AppTextStyles.EEE_20_600(
-                        color: AppColors.greyShades[12],
+                16.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        user.name,
+                        style: AppTextStyles.EEE_20_600(
+                          color: AppColors.greyShades[12],
+                        ),
                       ),
-                    ),
-                    Text(
-                      user.email,
-                      style: AppTextStyles.FFF_16_400(
-                        color: AppColors.greyShades[10],
+                      Text(
+                        user.email,
+                        style: AppTextStyles.FFF_16_400(
+                          color: AppColors.greyShades[10],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         24.verticalSpace,

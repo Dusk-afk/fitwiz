@@ -73,8 +73,8 @@ class CustomScaffold extends StatelessWidget {
       );
     }
 
-    return const Placeholder(
-      fallbackHeight: 50,
+    return AppBar(
+      title: appBarParams!.title == null ? null : Text(appBarParams!.title!),
     );
   }
 

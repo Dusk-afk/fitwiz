@@ -1,5 +1,6 @@
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   const AppTheme._();
@@ -29,6 +30,19 @@ class AppTheme {
         color: AppColors.greyShades[8],
         width: 2,
       ),
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.white,
+      elevation: 0,
+      iconTheme: IconThemeData(
+        color: AppColors.greyShades[12],
+      ),
+      titleTextStyle: GoogleFonts.poppins(
+        fontSize: 22,
+        fontWeight: FontWeight.w600,
+        color: AppColors.greyShades[12],
+      ),
+      scrolledUnderElevation: 0,
     ),
   );
 }

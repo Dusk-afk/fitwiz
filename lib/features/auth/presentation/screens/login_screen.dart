@@ -133,24 +133,25 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          12.verticalSpace,
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              child: GestureDetector(
-                                onTap: () {
-                                  Get.toNamed("/forgot-password");
-                                },
-                                child: Text(
-                                  "Forgot Password?",
-                                  style: AppTextStyles.FFF_16_500(
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // TODO: Implement Forgot Password. Backend support needed.
+                          // 12.verticalSpace,
+                          // Align(
+                          //   alignment: Alignment.centerLeft,
+                          //   child: MouseRegion(
+                          //     cursor: SystemMouseCursors.click,
+                          //     child: GestureDetector(
+                          //       onTap: () {
+                          //         Get.toNamed("/forgot-password");
+                          //       },
+                          //       child: Text(
+                          //         "Forgot Password?",
+                          //         style: AppTextStyles.FFF_16_500(
+                          //           color: AppColors.primaryColor,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           24.verticalSpace,
                           SizedBox(
                             width: double.infinity,

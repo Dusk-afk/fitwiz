@@ -74,7 +74,7 @@ class _EventTeamWithoutTeamPage extends StatelessWidget {
 class _TeamCodeField extends StatefulWidget {
   final bool isLoading;
   final void Function(String teamCode)? onJoinTeam;
-  const _TeamCodeField({super.key, required this.isLoading, this.onJoinTeam});
+  const _TeamCodeField({required this.isLoading, this.onJoinTeam});
 
   @override
   State<_TeamCodeField> createState() => _TeamCodeFieldState();

@@ -346,7 +346,7 @@ class EventScreen extends StatelessWidget {
     );
   }
 
-  // TODO: Implement this, currently not implemented on backend
+  // TODO: Implement this. Backend support needed.
   // ignore: unused_element
   Widget _buildParticipants() {
     return Column(

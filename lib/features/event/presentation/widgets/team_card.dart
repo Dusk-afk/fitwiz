@@ -21,8 +21,6 @@ class TeamCard extends StatelessWidget {
     return BlocBuilder<MyEventDetailsBloc, MyEventDetailsState>(
       builder: (context, state) {
         bool isLoading = state.isLoading;
-        bool isUpdating = state.isUpdating;
-        bool isLoaded = !isLoading && !isUpdating;
         bool isTeamEvent = event.isTeamEvent;
         EventTeam? eventTeam = state.eventTeam;
         bool isInTeam = eventTeam != null;

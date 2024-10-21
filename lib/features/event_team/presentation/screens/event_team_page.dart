@@ -136,6 +136,11 @@ class _EventTeamPage extends StatelessWidget {
                   currentUser != null && currentUser.id == eventTeam.leader.id,
             ),
           _MemberCard(
+            onPressed: () {
+              Share.share(
+                "Join my Fitwiz team using the code: ${eventTeam.teamCode}",
+              );
+            },
             isInviteButton: true,
             isFirst: members.isEmpty,
             isLast: true,
@@ -191,6 +196,9 @@ class _EventTeamPage extends StatelessWidget {
 }
 
 class _MemberCard extends StatelessWidget {
+  /// The callback to be called when the card is pressed
+  final VoidCallback? onPressed;
+
   /// The member to display
   final UserShort? member;
 
@@ -214,6 +222,7 @@ class _MemberCard extends StatelessWidget {
 
   const _MemberCard({
     super.key,
+    this.onPressed,
     this.member,
     this.isInviteButton = false,
     this.isFirst = false,
@@ -326,7 +335,7 @@ class _MemberCard extends StatelessWidget {
 
     if (isInviteButton) {
       child = CustomCupertinoButton(
-        onPressed: () {},
+        onPressed: onPressed,
         padding: EdgeInsets.zero,
         minSize: 0,
         child: child,

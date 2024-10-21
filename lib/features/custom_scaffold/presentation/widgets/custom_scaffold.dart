@@ -110,6 +110,7 @@ class CustomScaffold extends StatelessWidget {
               label: action!.label,
               rightIcon: action!.rightIcon,
               leftIcon: action!.leftIcon,
+              loading: action!.loading,
             ),
     );
   }

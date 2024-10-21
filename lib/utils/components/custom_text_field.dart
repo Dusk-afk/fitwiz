@@ -32,6 +32,11 @@ class CustomTextField extends StatefulWidget {
   final bool autofocus;
   final String? title;
 
+  /// The initial value of the text field.
+  ///
+  /// Will only work if the [controller] is not provided.
+  final String? initialValue;
+
   // Colors when the field is not focused
   final Color? normalFillColor;
   final Color? normalBorderColor;
@@ -69,6 +74,7 @@ class CustomTextField extends StatefulWidget {
     this.isLoading = false,
     this.autofocus = false,
     this.title,
+    this.initialValue,
   });
 
   @override
@@ -77,7 +83,7 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late TextEditingController _controller =
-      widget.controller ?? TextEditingController();
+      widget.controller ?? TextEditingController(text: widget.initialValue);
   late bool _isLoading = widget.isLoading;
 
   @override
@@ -210,9 +216,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               color: AppColors.greyShades[8],
             ),
         filled: true,
-        fillColor: widget.disabled
-            ? AppColors.greenShades[2]
-            : widget.normalFillColor ?? AppColors.greyShades[0],
+        fillColor: widget.normalFillColor ??
+            (widget.disabled ? AppColors.greyShades[3] : AppColors.white),
         errorText: widget.errorText,
         errorStyle: AppTextStyles.FFF_10_400(
           color: AppColors.redShades[9],

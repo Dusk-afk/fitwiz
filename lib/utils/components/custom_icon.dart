@@ -96,4 +96,12 @@ final class CustomIcons {
   static const String crown = 'assets/icons/crown.svg';
   static const String plus = 'assets/icons/plus.svg';
   static const String delete = 'assets/icons/delete.svg';
+  static const String right_chevron = 'assets/icons/right_chevron.svg';
+  static const String open = 'assets/icons/open.svg';
+  static const String location = 'assets/icons/location.svg';
+  static const String password_key = 'assets/icons/password_key.svg';
+  static const String logout = 'assets/icons/logout.svg';
+  static const String refresh = 'assets/icons/refresh.svg';
+  static const String globe = 'assets/icons/globe.svg';
+  static const String info = 'assets/icons/info.svg';
 }

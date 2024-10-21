@@ -235,12 +235,12 @@ class _MemberCard extends StatelessWidget {
         bottom: isLast ? Radius.circular(8.sp) : Radius.circular(2.sp),
       ),
       child: Slidable(
-        endActionPane: isMeLeader && !isInviteButton && !isMe
+        // TODO: Implement delete team member. Backend support needed
+        endActionPane: false && isMeLeader && !isInviteButton && !isMe
             ? const ActionPane(
                 extentRatio: 0.2,
                 motion: DrawerMotion(),
                 children: [
-                  // TODO: Implement delete team member. Backend support needed
                   // SlidableAction(
                   //   onPressed: (context) {},
                   //   backgroundColor: AppColors.redShades[9],

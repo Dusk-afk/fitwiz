@@ -350,6 +350,9 @@ class CustomButton extends StatelessWidget {
   Color _getOverlayColor(Set<WidgetState> sets) {
     // Primary color scheme
     if (_type == _ButtonType.primary) {
+      if (destructive) {
+        return Colors.white.withOpacity(0.2);
+      }
       return Colors.white.withOpacity(0.1);
     }
     // Secondary color scheme
@@ -361,7 +364,7 @@ class CustomButton extends StatelessWidget {
       if (destructive) {
         return AppColors.redShades[9].withOpacity(0.1);
       }
-      return Colors.grey.withOpacity(0.2);
+      return AppColors.primaryColor.withOpacity(0.05);
     }
 
     return Colors.transparent;

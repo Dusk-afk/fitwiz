@@ -6,6 +6,7 @@ class CustomScaffoldAction {
   final Widget? rightIcon;
   final Widget? leftIcon;
   final bool shimmered;
+  final bool loading;
 
   const CustomScaffoldAction({
     this.onPressed,
@@ -13,5 +14,6 @@ class CustomScaffoldAction {
     this.rightIcon,
     this.leftIcon,
     this.shimmered = false,
+    this.loading = false,
   });
 }

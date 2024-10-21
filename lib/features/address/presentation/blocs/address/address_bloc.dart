@@ -9,8 +9,10 @@ part 'address_state.dart';
 class AddressBloc extends Bloc<AddressEvent, AddressState> {
   final AddressRepository _addressRepository;
 
-  AddressBloc(this._addressRepository) : super(AddressInitial()) {
+  AddressBloc(this._addressRepository, [AddressState? initialState])
+      : super(initialState ?? AddressInitial()) {
     on<FetchAddress>(_onFetchAddress);
+    on<UpdateAddess>(_onUpdateAddess);
   }
 
   Future<void> _onFetchAddress(
@@ -24,5 +26,16 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     } catch (e) {
       emit(AddressError(e.toString()));
     }
+  }
+
+  Future<void> _onUpdateAddess(
+    UpdateAddess event,
+    Emitter<AddressState> emit,
+  ) async {
+    if (state is! AddressLoaded) {
+      return;
+    }
+
+    emit(AddressLoaded(event.address));
   }
 }

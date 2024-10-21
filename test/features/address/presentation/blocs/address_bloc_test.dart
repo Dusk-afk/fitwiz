@@ -15,11 +15,14 @@ void main() {
   late MockAddressRepository mockAddressRepository;
   late MockAddress mockAddress;
   late AddressBloc addressBloc;
+  late AddressBloc addressBlocLoaded;
 
   setUp(() {
     mockAddressRepository = MockAddressRepository();
     mockAddress = MockAddress();
     addressBloc = AddressBloc(mockAddressRepository);
+    addressBlocLoaded =
+        AddressBloc(mockAddressRepository, AddressLoaded(mockAddress));
   });
 
   tearDown(() {
@@ -55,5 +58,19 @@ void main() {
       AddressLoading(),
       const AddressError('Error fetching address'),
     ],
+  );
+
+  blocTest(
+    'should emit nothing when state is not AddressLoaded on UpdateAddress event',
+    build: () => addressBloc,
+    act: (bloc) => bloc.add(UpdateAddess(mockAddress)),
+    expect: () => <AddressState>[],
+  );
+
+  blocTest(
+    'should emit [AddressLoaded] when state is AddressLoaded on UpdateAddress event',
+    build: () => addressBlocLoaded,
+    act: (bloc) => bloc.add(UpdateAddess(mockAddress)),
+    expect: () => <AddressState>[AddressLoaded(mockAddress)],
   );
 }

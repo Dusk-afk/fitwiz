@@ -103,6 +103,8 @@ class _TeamCodeFieldState extends State<_TeamCodeField> {
         4.verticalSpace,
         CustomTextField(
           controller: _controller,
+          placeholder: 'Enter team code',
+          disabled: widget.isLoading,
         ),
         16.verticalSpace,
         CustomButton(

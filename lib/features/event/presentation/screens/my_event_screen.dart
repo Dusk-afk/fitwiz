@@ -71,6 +71,7 @@ class MyEventScreen extends StatelessWidget {
         8.verticalSpace,
         GridView(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16.sp,

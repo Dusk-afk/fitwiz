@@ -54,7 +54,7 @@ flutter:
 flutter_launcher_icons:
   android: true
   image_path_android: "assets/logo/logo_fg_android.png"
-  adaptive_icon_background: "#621DBF"
+  adaptive_icon_background: "#006eff"
   adaptive_icon_foreground: "assets/logo/logo_fg_android.png"
   adaptive_icon_monochrome: "assets/logo/logo_fg_android.png"
   
@@ -67,4 +67,4 @@ flutter_launcher_icons:
     generate: true
     image_path: "assets/logo/logo_ios.png"
     background_color: "#FFFFFF"
-    theme_color: "#621DBF"
+    theme_color: "#006eff"

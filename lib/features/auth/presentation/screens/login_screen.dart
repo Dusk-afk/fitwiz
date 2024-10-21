@@ -55,10 +55,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       horizontal: 16.sp,
                     ),
                     child: Center(
-                      child: CustomIcon(
-                        CustomIcons.app_logo,
-                        size: 50.sp,
-                        color: Colors.white,
+                      child: Hero(
+                        tag: "app_logo",
+                        child: CustomIcon(
+                          CustomIcons.app_logo,
+                          size: 50.sp,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

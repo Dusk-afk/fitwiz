@@ -4,6 +4,7 @@ import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/widgets/dob_selector.dart';
 import 'package:fitwiz/utils/components/custom_button.dart';
 import 'package:fitwiz/utils/components/custom_dropdown.dart';
+import 'package:fitwiz/utils/components/custom_icon.dart';
 import 'package:fitwiz/utils/components/custom_notifications.dart';
 import 'package:fitwiz/utils/components/custom_text_field.dart';
 import 'package:fitwiz/utils/components/password_field.dart';
@@ -58,46 +59,72 @@ class _RegisterScreenState extends State<RegisterScreen> {
             key: _formKey,
             child: Column(
               children: [
-                SizedBox(
-                  height: safeTopPadding(24.h),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                Stack(
+                  children: [
+                    Column(
                       children: [
-                        IconButton(
-                          onPressed: Get.back,
-                          style: ButtonStyle(
-                            minimumSize: WidgetStateProperty.all(Size.zero),
-                            padding: WidgetStateProperty.all(EdgeInsets.zero),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            overlayColor: WidgetStateProperty.all(
-                                AppColors.containerBg.withOpacity(0.05)),
+                        SizedBox(
+                          height: safeTopPadding(24.h),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                IconButton(
+                                  onPressed: Get.back,
+                                  style: ButtonStyle(
+                                    minimumSize:
+                                        WidgetStateProperty.all(Size.zero),
+                                    padding: WidgetStateProperty.all(
+                                        EdgeInsets.zero),
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    overlayColor: WidgetStateProperty.all(
+                                        AppColors.containerBg
+                                            .withOpacity(0.05)),
+                                  ),
+                                  icon: Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                    size: 24.sp,
+                                  ),
+                                ),
+                                12.verticalSpace,
+                                Text(
+                                  "Register",
+                                  style: AppTextStyles.DDD_25_600(
+                                      color: Colors.white),
+                                ),
+                                8.verticalSpace,
+                                Text(
+                                  "Enter your details to register",
+                                  style: AppTextStyles.FFF_16_400(
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                            size: 24.sp,
-                          ),
                         ),
-                        12.verticalSpace,
-                        Text(
-                          "Register",
-                          style: AppTextStyles.DDD_25_600(color: Colors.white),
-                        ),
-                        8.verticalSpace,
-                        Text(
-                          "Enter your details to register",
-                          style: AppTextStyles.FFF_16_400(color: Colors.white),
-                        ),
+                        24.verticalSpace,
                       ],
                     ),
-                  ),
+                    Positioned(
+                      bottom: -36.sp,
+                      right: 4.sp,
+                      child: Hero(
+                        tag: "app_logo",
+                        child: CustomIcon(
+                          CustomIcons.app_logo,
+                          size: 185.sp,
+                          color: Colors.white.withOpacity(0.1),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                24.verticalSpace,
                 Expanded(
                   child: Container(
                     width: double.infinity,

@@ -24,6 +24,7 @@ class CustomDropdown<T> extends StatelessWidget {
   final Color? focusedBorderColor;
   final double? width;
   final bool isLoading;
+  final String? title;
 
   const CustomDropdown({
     super.key,
@@ -46,6 +47,7 @@ class CustomDropdown<T> extends StatelessWidget {
     this.focusedBorderColor,
     this.width,
     this.isLoading = false,
+    this.title,
   });
 
   @override
@@ -67,81 +69,106 @@ class CustomDropdown<T> extends StatelessWidget {
   }
 
   Widget _buildDropdown(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          // To color the menu's background.
-          canvasColor: AppColors.containerBg,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (title != null) _buildTitle(),
+        DropdownButtonHideUnderline(
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              // To color the menu's background.
+              canvasColor: AppColors.containerBg,
+            ),
+            child: DropdownButtonFormField2(
+              items: items,
+              value: value,
+              onChanged: onChanged,
+              buttonStyleData: ButtonStyleData(
+                height: 48.sp,
+                width: width ?? double.infinity,
+              ),
+              style: style ??
+                  AppTextStyles.FFF_16_400(
+                    color: AppColors.greyShades[12],
+                  ),
+              validator: validator,
+              menuItemStyleData: MenuItemStyleData(
+                height: 48.sp,
+              ),
+              decoration: InputDecoration(
+                hintText: placeholder,
+                hintStyle: placeholderStyle ??
+                    AppTextStyles.FFF_16_400(
+                      color: AppColors.greyShades[8],
+                    ),
+                filled: true,
+                fillColor: disabled
+                    ? AppColors.greyShades[3]
+                    : normalFillColor ?? AppColors.greyShades[0],
+                errorText: errorText,
+                errorStyle: AppTextStyles.FFF_10_400(
+                  color: AppColors.redShades[9],
+                ),
+                prefixIcon: prefixIcon,
+                prefixIconConstraints: prefixIconConstraints,
+                suffixIcon: suffixIcon,
+                suffixIconConstraints: suffixIconConstraints,
+                enabled: !disabled,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16.sp,
+                  vertical: 2.sp,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.sp),
+                  borderSide: BorderSide(
+                    color: normalBorderColor ?? AppColors.greyShades[8],
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.sp),
+                  borderSide: BorderSide(
+                    color: normalBorderColor ?? AppColors.greyShades[8],
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.sp),
+                  borderSide: BorderSide(
+                    color: focusedBorderColor ?? AppColors.greyShades[11],
+                  ),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.sp),
+                  borderSide: BorderSide(
+                    color: AppColors.redShades[9],
+                  ),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.sp),
+                  borderSide: BorderSide(
+                    color: AppColors.redShades[10],
+                  ),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.sp),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+          ),
         ),
-        child: DropdownButtonFormField2(
-          items: items,
-          value: value,
-          onChanged: onChanged,
-          buttonStyleData: ButtonStyleData(
-            height: 48.sp,
-            width: width ?? double.infinity,
-          ),
-          style:
-              style ?? AppTextStyles.FFF_16_400(color: AppColors.textFieldText),
-          validator: validator,
-          menuItemStyleData: MenuItemStyleData(
-            height: 48.sp,
-          ),
-          decoration: InputDecoration(
-            hintText: placeholder,
-            hintStyle: placeholderStyle ??
-                AppTextStyles.FFF_16_400(color: AppColors.textFieldHint),
-            filled: true,
-            fillColor: disabled
-                ? AppColors.textFieldFillDisabled
-                : normalFillColor ?? AppColors.textFieldFill,
-            errorText: errorText,
-            errorStyle: AppTextStyles.FFF_10_400(
-              color: AppColors.textFieldTextError,
-            ),
-            prefixIcon: prefixIcon,
-            prefixIconConstraints: prefixIconConstraints,
-            suffixIcon: suffixIcon,
-            suffixIconConstraints: suffixIconConstraints,
-            enabled: !disabled,
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 16.sp,
-              vertical: 2.sp,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: BorderSide(
-                color: normalBorderColor ?? Colors.transparent,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: BorderSide(
-                color: normalBorderColor ?? Colors.transparent,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: BorderSide(
-                color: focusedBorderColor ?? AppColors.textFieldBorder,
-              ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: const BorderSide(
-                color: AppColors.textFieldBorderError,
-              ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: const BorderSide(
-                color: AppColors.textFieldBorderError,
-              ),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.sp),
-              borderSide: BorderSide.none,
-            ),
+      ],
+    );
+  }
+
+  Widget _buildTitle() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 4.h),
+        child: Text(
+          title!,
+          style: AppTextStyles.FFF_16_600(
+            color: AppColors.greyShades[11],
           ),
         ),
       ),

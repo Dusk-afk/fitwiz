@@ -13,17 +13,15 @@
 
 ## Gallery 🖼️
 <p float="left">
-  <img src="./assets/logo/ss_1.png" width="240" height="400" />
-  <img src="./assets/logo/ss_2.png" width="240" height="400" />
-  <img src="./assets/logo/ss_3.png" width="240" height="400" />
-  <img src="./assets/logo/ss_4.png" width="240" height="400" />
+  <img src="./assets/logo/ss_1.png" width="240" height="520" />
+  <img src="./assets/logo/ss_2.png" width="240" height="520" />
+  <img src="./assets/logo/ss_3.png" width="240" height="520" />
+  <img src="./assets/logo/ss_4.png" width="240" height="520" />
 </p>
 
 ## Play Store Link 📲
 
 Check out the Fitwiz app on the [Play Store](https://play.google.com/store/apps/details?id=com.fit_wiz).
-
-If you want to try the app, you can currently request access from the website: [https://fit-wiz.com](https://fit-wiz.com).
 
 ## Getting Started 🚀
 

@@ -83,4 +83,8 @@ class EventRepository {
 
     return EventTeam.fromJson(response.data);
   }
+
+  Future<void> leaveEventTeam(int eventId) async {
+    await _apiService.delete('/me/events/$eventId/team');
+  }
 }

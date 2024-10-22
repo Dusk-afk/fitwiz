@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fitwiz/utils/components/custom_icon.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'goodie.g.dart';
@@ -23,4 +24,18 @@ class Goodie extends Equatable {
 
   @override
   List<Object?> get props => [id, name, description, quantity];
+
+  String getSvgPath() {
+    String name = this.name.toLowerCase().replaceAll('-', '');
+    if (name.contains('trophy')) {
+      return CustomIcons.trophy;
+    } else if (name.contains('medal')) {
+      return CustomIcons.medal;
+    } else if (name.contains('tshirt')) {
+      return CustomIcons.tshirt;
+    } else {
+      // TODO: Return a default icon like app logo or something
+      throw Exception('Invalid goodie name');
+    }
+  }
 }

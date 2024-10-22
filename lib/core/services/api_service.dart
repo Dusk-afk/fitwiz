@@ -46,4 +46,9 @@ class ApiService {
     final response = await _dio.put(url, data: data);
     return response;
   }
+
+  Future<Response> delete(String url) async {
+    final response = await _dio.delete(url);
+    return response;
+  }
 }

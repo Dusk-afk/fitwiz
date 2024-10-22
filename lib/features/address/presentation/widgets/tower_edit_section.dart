@@ -31,19 +31,23 @@ class TowerEditSection extends StatelessWidget {
       children: [
         Text(
           'Society',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(
+            color: AppColors.greyShades[11],
+          ),
         ),
-        8.verticalSpacingRadius,
+        4.verticalSpacingRadius,
         _SocietyPicker(
           society: society,
           onChanged: (society) => _onSocietyChanged(context, society),
         ),
-        16.verticalSpacingRadius,
+        24.verticalSpacingRadius,
         Text(
           'Tower',
-          style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+          style: AppTextStyles.FFF_16_600(
+            color: AppColors.greyShades[11],
+          ),
         ),
-        8.verticalSpacingRadius,
+        4.verticalSpacingRadius,
         _TowerPicker(
           tower: tower,
           onChanged: onTowerChanged,

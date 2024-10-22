@@ -56,9 +56,11 @@ class _PincodeEditSectionState extends State<PincodeEditSection> {
             children: [
               Text(
                 "Pincode",
-                style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                style: AppTextStyles.FFF_16_600(
+                  color: AppColors.greyShades[11],
+                ),
               ),
-              8.verticalSpacingRadius,
+              4.verticalSpace,
               CustomTextField(
                 controller: widget.pincodeController,
                 validator: (value) {
@@ -80,34 +82,40 @@ class _PincodeEditSectionState extends State<PincodeEditSection> {
                   FilteringTextInputFormatter.digitsOnly,
                 ],
               ),
-              16.verticalSpacingRadius,
+              24.verticalSpace,
               Text(
                 "City",
-                style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                style: AppTextStyles.FFF_16_600(
+                  color: AppColors.greyShades[11],
+                ),
               ),
-              8.verticalSpacingRadius,
+              4.verticalSpace,
               CustomTextField(
                 controller: widget.cityController,
                 disabled: true,
                 isLoading: isLoading,
               ),
-              16.verticalSpacingRadius,
+              24.verticalSpace,
               Text(
                 "State",
-                style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                style: AppTextStyles.FFF_16_600(
+                  color: AppColors.greyShades[11],
+                ),
               ),
-              8.verticalSpacingRadius,
+              4.verticalSpace,
               CustomTextField(
                 controller: widget.stateController,
                 disabled: true,
                 isLoading: isLoading,
               ),
-              16.verticalSpacingRadius,
+              24.verticalSpace,
               Text(
                 "Country",
-                style: AppTextStyles.FFF_16_700(color: AppColors.textHeader),
+                style: AppTextStyles.FFF_16_600(
+                  color: AppColors.greyShades[11],
+                ),
               ),
-              8.verticalSpacingRadius,
+              4.verticalSpace,
               CustomTextField(
                 controller: widget.countryController,
                 disabled: true,

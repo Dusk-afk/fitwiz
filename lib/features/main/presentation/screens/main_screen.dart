@@ -1,14 +1,15 @@
 import 'package:fitwiz/core/setup_locator.dart';
 import 'package:fitwiz/features/address/presentation/blocs/address/address_bloc.dart';
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:fitwiz/features/custom_scaffold/data/models/custom_nav_bar_item.dart';
+import 'package:fitwiz/features/custom_scaffold/data/models/custom_nav_bar_params.dart';
+import 'package:fitwiz/features/custom_scaffold/presentation/widgets/custom_scaffold.dart';
 import 'package:fitwiz/features/event/presentation/blocs/my_events/my_events_bloc.dart';
 import 'package:fitwiz/features/event/presentation/blocs/events_bloc/events_bloc.dart';
 import 'package:fitwiz/features/home/presentation/screens/home_screen.dart';
 import 'package:fitwiz/features/profile/presentation/screens/profile_screen.dart';
 import 'package:fitwiz/utils/components/custom_icon.dart';
-import 'package:fitwiz/utils/components/custom_nav_bar.dart';
 import 'package:fitwiz/utils/components/custom_notifications.dart';
-import 'package:fitwiz/utils/models/custom_nav_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,46 +39,40 @@ class _MainScreenState extends State<MainScreen> {
       listener: _authBlocListener,
       child: BlocListener<EventsBloc, EventsState>(
         listener: _eventsBlocListener,
-        child: Scaffold(
-          body: Column(
-            children: [
-              Expanded(
-                child: _buildBody(),
+        child: CustomScaffold(
+          navBarParams: CustomNavBarParams(
+            selectedIndex: selectedIndex,
+            onIndexChanged: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+            items: [
+              CustomNavBarItem(
+                icon: CustomIcon(
+                  CustomIcons.home,
+                  size: 16.sp,
+                ),
+                activeIcon: CustomIcon(
+                  CustomIcons.home_filled,
+                  size: 16.sp,
+                ),
+                label: 'Home',
               ),
-              CustomNavBar(
-                items: [
-                  CustomNavBarItem(
-                    icon: CustomIcon(
-                      CustomIcons.home,
-                      size: 19.2.sp,
-                    ),
-                    activeIcon: CustomIcon(
-                      CustomIcons.home_filled,
-                      size: 19.2.sp,
-                    ),
-                    label: 'Home',
-                  ),
-                  CustomNavBarItem(
-                    icon: CustomIcon(
-                      CustomIcons.profile,
-                      size: 19.2.sp,
-                    ),
-                    activeIcon: CustomIcon(
-                      CustomIcons.profile_filled,
-                      size: 19.2.sp,
-                    ),
-                    label: 'Profile',
-                  ),
-                ],
-                selectedIndex: selectedIndex,
-                onItemSelected: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
+              CustomNavBarItem(
+                icon: CustomIcon(
+                  CustomIcons.profile,
+                  size: 16.sp,
+                ),
+                activeIcon: CustomIcon(
+                  CustomIcons.profile_filled,
+                  size: 16.sp,
+                ),
+                label: 'Profile',
               ),
             ],
           ),
+          child: _buildBody(),
         ),
       ),
     );

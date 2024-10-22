@@ -51,10 +51,10 @@ class CustomBottomSheet {
           icons: icons,
           iconContainerSize: iconContainerSize,
           topPadding: topPadding,
-          bgColor: AppColors.containerBg,
+          bgColor: AppColors.white,
           content: Container(
-            decoration: const BoxDecoration(
-              color: AppColors.containerBg,
+            decoration: BoxDecoration(
+              color: AppColors.white,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -69,17 +69,14 @@ class CustomBottomSheet {
                         bottomPadding ?? 22.sp,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.containerBg,
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(24.sp),
-                        ),
+                        color: AppColors.white,
                       ),
                       child: Column(
                         children: [
                           Center(
                             child: Text(
                               title,
-                              style: titleStyle ?? AppTextStyles.DDD_25_700(),
+                              style: titleStyle ?? AppTextStyles.DDD_25_600(),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -94,25 +91,25 @@ class CustomBottomSheet {
                         ],
                       ),
                     ),
-                    Positioned.fill(
-                      top: null,
-                      child: Container(
-                        height: 40.sp,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              const Color(0xFFF3F2FC).withOpacity(0),
-                              const Color(0xFFF3F2FC).withOpacity(0.6),
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                          borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(24.sp),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Positioned.fill(
+                    //   top: null,
+                    //   child: Container(
+                    //     height: 40.sp,
+                    //     decoration: BoxDecoration(
+                    //       gradient: LinearGradient(
+                    //         colors: [
+                    //           AppColors.primaryShades[3].withOpacity(0),
+                    //           AppColors.primaryShades[3].withOpacity(0.6),
+                    //         ],
+                    //         begin: Alignment.topCenter,
+                    //         end: Alignment.bottomCenter,
+                    //       ),
+                    //       borderRadius: BorderRadius.vertical(
+                    //         bottom: Radius.circular(24.sp),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
 
@@ -120,13 +117,13 @@ class CustomBottomSheet {
                 if (actions != null)
                   Padding(
                     padding: EdgeInsets.fromLTRB(
-                      8.sp,
-                      16.sp,
-                      8.sp,
-                      safeBottomPadding(8.sp),
+                      16.w,
+                      16.h,
+                      16.w,
+                      safeBottomPadding(8.h),
                     ),
                     child: Row(
-                      children: rowGap(16, actions),
+                      children: rowGap(16.w, actions),
                     ),
                   ),
               ],
@@ -170,7 +167,7 @@ class CustomBottomSheet {
     return showSimpleSheet<T>(
       icon: SizedBox.square(
         dimension: 24.sp,
-        child: const CircularProgressIndicator(
+        child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation(AppColors.primaryColor),
         ),
       ),
@@ -202,7 +199,7 @@ class CustomSheet extends StatelessWidget {
   }) : icons = icons ?? const [];
 
   double get iSize => iconContainerSize ?? 88.sp;
-  double get tPad => topPadding ?? 32.sp;
+  double get tPad => topPadding ?? 24.sp;
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +229,7 @@ class CustomSheet extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: bgColor ?? AppColors.containerBgSecondary,
                           borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(24.sp),
+                            top: Radius.circular(12.sp),
                           ),
                         ),
                       ),
@@ -260,7 +257,7 @@ class CustomSheet extends StatelessWidget {
                 height: 24.sp,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(24.sp),
+                    top: Radius.circular(12.sp),
                   ),
                   color: bgColor ?? AppColors.containerBgSecondary,
                 ),
@@ -290,7 +287,7 @@ class CustomSheet extends StatelessWidget {
                         height: iSize / 2 + tPad,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(24.sp),
+                            top: Radius.circular(12.sp),
                           ),
                           color: bgColor ?? AppColors.containerBgSecondary,
                         ),
@@ -320,7 +317,7 @@ class CustomSheet extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12.sp),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFFD0CEDD).withOpacity(0.6),

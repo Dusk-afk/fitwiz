@@ -26,6 +26,7 @@ void main() {
   late MyEventDetailsBloc myEventDetailsBloc;
   late MyEventDetailsBloc myEventDetailsBlocNotLoaded;
   late MyEventDetailsBloc myEventDetailsBlocLoaded;
+  late MyEventDetailsBloc myEventDetailsBlocLoadedWithEventTeam;
 
   setUp(() {
     mockEventsBloc = MockEventsBloc();
@@ -45,6 +46,11 @@ void main() {
       mockEventsBloc,
       mockEventRepository,
       MyEventDetailsState(event: mockEvent),
+    );
+    myEventDetailsBlocLoadedWithEventTeam = MyEventDetailsBloc(
+      mockEventsBloc,
+      mockEventRepository,
+      MyEventDetailsState(event: mockEvent, eventTeam: mockEventTeam),
     );
   });
 
@@ -255,5 +261,77 @@ void main() {
         MyEventDetailsState(event: mockEvent, errorMessage: 'error'),
       ],
     );
+    // **************************************************
+
+    // ***************** MyEventDetailsLeaveTeam *****************
+    blocTest<MyEventDetailsBloc, MyEventDetailsState>(
+      'emit same state when event not loaded on MyEventDetailsLeaveTeam',
+      build: () {
+        return myEventDetailsBlocNotLoaded;
+      },
+      act: (bloc) => bloc.add(MyEventDetailsLeaveTeam(event: mockEvent)),
+      expect: () => <MyEventDetailsState>[
+        myEventDetailsBlocNotLoaded.state,
+      ],
+    );
+
+    blocTest<MyEventDetailsBloc, MyEventDetailsState>(
+      'emit same state when event not in team on MyEventDetailsLeaveTeam',
+      build: () {
+        return myEventDetailsBlocLoaded;
+      },
+      act: (bloc) => bloc.add(MyEventDetailsLeaveTeam(event: mockEvent)),
+      expect: () => <MyEventDetailsState>[
+        myEventDetailsBlocLoaded.state,
+      ],
+    );
+
+    blocTest<MyEventDetailsBloc, MyEventDetailsState>(
+      'emit [updating, success] when event in team on MyEventDetailsLeaveTeam',
+      build: () {
+        when(() => mockEventRepository.leaveEventTeam(1))
+            .thenAnswer((_) async {});
+        when(() => mockEvent.id).thenReturn(1);
+        return myEventDetailsBlocLoadedWithEventTeam;
+      },
+      act: (bloc) => bloc.add(MyEventDetailsLeaveTeam(event: mockEvent)),
+      expect: () => <MyEventDetailsState>[
+        MyEventDetailsState(
+          event: mockEvent,
+          eventTeam: mockEventTeam,
+          isUpdating: true,
+          updatingMessage: 'Leaving team',
+        ),
+        MyEventDetailsState(
+          event: mockEvent,
+          eventTeam: null,
+        ),
+      ],
+    );
+
+    blocTest(
+      'emit [updating, error] when error on MyEventDetailsLeaveTeam',
+      build: () {
+        when(() => mockEventRepository.leaveEventTeam(1))
+            .thenThrow(MockException('error'));
+        when(() => mockEvent.id).thenReturn(1);
+        return myEventDetailsBlocLoadedWithEventTeam;
+      },
+      act: (bloc) => bloc.add(MyEventDetailsLeaveTeam(event: mockEvent)),
+      expect: () => <MyEventDetailsState>[
+        MyEventDetailsState(
+          event: mockEvent,
+          eventTeam: mockEventTeam,
+          isUpdating: true,
+          updatingMessage: 'Leaving team',
+        ),
+        MyEventDetailsState(
+          event: mockEvent,
+          eventTeam: mockEventTeam,
+          errorMessage: 'error',
+        ),
+      ],
+    );
+    // **************************************************
   });
 }

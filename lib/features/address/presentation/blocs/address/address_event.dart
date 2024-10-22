@@ -8,3 +8,12 @@ sealed class AddressEvent extends Equatable {
 }
 
 final class FetchAddress extends AddressEvent {}
+
+final class UpdateAddess extends AddressEvent {
+  final Address address;
+
+  const UpdateAddess(this.address);
+
+  @override
+  List<Object> get props => [address];
+}

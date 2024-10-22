@@ -9,12 +9,14 @@ class DobSelector extends StatefulWidget {
   final DateTime? initialDate;
   final void Function(DateTime?)? onDateSelected;
   final String? Function(DateTime?)? validator;
+  final String? title;
 
   const DobSelector({
     super.key,
     this.initialDate,
     this.onDateSelected,
     this.validator,
+    this.title,
   });
 
   @override
@@ -47,20 +49,20 @@ class _DobSelectorState extends State<DobSelector> {
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
+      title: widget.title,
       controller: _controller,
       readOnly: true,
-      normalBorderColor: AppColors.textLightest,
       onTap: _showDatePicker,
-      prefixIcon: Padding(
-        padding: EdgeInsets.only(left: 8.sp, right: 4.sp),
+      suffixIcon: Padding(
+        padding: EdgeInsets.only(right: 12.w, left: 4.w),
         child: CustomIcon(
-          CustomIcons.calendar2,
+          CustomIcons.calendar3,
           color: AppColors.textDarker,
           size: 14.4.sp,
           containerSize: 24.sp,
         ),
       ),
-      prefixIconConstraints: const BoxConstraints(),
+      suffixIconConstraints: const BoxConstraints(),
       validator: (value) {
         return widget.validator?.call(_selectedDate);
       },

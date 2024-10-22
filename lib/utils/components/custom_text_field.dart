@@ -30,6 +30,12 @@ class CustomTextField extends StatefulWidget {
   final bool obscureText;
   final bool isLoading;
   final bool autofocus;
+  final String? title;
+
+  /// The initial value of the text field.
+  ///
+  /// Will only work if the [controller] is not provided.
+  final String? initialValue;
 
   // Colors when the field is not focused
   final Color? normalFillColor;
@@ -67,6 +73,8 @@ class CustomTextField extends StatefulWidget {
     this.obscureText = false,
     this.isLoading = false,
     this.autofocus = false,
+    this.title,
+    this.initialValue,
   });
 
   @override
@@ -75,7 +83,7 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late TextEditingController _controller =
-      widget.controller ?? TextEditingController();
+      widget.controller ?? TextEditingController(text: widget.initialValue);
   late bool _isLoading = widget.isLoading;
 
   @override
@@ -109,6 +117,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        if (widget.title != null) _buildTitle(),
         _buildWrappedTextFormField(),
         if (widget.maxLength != null) ...[
           _buildWrappedTextFormField(),
@@ -122,8 +131,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   RichText(
                     text: TextSpan(
                       text: _controller.text.length.toString(),
-                      style:
-                          AppTextStyles.GGG_12_400(color: AppColors.textHeader),
+                      style: AppTextStyles.GGG_12_400(
+                          color: AppColors.greyShades[12]),
                       children: [
                         TextSpan(
                           text: ' / ${widget.maxLength}',
@@ -140,6 +149,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
         ],
       ],
+    );
+  }
+
+  Widget _buildTitle() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 4.h),
+        child: Text(
+          widget.title!,
+          style: AppTextStyles.FFF_16_600(
+            color: AppColors.greyShades[11],
+          ),
+        ),
+      ),
     );
   }
 
@@ -169,9 +193,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       maxLines: widget.maxLines,
       style: widget.style ??
           AppTextStyles.FFF_16_400(
-            color: AppColors.textFieldText,
+            color: AppColors.greyShades[12],
           ),
-      cursorColor: AppColors.textFieldBorder,
+      cursorColor: AppColors.greyShades[12],
       validator: widget.validator,
       inputFormatters: [
         if (widget.maxLength != null)
@@ -189,15 +213,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintText: widget.placeholder,
         hintStyle: widget.placeholderStyle ??
             AppTextStyles.FFF_16_400(
-              color: AppColors.textFieldHint,
+              color: AppColors.greyShades[8],
             ),
         filled: true,
-        fillColor: widget.disabled
-            ? AppColors.textFieldFillDisabled
-            : widget.normalFillColor ?? AppColors.textFieldFill,
+        fillColor: widget.normalFillColor ??
+            (widget.disabled ? AppColors.greyShades[3] : AppColors.white),
         errorText: widget.errorText,
         errorStyle: AppTextStyles.FFF_10_400(
-          color: AppColors.textFieldTextError,
+          color: AppColors.redShades[9],
         ),
         prefixIcon: widget.prefixIcon,
         prefixIconConstraints: widget.prefixIconConstraints,
@@ -209,37 +232,37 @@ class _CustomTextFieldState extends State<CustomTextField> {
           vertical: 12.sp,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.sp),
+          borderRadius: BorderRadius.circular(8.sp),
           borderSide: BorderSide(
-            color: widget.normalBorderColor ?? Colors.transparent,
+            color: widget.normalBorderColor ?? AppColors.greyShades[8],
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.sp),
+          borderRadius: BorderRadius.circular(8.sp),
           borderSide: BorderSide(
-            color: widget.normalBorderColor ?? Colors.transparent,
+            color: widget.normalBorderColor ?? AppColors.greyShades[8],
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.sp),
+          borderRadius: BorderRadius.circular(8.sp),
           borderSide: BorderSide(
-            color: widget.focusedBorderColor ?? AppColors.textFieldBorder,
+            color: widget.focusedBorderColor ?? AppColors.greyShades[11],
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.sp),
-          borderSide: const BorderSide(
-            color: AppColors.textFieldBorderError,
+          borderRadius: BorderRadius.circular(8.sp),
+          borderSide: BorderSide(
+            color: AppColors.redShades[9],
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.sp),
-          borderSide: const BorderSide(
-            color: AppColors.textFieldBorderError,
+          borderRadius: BorderRadius.circular(8.sp),
+          borderSide: BorderSide(
+            color: AppColors.redShades[10],
           ),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.sp),
+          borderRadius: BorderRadius.circular(8.sp),
           borderSide: BorderSide.none,
         ),
       ),

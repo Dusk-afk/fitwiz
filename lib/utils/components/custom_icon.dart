@@ -7,6 +7,8 @@ class CustomIcon extends StatelessWidget {
   final String path;
   final double? size;
   final double? containerSize;
+  final double? containerRadius;
+  final Color? containerColor;
   final Color? color;
   final bool useOriginalColor;
 
@@ -15,6 +17,8 @@ class CustomIcon extends StatelessWidget {
     super.key,
     this.size,
     this.containerSize,
+    this.containerRadius,
+    this.containerColor,
     this.color,
     this.useOriginalColor = false,
   }) : assert(path.endsWith(".svg"), 'Only supports svg files');
@@ -34,8 +38,15 @@ class CustomIcon extends StatelessWidget {
     );
 
     if (containerSize != null) {
-      icon = SizedBox.square(
-        dimension: containerSize!,
+      icon = Container(
+        width: containerSize!,
+        height: containerSize!,
+        decoration: BoxDecoration(
+          color: containerColor,
+          borderRadius: containerRadius != null
+              ? BorderRadius.circular(containerRadius!)
+              : null,
+        ),
         child: Center(child: icon),
       );
     }
@@ -68,4 +79,29 @@ final class CustomIcons {
   static const String edit = 'assets/icons/edit.svg';
   static const String team = 'assets/icons/team.svg';
   static const String team_create = 'assets/icons/team_create.svg';
+  static const String app_logo = 'assets/icons/app_logo.svg';
+  static const String eye = 'assets/icons/eye.svg';
+  static const String eye_off = 'assets/icons/eye_off.svg';
+  static const String calendar3 = 'assets/icons/calendar3.svg';
+  static const String team_solo = 'assets/icons/team_solo.svg';
+  static const String team_couple = 'assets/icons/team_couple.svg';
+  static const String team_friends = 'assets/icons/team_friends.svg';
+  static const String trophy = 'assets/icons/trophy.svg';
+  static const String medal = 'assets/icons/medal.svg';
+  static const String tshirt = 'assets/icons/tshirt.svg';
+  static const String distance_path = 'assets/icons/distance_path.svg';
+  static const String stopwatch = 'assets/icons/stopwatch.svg';
+  static const String speed = 'assets/icons/speed.svg';
+  static const String copy = 'assets/icons/copy.svg';
+  static const String crown = 'assets/icons/crown.svg';
+  static const String plus = 'assets/icons/plus.svg';
+  static const String delete = 'assets/icons/delete.svg';
+  static const String right_chevron = 'assets/icons/right_chevron.svg';
+  static const String open = 'assets/icons/open.svg';
+  static const String location = 'assets/icons/location.svg';
+  static const String password_key = 'assets/icons/password_key.svg';
+  static const String logout = 'assets/icons/logout.svg';
+  static const String refresh = 'assets/icons/refresh.svg';
+  static const String globe = 'assets/icons/globe.svg';
+  static const String info = 'assets/icons/info.svg';
 }

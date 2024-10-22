@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:fitwiz/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fitwiz/utils/components/custom_button.dart';
+import 'package:fitwiz/utils/components/custom_icon.dart';
 import 'package:fitwiz/utils/components/custom_notifications.dart';
 import 'package:fitwiz/utils/components/custom_text_field.dart';
+import 'package:fitwiz/utils/components/password_field.dart';
 import 'package:fitwiz/utils/theme/app_colors.dart';
 import 'package:fitwiz/utils/theme/app_text_styles.dart';
 import 'package:fitwiz/utils/misc/widget_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -24,6 +30,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    if (!kIsWeb && Platform.isAndroid) {
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
+      ));
+    }
+  }
+
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -35,109 +53,165 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: _authBlocListener,
       child: Scaffold(
-        backgroundColor: AppColors.containerBgSecondary,
+        backgroundColor: AppColors.primaryColor,
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
+          top: false,
           bottom: false,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.sp,
-            ),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  32.verticalSpacingRadius,
-                  Center(
-                    child: Text(
-                      "Welcome back",
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.CCC_31_700(),
+                  SizedBox(height: safeTopPadding(32.h)),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.sp,
+                    ),
+                    child: Center(
+                      child: Hero(
+                        tag: "app_logo",
+                        child: CustomIcon(
+                          CustomIcons.app_logo,
+                          size: 50.sp,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
-                  40.verticalSpacingRadius,
-                  Text(
-                    "Email",
-                    textAlign: TextAlign.start,
-                    style:
-                        AppTextStyles.FFF_16_400(color: AppColors.textHeader),
+                  12.verticalSpace,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.sp,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Sign in to your Account",
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.DDD_25_600(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
-                  8.verticalSpacingRadius,
-                  CustomTextField(
-                    controller: _emailController,
-                    normalBorderColor: AppColors.textLightest,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Email is required";
-                      }
-                      if (!value.isEmail) {
-                        return "Invalid email";
-                      }
-                      return null;
-                    },
+                  8.verticalSpace,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.sp,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Enter your email and password to sign in",
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.FFF_16_400(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
-                  16.verticalSpacingRadius,
-                  Text(
-                    "Password",
-                    textAlign: TextAlign.start,
-                    style:
-                        AppTextStyles.FFF_16_400(color: AppColors.textHeader),
-                  ),
-                  8.verticalSpacingRadius,
-                  CustomTextField(
-                    controller: _passwordController,
-                    normalBorderColor: AppColors.textLightest,
-                    obscureText: true,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Password is required";
-                      }
-                      return null;
-                    },
-                  ),
-                  24.verticalSpacingRadius,
-                  const Divider(color: AppColors.textLightest),
-                  24.verticalSpacingRadius,
-                  Center(
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: "Don't have an account? ",
-                        style: AppTextStyles.FFF_16_400(),
+                  24.verticalSpace,
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.greyShades[0],
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(16.sp),
+                        ),
+                      ),
+                      child: ListView(
+                        padding: EdgeInsets.only(
+                          top: 32.h,
+                          left: 24.w,
+                          right: 24.w,
+                          bottom: Get.mediaQuery.viewInsets.bottom,
+                        ),
                         children: [
-                          TextSpan(
-                            text: "Register",
-                            style: AppTextStyles.FFF_16_700(
-                              color: AppColors.primaryColor,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Get.offAndToNamed("/register");
+                          CustomTextField(
+                            title: "Email",
+                            controller: _emailController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Email is required";
+                              }
+                              if (!value.isEmail) {
+                                return "Invalid email";
+                              }
+                              return null;
+                            },
+                          ),
+                          24.verticalSpace,
+                          PasswordField(
+                            title: "Password",
+                            controller: _passwordController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Password is required";
+                              }
+                              return null;
+                            },
+                          ),
+                          // TODO: Implement Forgot Password. Backend support needed.
+                          // 12.verticalSpace,
+                          // Align(
+                          //   alignment: Alignment.centerLeft,
+                          //   child: MouseRegion(
+                          //     cursor: SystemMouseCursors.click,
+                          //     child: GestureDetector(
+                          //       onTap: () {
+                          //         Get.toNamed("/forgot-password");
+                          //       },
+                          //       child: Text(
+                          //         "Forgot Password?",
+                          //         style: AppTextStyles.FFF_16_500(
+                          //           color: AppColors.primaryColor,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          24.verticalSpace,
+                          SizedBox(
+                            width: double.infinity,
+                            child: BlocBuilder<AuthBloc, AuthState>(
+                              builder: (context, state) {
+                                return CustomButton(
+                                  onPressed:
+                                      state is AuthLoading ? null : _login,
+                                  label: "Login",
+                                  loading: state is AuthLoading,
+                                );
                               },
+                            ),
+                          ),
+                          24.verticalSpace,
+                          Center(
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                text: "Don't have an account? ",
+                                style: AppTextStyles.FFF_16_400(
+                                  color: AppColors.greenShades[12],
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: "Register Now",
+                                    style: AppTextStyles.FFF_16_600(
+                                      color: AppColors.primaryColor,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Get.toNamed("/register");
+                                      },
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: BlocBuilder<AuthBloc, AuthState>(
-                          builder: (context, state) {
-                            return CustomButton(
-                              onPressed: _login,
-                              label: "Login",
-                              loading: state is AuthLoading,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: safeBottomPadding(16.sp),
                   ),
                 ],
               ),
@@ -163,6 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    FocusScope.of(context).unfocus();
     context.read<AuthBloc>().add(
           AuthLogin(
             email: _emailController.text,

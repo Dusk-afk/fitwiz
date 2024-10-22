@@ -161,21 +161,28 @@ class _EventsCarouselState extends State<EventsCarousel> {
   Widget _buildList() {
     return Column(
       children: [
-        CarouselSlider.builder(
-          itemCount: widget.itemCount,
-          itemBuilder: (context, index, realIndex) {
-            return widget.itemBuilder(context, index);
-          },
-          options: CarouselOptions(
-            height: widget.height,
-            viewportFraction: 0.8,
-            onScrolled: (value) {
-              setState(() {
-                _carouselPosition = value ?? _carouselPosition;
-              });
-            },
-          ),
-        ),
+        widget.itemCount > 1
+            ? CarouselSlider.builder(
+                itemCount: widget.itemCount,
+                itemBuilder: (context, index, realIndex) {
+                  return widget.itemBuilder(context, index);
+                },
+                options: CarouselOptions(
+                  height: widget.height,
+                  viewportFraction: 0.8,
+                  onScrolled: (value) {
+                    setState(() {
+                      _carouselPosition = value ?? _carouselPosition;
+                    });
+                  },
+                ),
+              )
+            : Container(
+                width: double.infinity,
+                height: widget.height,
+                margin: EdgeInsets.only(left: 16.sp),
+                child: widget.itemBuilder(context, 0),
+              ),
         16.verticalSpace,
         CustomCarouselIndicator(
           position: _carouselPosition,
